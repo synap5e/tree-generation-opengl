@@ -2,8 +2,10 @@
 
 layout(location = 0) in vec3 vertex_position;
 layout(location = 1) in vec3 vertex_colour;
+layout(location = 2) in vec3 vertex_normal;
 
 out vec3 colour;
+out vec3 normal;
 
 uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
@@ -12,5 +14,6 @@ uniform mat4 MVP;
 
 void main() {
 	colour = vertex_colour;
+	normal = NormalMatrix * vertex_normal;
 	gl_Position = MVP * vec4(vertex_position, 1.0);
 }

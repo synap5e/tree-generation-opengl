@@ -72,7 +72,7 @@ void Simulation::Render(int pixelWidth, int pixelHeight) {
         100.0f
     );
     glm::mat4 view = glm::lookAt(
-        glm::vec3(0, 0, 20),
+        glm::vec3(0, 5, 20),
         glm::vec3(0, 0, 0),
         glm::vec3(0, 1, 0)
     );
@@ -88,7 +88,7 @@ void Simulation::Render(int pixelWidth, int pixelHeight) {
 void Simulation::DrawMesh(Mesh& mesh, glm::mat4& view, glm::mat4& projection) {
     glm::mat4 model = glm::mat4(1.0f);
 
-    //model = glm::translate(model, glm::vec3(modelPos.x, modelPos.y, 0));
+    model = glm::translate(model, glm::vec3(0.0f, -12.0f, 0.0f));
     model = glm::rotate(model, yrot, glm::vec3(0.0f, 1.0f, 0.0f));
    // std::cout << glm::to_string(model) << std::endl;
 
@@ -100,7 +100,8 @@ void Simulation::DrawMesh(Mesh& mesh, glm::mat4& view, glm::mat4& projection) {
 
     glEnableVertexAttribArray (0);
     glEnableVertexAttribArray (1);
+    glEnableVertexAttribArray (2);
     glBindVertexArray (mesh.vao);
-    glDrawArrays (GL_TRIANGLES, 0, mesh.size);
+    glDrawArrays (GL_TRIANGLE_STRIP, 0, mesh.size);
 }
 
