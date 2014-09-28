@@ -1,0 +1,6 @@
+Win32/
+CMakeFiles/
+OSX/
+setenv.sh
+build
+old

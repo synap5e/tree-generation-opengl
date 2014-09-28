@@ -1,0 +1,2108 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"norma",
+				"normalized"
+			],
+			[
+				"dlight",
+				"dlight_direction"
+			],
+			[
+				"sl",
+				"slight_intens"
+			],
+			[
+				"dl",
+				"dlight_intens"
+			],
+			[
+				"in",
+				"intensmod"
+			],
+			[
+				"sp",
+				"specialkey"
+			],
+			[
+				"pl",
+				"plight_intens"
+			],
+			[
+				"SL",
+				"Slight_Target"
+			],
+			[
+				"PL",
+				"Plight_Position"
+			],
+			[
+				"edi",
+				"current_edit"
+			],
+			[
+				"DL",
+				"Dlight_Direction"
+			],
+			[
+				"P",
+				"Plight_Position"
+			],
+			[
+				"ed",
+				"current_edit"
+			],
+			[
+				"Rea",
+				"ReadNormalTexture"
+			],
+			[
+				"ver",
+				"vertex_normal"
+			],
+			[
+				"has",
+				"has_normal"
+			],
+			[
+				"Gl",
+				"GLuint"
+			],
+			[
+				"nor",
+				"normal_texture"
+			],
+			[
+				"of",
+				"ofilename"
+			],
+			[
+				"po",
+				"position_to_light"
+			],
+			[
+				"GL",
+				"GL_LIGHT1"
+			],
+			[
+				"vert",
+				"vertex_position"
+			],
+			[
+				"sl_di",
+				"sl_diffuse"
+			],
+			[
+				"sl_d",
+				"sl_diffuse"
+			],
+			[
+				"sli",
+				"slight_exponent"
+			],
+			[
+				"gl_No",
+				"gl_NormalMatrix"
+			],
+			[
+				"glUn",
+				"glUniform1i"
+			],
+			[
+				"ma",
+				"material_diffuse"
+			],
+			[
+				"lig",
+				"light1_position"
+			],
+			[
+				"li",
+				"light1_position"
+			],
+			[
+				"glFr",
+				"gl_FragColor"
+			],
+			[
+				"gpOp",
+				"glPopAttrib"
+			],
+			[
+				"glPush",
+				"glPushMatrix"
+			],
+			[
+				"lgi",
+				"light0_direction"
+			],
+			[
+				"light",
+				"light0_direction"
+			],
+			[
+				"l1_",
+				"l1_specular"
+			],
+			[
+				"ligh",
+				"light1_position"
+			],
+			[
+				"l1_d",
+				"l1_direction"
+			],
+			[
+				"dir",
+				"direction"
+			],
+			[
+				"spe",
+				"specular"
+			],
+			[
+				"m_P",
+				"m_pUVArray"
+			],
+			[
+				"last",
+				"lastx"
+			],
+			[
+				"obj",
+				"object"
+			],
+			[
+				"rot",
+				"rot_start"
+			],
+			[
+				"rot_",
+				"rot_end"
+			],
+			[
+				"mou",
+				"mouse_to_sphere"
+			],
+			[
+				"rota",
+				"roation"
+			],
+			[
+				"by",
+				"byte_to_flip"
+			],
+			[
+				"que",
+				"queued"
+			],
+			[
+				"AR",
+				"ARP_MAX_AGE"
+			],
+			[
+				"last_u",
+				"last_updated"
+			],
+			[
+				"arp",
+				"arp_table_length"
+			],
+			[
+				"ol",
+				"oldest_index"
+			],
+			[
+				"arl",
+				"arp_table"
+			],
+			[
+				"las",
+				"last_updated"
+			],
+			[
+				"cne",
+				"cnet_dest"
+			],
+			[
+				"node",
+				"node_ip"
+			],
+			[
+				"no",
+				"node_ip"
+			],
+			[
+				"ip_",
+				"get_ip_from_cnet"
+			],
+			[
+				"IP",
+				"IPAddr"
+			],
+			[
+				"seqno",
+				"seqnos"
+			],
+			[
+				"pa",
+				"payload"
+			],
+			[
+				"qu",
+				"queued"
+			],
+			[
+				"seq",
+				"seqno_table_size"
+			],
+			[
+				"pac",
+				"packet_len"
+			],
+			[
+				"et",
+				"ethernet_resend"
+			],
+			[
+				"sen",
+				"send_ethernet"
+			],
+			[
+				"AC",
+				"ACK_TIMEOUT_RANDOM_SECONDS"
+			],
+			[
+				"su",
+				"successive_fail"
+			],
+			[
+				"des",
+				"destaddr"
+			],
+			[
+				"se",
+				"seqnos"
+			],
+			[
+				"CnetA",
+				"CnetAddr"
+			],
+			[
+				"ac",
+				"ackexpected"
+			],
+			[
+				"Seq",
+				"Seqno_Entry"
+			],
+			[
+				"Se",
+				"Seqno_Entry"
+			],
+			[
+				"SEQ",
+				"SEQNO_MAX_TABLE_SIZE"
+			],
+			[
+				"ethe",
+				"ethernet"
+			],
+			[
+				"boe",
+				"bone_name"
+			],
+			[
+				"root",
+				"root_bone"
+			],
+			[
+				"jso",
+				"json_euler"
+			],
+			[
+				"json_",
+				"json_euler"
+			],
+			[
+				"js",
+				"json_frame"
+			],
+			[
+				"bo",
+				"bone_name"
+			],
+			[
+				"iter",
+				"iterator"
+			],
+			[
+				"arra",
+				"array_points"
+			],
+			[
+				"if",
+				"ifile"
+			],
+			[
+				"json",
+				"json_brot"
+			],
+			[
+				"pu",
+				"push_back"
+			],
+			[
+				"bone",
+				"boneframes"
+			],
+			[
+				"Bone",
+				"BoneRotations"
+			],
+			[
+				"be",
+				"begin"
+			],
+			[
+				"prev",
+				"prev_defined_frame"
+			],
+			[
+				"bon",
+				"bone_keyframes"
+			],
+			[
+				"end",
+				"end"
+			],
+			[
+				"IN",
+				"IN_SPEED_HUD"
+			],
+			[
+				"IN_S",
+				"IN_SPLINE_HUD"
+			],
+			[
+				"ne",
+				"next_defined_frame"
+			],
+			[
+				"ro",
+				"rotationx"
+			],
+			[
+				"E",
+				"EulerAngles"
+			],
+			[
+				"to",
+				"toQuaternion"
+			],
+			[
+				"def",
+				"defined_bones"
+			],
+			[
+				"key",
+				"keyframes"
+			],
+			[
+				"sle",
+				"selected_axis"
+			],
+			[
+				"spee",
+				"speed_timeval"
+			],
+			[
+				"SPL",
+				"SPLINE_HEIGHT"
+			],
+			[
+				"speed",
+				"speed_timeval"
+			],
+			[
+				"at",
+				"at_reparamatized"
+			],
+			[
+				"ste",
+				"step_speed"
+			],
+			[
+				"glCo",
+				"glColor3f"
+			],
+			[
+				"al",
+				"along_i"
+			],
+			[
+				"arc",
+				"arclen"
+			],
+			[
+				"ar",
+				"arclen"
+			],
+			[
+				"SP",
+				"SPLINE_HEIGHT"
+			],
+			[
+				"point",
+				"points"
+			],
+			[
+				"draw",
+				"draw_circle"
+			],
+			[
+				"add",
+				"add_point"
+			],
+			[
+				"poin",
+				"points"
+			],
+			[
+				"sele",
+				"selected"
+			],
+			[
+				"Ske",
+				"Skeleton"
+			],
+			[
+				"Skele",
+				"SkeletonView"
+			],
+			[
+				"wh",
+				"white"
+			],
+			[
+				"ch",
+				"channel"
+			],
+			[
+				"tree",
+				"treeind"
+			],
+			[
+				"re",
+				"rewrite"
+			],
+			[
+				"GL_",
+				"GL_BLEND"
+			],
+			[
+				"axi",
+				"axis_values"
+			],
+			[
+				"glE",
+				"glEnd"
+			],
+			[
+				"d",
+				"light_dir"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 2882,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "glHeaders.hpp",
+			"settings":
+			{
+				"buffer_size": 565,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "loadShader.cpp",
+			"settings":
+			{
+				"buffer_size": 3843,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "loadShader.hpp",
+			"settings":
+			{
+				"buffer_size": 127,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "simulation.cpp",
+			"settings":
+			{
+				"buffer_size": 2671,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "simulation.hpp",
+			"settings":
+			{
+				"buffer_size": 404,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "thing.cpp",
+			"settings":
+			{
+				"buffer_size": 2645,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "thing.hpp",
+			"settings":
+			{
+				"buffer_size": 300,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/frag_basic.glsl",
+			"settings":
+			{
+				"buffer_size": 60,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/vert_basic.glsl",
+			"settings":
+			{
+				"buffer_size": 128,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/python2.sublime-build",
+	"command_palette":
+	{
+		"height": 272.0,
+		"selected_items":
+		[
+			[
+				"diff",
+				"Git: Diff Current File"
+			],
+			[
+				"blame",
+				"Git: Blame"
+			],
+			[
+				"git add",
+				"Git: Add Selected Hunk"
+			],
+			[
+				"gui",
+				"Git: Gui"
+			],
+			[
+				"linter",
+				"SublimeLinter: Disable Linting"
+			],
+			[
+				"sublimelinter",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"disable",
+				"SublimeLinter: Disable Linting"
+			],
+			[
+				"show",
+				"SublimeLinter: Don’t Show Errors on Save"
+			],
+			[
+				"link",
+				"Preferences: SublimeLinter Key Bindings – Default"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"Package Control: li",
+				"Package Control: List Packages"
+			],
+			[
+				"histor",
+				"GitHub: History"
+			],
+			[
+				"histo",
+				"Git: Commit history"
+			],
+			[
+				"add",
+				"Git: Add..."
+			],
+			[
+				"git",
+				"Git: Gui"
+			],
+			[
+				"history",
+				"Git: Commit history"
+			],
+			[
+				"ali",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"Align",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"hist",
+				"GitHub: History"
+			],
+			[
+				"branc",
+				"Git: New Branch"
+			],
+			[
+				"brach",
+				"Git: Change Branch"
+			],
+			[
+				"pop",
+				"Git: Stash Pop"
+			],
+			[
+				"stash",
+				"Git: Stash Changes"
+			],
+			[
+				"branch",
+				"Git: New Branch"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"brac",
+				"Git: Change Branch"
+			],
+			[
+				"github ",
+				"GitHub: View"
+			],
+			[
+				"push br",
+				"Git: Push Current Branch"
+			],
+			[
+				"push ",
+				"Git: Push Current Branch"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"git: gui",
+				"Git: Gui"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				"git gui",
+				"Git: Gui"
+			],
+			[
+				"revert",
+				"File: Revert"
+			],
+			[
+				"toggle",
+				"Git: Toggle Annotations"
+			],
+			[
+				"commi",
+				"Git: Commit"
+			],
+			[
+				"merge",
+				"Git: Merge Branch"
+			],
+			[
+				"chec",
+				"Git: Change Branch"
+			],
+			[
+				"stasg",
+				"Git: Stash Changes"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"commit ",
+				"GitGutter: Compare Against Commit"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"goto",
+				"Goto Documentation"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"gitcommit mes",
+				"Git: Diff: between last local commit and remote (..origin/master)"
+			],
+			[
+				"todo",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"Show ",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"instaLL",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 677.0,
+		"history":
+		[
+			"reverse",
+			"view.run_command('alignment')",
+			"view.run_command(\"SublimeTODO.todo\")",
+			"view.run_command(\"SublimeTODO\")",
+			"view.run_command(\"print SublimeTODO\")",
+			"view.run_command(\"print __globals__\")",
+			"view.run_command(\"\")",
+			"view.run_command",
+			"view",
+			"sublime_plugin",
+			"SublimeTODO",
+			"GitCommitMsg.GitCommitMsg.run()",
+			"GitCommitMsg.GitCommitMsg",
+			"GitCommitMsg",
+			"import GitCommitMsg",
+			"import SublimeTODO",
+			"import",
+			"exit(0)",
+			"print(__gloabls__)",
+			"print(SublimeTODO)",
+			"print(GitCommitMsg)",
+			"print GitCommitMsg",
+			"system('pwd')",
+			"pwd",
+			"window.run_command(\"show_panel\", {\"panel\": \"output.variable_get\"})",
+			"output.run_command('append', {'characters': 'asdasdasd'})",
+			"output.run_command('append', {'characters': variable})",
+			"output.run_command('erase_view')",
+			"output = window.create_output_panel(\"variable_get\")",
+			"window.show_panel",
+			"window",
+			"show_panel",
+			"sublime.window.run_command(\"show_panel\", {\"panel\": \"output.\" + panel_name})",
+			"self.window.run_command(\"show_panel\", {\"panel\": \"output.\" + panel_name})",
+			"print(\"a\")",
+			"print \"a\"",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/simon/workspace/comp-308-project/project.sublime-project",
+		"/home/simon/workspace/comp-308-assignment-3/vec.c",
+		"/home/simon/workspace/comp-308-assignment-2/main.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/Makefile",
+		"/home/simon/workspace/comp-308-assignment-3/shader.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/shader.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/include/GL/glew.h",
+		"/home/simon/workspace/comp-308-assignment-3/Box.obj",
+		"/home/simon/workspace/comp-308-assignment-3/Table.obj",
+		"/home/simon/workspace/comp-308-assignment-3/TextureDemo.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/G308_Geometry.h",
+		"/home/simon/workspace/comp-308-assignment-3/G308_ImageLoader.h",
+		"/tmp/tmp.NAqUqj2mTD",
+		"/home/simon/workspace/comp-308-assignment-3/CatmullRom.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/CatmullRom.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/main.cpp",
+		"/home/simon/workspace/nwen-302-lab-2/saworig.c",
+		"/home/simon/workspace/nwen-302-lab-2/Doxyfile",
+		"/home/simon/workspace/comp-308-project/Makefile",
+		"/home/simon/workspace/comp-308-project/2d-lsystem/main.py",
+		"/home/simon/workspace/comp-308-project/budding.py",
+		"/home/simon/workspace/comp-308-project/Bud.hpp",
+		"/home/simon/workspace/comp-308-project/main.cpp",
+		"/home/simon/workspace/comp-308-project/Bud.cpp",
+		"/home/simon/workspace/nwen-302-lab-2/doxy.conf",
+		"/home/simon/workspace/nwen-302-lab-2/log2.txt",
+		"/home/simon/workspace/nwen-302-lab-2/log3.txt",
+		"/home/simon/workspace/nwen-302-lab-2/log.txt",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/ethernet.h",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/ethernet.c",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/arp.c",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/arp.h",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/ip.c",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/ip.h",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/stopandwait.c",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/stopandwait.h",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/STOPANDWAIT",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/*.c",
+		"/home/simon/mnt/workspace/nwen-302-lab-2/arp.c*.h",
+		"/home/simon/workspace/comp-308-assignment-3/vec3.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/vec3.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/vec2.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/vec2.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/SkeletonView.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/SkeletonView.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/priman.amc",
+		"/home/simon/workspace/comp-308-assignment-2/Motion.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/test.json",
+		"/home/simon/workspace/comp-308-assignment-3/walkthing.json",
+		"/home/simon/workspace/comp-308-assignment-3/bar.json",
+		"/home/simon/workspace/comp-308-assignment-3/Skeleton.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/Skeleton.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/Rotations.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/Rotations.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/walk.json",
+		"/home/simon/workspace/comp-308-assignment-3/quaternion.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/quaternion.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/thingthing.json",
+		"/home/simon/workspace/comp-308-assignment-3/glm/detail/glm.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/glm/glm.hpp",
+		"/usr/bin/deheader",
+		"/home/simon/workspace/comp-308-assignment-3/glm/gtc/quaternion.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/glm/detail/_features.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/glm/glm/gtx/spline.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/glm/glm/gtx/simd_vec4.inl",
+		"/home/simon/workspace/comp-308-assignment-3/glm/glm/gtx/simd_vec4.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/quaternion.h",
+		"/home/simon/workspace/comp-308-assignment-3/Roations.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/out.txt",
+		"/home/simon/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/simon/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/simon/workspace/comp-308-assignment-2/Skeleton.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/Motion.cpp",
+		"/home/simon/workspace/comp-308-assignment-3/.gitignore",
+		"/home/simon/workspace/comp-308-assignment-2/Motion.hpp",
+		"/home/simon/workspace/comp-308-assignment-2/vec3.hpp",
+		"/home/simon/workspace/comp-308-assignment-3/Motion.hpp",
+		"/home/simon/university/2014_T2/nwen-302/lectures/week6.md",
+		"/home/simon/irccat.py",
+		"/usr/lib/python2.7/site-packages/pygame/examples/eventlist.py",
+		"/tmp/willie-4.0.0/willie.py",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/stopandwait.h",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ip.h",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ethernet.h",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/arp.h",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/stopandwait.c",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/saworig.c",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ip.c",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/arp.c",
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ethernet.c",
+		"/home/simon/university/template.py",
+		"/home/simon/university/2014_T2/nwen-302/lectures/week5.md",
+		"/home/simon/workspace/swen-222-assignment-1/report.md",
+		"/home/simon/workspace/swen-222-assignment-1/RUNNING.txt",
+		"/home/simon/workspace/swen-222-assignment-1/READING.txt",
+		"/home/simon/workspace/comp-308-assignment-2/test.asf",
+		"/home/simon/workspace/comp-308-assignment-2/tt.amc",
+		"/home/simon/workspace/comp-308-assignment-2/t.amc",
+		"/home/simon/workspace/comp-308-assignment-2/priman.asf",
+		"/home/simon/workspace/comp-308-assignment-2/Makefile",
+		"/home/simon/workspace/comp-308-assignment-2/vec3.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/arb.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/Skeleton.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/readme.md",
+		"/home/simon/workspace/comp-308-assignment-1/readme.md",
+		"/home/simon/workspace/comp-308-assignment-1/src/main.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/martialArts.asf",
+		"/home/simon/workspace/comp-308-assignment-2/martialArts.amc",
+		"/home/simon/workspace/comp-308-assignment-2/poses.amc",
+		"/home/simon/workspace/swen-222-assignment-1/rules/cards.json",
+		"/home/simon/workspace/comp-308-assignment-2/report.md",
+		"/tmp/bla.whiley",
+		"/tmp/al",
+		"/tmp/asdsdf/135-martialArts.asf",
+		"/tmp/asdsdf/135_06-martialArts.amc",
+		"/home/simon/workspace/comp-308-assignment-2/85_06.amc",
+		"/home/simon/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/home/simon/.config/sublime-text-3/Packages/SublimeLinter/Default (Linux).sublime-keymap",
+		"/home/simon/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/simon/workspace/comp-308-assignment-2/define.h",
+		"/home/simon/workspace/comp-308-assignment-2/G308_Skeleton.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/G308_Skeleton.h",
+		"/home/simon/workspace/comp-308-assignment-1/src/G308_Geometry.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/Vec3.cpp",
+		"/home/simon/workspace/comp-308-assignment-2/Vec3.hpp",
+		"/home/simon/workspace/comp-308-assignment-2/Vec3.h",
+		"/home/simon/workspace/comp-308-assignment-2/Assignment2.pdf",
+		"/home/simon/workspace/comp-308-assignment-01/src/main.cpp"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"5",
+			"plight_intens",
+			"dlight_intens",
+			"glutSpecialFunc",
+			"special",
+			"1",
+			"0.5",
+			"0.2",
+			"0.4",
+			"z",
+			"case",
+			"/",
+			"draw_lights",
+			"position",
+			"aroundx",
+			"4",
+			"1",
+			"0.8",
+			"SLIGHT",
+			"SLIGTH",
+			"PLIGTH",
+			"SLIGTH",
+			"0.2",
+			"0.5",
+			"object.tex_scale",
+			"4*",
+			"2",
+			"vertex_normal",
+			"diffuse",
+			"tex",
+			"use_texture",
+			"ReadTexture",
+			"light0",
+			"plight_direction",
+			"Glfloat",
+			"GlFloat",
+			"dlight_direction",
+			"GL_LIGHT2",
+			"GL_LIGHT1",
+			"GL_LIGHT0",
+			"plight_position",
+			"_direction",
+			"dl_direction",
+			"target",
+			"l1",
+			"l0",
+			"plight_position",
+			"light1",
+			"light0",
+			"original_color",
+			"\\s*ob.material.diff.r = .*;\n\\s*ob.material.diff.g = .*;\n\\s*ob.material.diff.b = .*;\n\\s*ob.material.diff.a = 1;\n",
+			"	ob.material.diff.r = .*;\n	ob.material.diff.g = .*;\n	ob.material.diff.b = .*;\n	ob.material.diff.a = 1;\n",
+			"l0_reflected",
+			"R",
+			"e",
+			"E",
+			"light0_direction",
+			"glUniform3f",
+			"attenuation",
+			"Attenuation",
+			"attenuation",
+			"distance",
+			"positionToLightSource",
+			"v",
+			"lightDirection",
+			"direction",
+			"0",
+			"glewInit",
+			"glColorMaterial",
+			"ob.scale	= 1;",
+			"glTexture2f",
+			"ob.object->toggleMode();",
+			"amb",
+			"TextureDemo",
+			"0000ff",
+			"00ff00",
+			"ff0000",
+			"^(?!(?:…)).*\\s*",
+			"\\s",
+			"roation",
+			");",
+			"started",
+			"L2",
+			"computeSphereVector",
+			"quat",
+			"at_reparamatized",
+			"N_FRAME_CORRUPTION",
+			"arp_table_length",
+			"%du",
+			"du",
+			"cnet_to_ip",
+			"dest",
+			"CnetAddr",
+			"nodeinfo.address",
+			"get_ip_from_cnet",
+			"){\n",
+			"CnetAddr",
+			"get_seqno_entry_for",
+			"seqno_table_last_element",
+			"seqno_table_size",
+			"seqno_table_last_element",
+			"successive_fail",
+			"lasttimer",
+			"protocol_no",
+			"light",
+			"Ass3",
+			"ARP_REQUEST",
+			"method",
+			"BCAST",
+			"seqno_table_max_size",
+			"seqno_table_size",
+			"SEQNO_MAX_TABLE_SIZE",
+			"fprintf\\(stderr, (.*)",
+			"fprintf(stderr, \"Node %d, stopandwait.c \\tSending ACK packet to %d. Seqno: %d\\n\", nodeinfo.nodenumber, destaddr, seqno);",
+			"queue_frame",
+			"send_ethernet",
+			"queued",
+			"time",
+			"rand",
+			"ethernet_send",
+			"EV_TIMER0, ",
+			"outgoing",
+			"(Node 6.*DATA.*from 0\\.)",
+			"(Node 6.*ACK.*from 0\\.)",
+			"Node 1, stopandwait.c 	Received DATA packet from 5",
+			"Timeout",
+			"seqno->",
+			"seqno_table"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"\\n",
+			"",
+			"ob.scale	= 0.5;",
+			"ob.scale	= 2;",
+			"//ob.object->toggleMode();",
+			"",
+			"\\n",
+			"%u",
+			"CNET_trace(\\1",
+			"CNET_trace(",
+			"0.56,\n               [  ",
+			"\"last\":0.69",
+			"0.69,\n               [  ",
+			"0.56",
+			"\"first\":0.43",
+			"\"frames\":[  \n            [  \n               0.43",
+			"0.13",
+			"\"first\":0",
+			"[\\n                  \\1,\\n                  \\2,\\n                  \\3\\n",
+			"[\\n                  \\1,\\n                  \\2,\\n                  \\3",
+			"",
+			" ",
+			"TABLE_SIZE",
+			"float(TABLE_SIZE)",
+			"vec2 ",
+			"vec2",
+			"1",
+			"0",
+			"\", \"",
+			"}",
+			"",
+			"shadowMat",
+			"mode != SHADOW",
+			"",
+			"//printf",
+			"  end",
+			"dof rx ry rz",
+			"humerus \\1 90 0",
+			"humerus 0 0 \\1",
+			"humerus 0 \\1",
+			"humerus \\1 0 90",
+			"humerus 0 \\1 90",
+			"humerus 0 \\1",
+			"",
+			"lhumerus \\1 0 0\\nrhumerus \\1 0 0",
+			"0",
+			"() {",
+			"",
+			"bone->\\1",
+			"vector",
+			"",
+			"\\1",
+			"ret.\\1",
+			"\\1.compare(\"\\2\")",
+			"dir.",
+			"vec3",
+			"Vec3",
+			"dir->\\1",
+			"",
+			"\\1\\n",
+			"\\n",
+			"v \\1 \\2 \\3\\nv \\4 \\5 \\6\\nv \\7 \\8 \\9\\n",
+			"\\n",
+			"",
+			"v \\1 \\2 \\3\\nv \\4 \\5 \\6\\nv \\7 \\8 \\9\\n",
+			"v \\1 \\2 \\3\\n",
+			"v \\1 \\2 \\3",
+			"",
+			"\\1: \\2,",
+			"\\1: \\2",
+			"perms = \\1",
+			"elif info.AllocationProtect == ",
+			"if info.AllocationProtect == ",
+			"if info.AllocationProtect ==",
+			"x",
+			"\\nprintf(\"rti \\1_\\2 = 0x%08x\\\\n\", \\1_\\2);\\n",
+			"\\nprintf(\"rti \\1_\\2 = 0x%08x\\n\", \\1_\\2);\\n",
+			"printf(\"rti \\1_\\2 = 0x%08x\\n\", \\1_\\2);",
+			"_on_hook_asm",
+			"_spin_",
+			"_on_hook_asm",
+			"PyLong_AsUintptr_t",
+			"uintptr_t",
+			"uint_n_t",
+			"spinunlock",
+			"spinlock",
+			"onhookasm",
+			"",
+			"call",
+			"\\1 e\\2",
+			"'\\1', ",
+			"self.\\1, ",
+			"\\t\\t\\t\\t",
+			"",
+			"malloc(",
+			"",
+			"\\1",
+			"\\a",
+			"\\n",
+			"TAG76878: \\1",
+			"\\1",
+			"",
+			"\\1",
+			"\\n",
+			"\\2",
+			"\\4",
+			"\\3 \\4",
+			"\\4",
+			"\\1",
+			"\\1 \\2",
+			", ",
+			"",
+			"\", \"",
+			", ",
+			"",
+			"\\1",
+			"              \\[\\n\\[\\[",
+			"           \\[\\n\\[\\[\\[",
+			"        \\[\\n\\[\\[\\[",
+			"     \\[\\n\\[\\[\\[",
+			"  \\[\\n\\[\\[\\[",
+			"  \\[\\n\\[\\[\\[\\[",
+			"\\[\\n\\[\\[\\[\\[",
+			"\\[\\n\\[\\[\\[\\[\\[",
+			"\\n   [",
+			"\\n[   ",
+			"\\n",
+			"fuzzed2"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2882,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "glHeaders.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 565,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "loadShader.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3843,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "loadShader.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 127,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "simulation.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2671,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "simulation.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 404,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "thing.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2645,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "thing.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "shaders/frag_basic.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 60,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "shaders/vert_basic.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 128,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 93.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 118.0
+	},
+	"output.gotodocumentation":
+	{
+		"height": 118.0
+	},
+	"output.variable_get":
+	{
+		"height": 118.0
+	},
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"rot",
+				"~/workspace/comp-308-assignment-3/Rotations.cpp"
+			],
+			[
+				"make",
+				"~/workspace/comp-308-assignment-3/Makefile"
+			],
+			[
+				"main",
+				"~/workspace/comp-308-project/2d-lsystem/main.py"
+			],
+			[
+				"main.",
+				"~/workspace/comp-308-assignment-2/main.cpp"
+			],
+			[
+				"mai",
+				"~/workspace/comp-308-project/2d-lsystem/main.py"
+			],
+			[
+				"un",
+				"untitled"
+			],
+			[
+				"mo",
+				"~/workspace/comp-308-assignment-2/Motion.hpp"
+			],
+			[
+				"ske",
+				"~/workspace/comp-308-assignment-2/Skeleton.hpp"
+			],
+			[
+				"p",
+				"~/workspace/comp-308-assignment-2/priman.asf"
+			],
+			[
+				"pr",
+				"~/workspace/comp-308-assignment-2/priman.amc"
+			],
+			[
+				"vec3",
+				"~/workspace/comp-308-assignment-2/vec3.hpp"
+			],
+			[
+				"tt",
+				"~/workspace/comp-308-assignment-2/tt.amc"
+			],
+			[
+				"car",
+				"~/workspace/swen-222-assignment-1/rules/cards.json"
+			],
+			[
+				"pos",
+				"~/workspace/comp-308-assignment-2/poses.amc"
+			],
+			[
+				"ve",
+				"~/workspace/comp-308-assignment-2/vec3.cpp"
+			],
+			[
+				"vec",
+				"~/workspace/comp-308-assignment-2/vec3.hpp"
+			],
+			[
+				"",
+				"~/workspace/pymod/test64.s"
+			],
+			[
+				"ho",
+				"~/workspace/pymod/hook_internals.py"
+			],
+			[
+				"loa",
+				"~/workspace/pymod/loader.c"
+			],
+			[
+				"po",
+				"~/workspace/pymod/poop.asm"
+			],
+			[
+				"gad",
+				"~/Desktop/fusion/gadgets.asm"
+			],
+			[
+				"snipp",
+				"~/notify-me/interactive_console_snippit.py"
+			],
+			[
+				"inde",
+				"frontend/index.html"
+			],
+			[
+				"app",
+				"app.yaml"
+			],
+			[
+				"quer",
+				"query_parser.py"
+			],
+			[
+				"not",
+				"notify_me.py"
+			],
+			[
+				"model",
+				"model.py"
+			],
+			[
+				"api",
+				"api.py"
+			],
+			[
+				"mode",
+				"model.py"
+			],
+			[
+				"ap",
+				"api.py"
+			],
+			[
+				"parse",
+				"query_parser.py"
+			],
+			[
+				"no",
+				"notify_me.py"
+			],
+			[
+				"in",
+				"index.yaml"
+			],
+			[
+				".js",
+				"frontend/js/views/feeds.js"
+			],
+			[
+				"app.js",
+				"frontend/js/app.js"
+			],
+			[
+				"sub",
+				"frontend/tpl/SubscribeView.html"
+			],
+			[
+				"sen",
+				"senders.py"
+			],
+			[
+				"model.js",
+				"frontend/js/model.js"
+			],
+			[
+				"style",
+				"frontend/css/styles.css"
+			],
+			[
+				"subs",
+				"frontend/tpl/SubscribeView.html"
+			],
+			[
+				"html",
+				"frontend/tpl/FullFeedView.html"
+			],
+			[
+				"feeds.",
+				"frontend/js/views/feeds.js"
+			],
+			[
+				"sett",
+				"settings.py"
+			],
+			[
+				"query",
+				"query_parser.py"
+			],
+			[
+				"game",
+				"~/programming/shiny-wight/game.py"
+			],
+			[
+				"sty",
+				"~/notify-me/frontend/css/styles.css"
+			],
+			[
+				"pars",
+				"query_parser.py"
+			],
+			[
+				"fish",
+				"~/.oh-my-fish/themes/bobthefish/fish_prompt.fish"
+			],
+			[
+				"arg",
+				"feed_arguments.py"
+			],
+			[
+				".git",
+				".gitignore"
+			],
+			[
+				"boo",
+				"boolean.py"
+			],
+			[
+				"admin",
+				"admin.py"
+			],
+			[
+				"mod",
+				"model.py"
+			],
+			[
+				"par",
+				"parsers.py"
+			],
+			[
+				"test.",
+				"test.py"
+			],
+			[
+				"bool",
+				"boolean.py"
+			],
+			[
+				"feed_a",
+				"feed_arguments.py"
+			],
+			[
+				"set",
+				"settings.py"
+			],
+			[
+				"create",
+				"create_sample_filters.py"
+			],
+			[
+				"pypar",
+				"pyparsing.py"
+			],
+			[
+				"inter",
+				"interactive_console_snippit.py"
+			],
+			[
+				"mat",
+				"matcher.py"
+			],
+			[
+				"ad",
+				"admin.py"
+			],
+			[
+				"inver",
+				"inverter.py"
+			],
+			[
+				"sender",
+				"senders.py"
+			],
+			[
+				"deser",
+				"deserializers.py"
+			],
+			[
+				"inverter",
+				"inverter.py"
+			],
+			[
+				"cons",
+				"interactive_console_snippit.py"
+			],
+			[
+				"prosp",
+				"prospector.py"
+			],
+			[
+				"bloo",
+				"bloomfilter.py"
+			],
+			[
+				"ma",
+				"matcher.py"
+			],
+			[
+				"invert",
+				"inverter.py"
+			],
+			[
+				"adm",
+				"admin.py"
+			],
+			[
+				"inv",
+				"inverter.py"
+			],
+			[
+				"sam",
+				"sample_appengine_config.py"
+			],
+			[
+				"same",
+				"submodules/feedparser/feedparser/tests/wellformed/rss/channel_author_map_author_detail_email.xml"
+			],
+			[
+				"feed",
+				"feed_loader.py"
+			],
+			[
+				"console",
+				"interactive_console_snippit.py"
+			],
+			[
+				"con",
+				"appengine_config.py"
+			],
+			[
+				"pymmh3",
+				"pymmh3.py"
+			],
+			[
+				"hash",
+				"pds/hashfunctions.py"
+			],
+			[
+				"bit",
+				"bitstring.py"
+			],
+			[
+				"bloom",
+				"pds/bloomfilter.py"
+			],
+			[
+				"cbdf",
+				"submodules/python-pds/pds/cdbf.py"
+			],
+			[
+				"cdbf",
+				"submodules/python-pds/pds/cdbf.py"
+			],
+			[
+				"__in",
+				"submodules/python-pds/pds/__init__.py"
+			],
+			[
+				"__i",
+				"tweepy/__init__.py"
+			],
+			[
+				"hll",
+				"submodules/python-pds/pds/hll.py"
+			],
+			[
+				"feed_lo",
+				"feed_loader.py"
+			],
+			[
+				"inve",
+				"inverter.py"
+			],
+			[
+				"send",
+				"senders.py"
+			],
+			[
+				"feed_",
+				"feed_loader.py"
+			],
+			[
+				"des",
+				"deserializers.py"
+			],
+			[
+				"yam",
+				"app.yaml"
+			],
+			[
+				"parsers",
+				"parsers.py"
+			],
+			[
+				"json",
+				"jsoncreate_helper.py"
+			],
+			[
+				"sho",
+				"show_comment_stats.sh"
+			],
+			[
+				"test",
+				"test_webhook.py"
+			],
+			[
+				"yaml",
+				"app.yaml"
+			],
+			[
+				"showcom",
+				"show_comment_stats.sh"
+			],
+			[
+				"feed_loa",
+				"feed_loader.py"
+			],
+			[
+				"settings",
+				"settings.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"test",
+				"~/notify-me/notify_me.sublime-project"
+			],
+			[
+				"",
+				"~/notify-me/notify_me.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 50.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
