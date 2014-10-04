@@ -4,6 +4,58 @@
 		"selected_items":
 		[
 			[
+				"ang",
+				"angle"
+			],
+			[
+				"no",
+				"normalize"
+			],
+			[
+				"ra",
+				"radius"
+			],
+			[
+				"ge",
+				"geometry_shader_path"
+			],
+			[
+				"pr",
+				"projection_loation"
+			],
+			[
+				"bra",
+				"branch_shader"
+			],
+			[
+				"Branc",
+				"BranchShader"
+			],
+			[
+				"ma",
+				"mat4"
+			],
+			[
+				"ver",
+				"vertex_colour"
+			],
+			[
+				"y",
+				"yrot"
+			],
+			[
+				"pix",
+				"pixelHeight"
+			],
+			[
+				"pi",
+				"pixelWidth"
+			],
+			[
+				"gl",
+				"GLuint"
+			],
+			[
 				"norma",
 				"normalized"
 			],
@@ -60,10 +112,6 @@
 				"ReadNormalTexture"
 			],
 			[
-				"ver",
-				"vertex_normal"
-			],
-			[
 				"has",
 				"has_normal"
 			],
@@ -110,10 +158,6 @@
 			[
 				"glUn",
 				"glUniform1i"
-			],
-			[
-				"ma",
-				"material_diffuse"
 			],
 			[
 				"lig",
@@ -229,10 +273,6 @@
 			],
 			[
 				"node",
-				"node_ip"
-			],
-			[
-				"no",
 				"node_ip"
 			],
 			[
@@ -474,128 +514,97 @@
 			[
 				"sele",
 				"selected"
-			],
-			[
-				"Ske",
-				"Skeleton"
-			],
-			[
-				"Skele",
-				"SkeletonView"
-			],
-			[
-				"wh",
-				"white"
-			],
-			[
-				"ch",
-				"channel"
-			],
-			[
-				"tree",
-				"treeind"
-			],
-			[
-				"re",
-				"rewrite"
-			],
-			[
-				"GL_",
-				"GL_BLEND"
-			],
-			[
-				"axi",
-				"axis_values"
-			],
-			[
-				"glE",
-				"glEnd"
-			],
-			[
-				"d",
-				"light_dir"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "main.cpp",
-			"settings":
-			{
-				"buffer_size": 2882,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "glHeaders.hpp",
-			"settings":
-			{
-				"buffer_size": 565,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "loadShader.cpp",
-			"settings":
-			{
-				"buffer_size": 3843,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "loadShader.hpp",
-			"settings":
-			{
-				"buffer_size": 127,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "simulation.cpp",
 			"settings":
 			{
-				"buffer_size": 2671,
+				"buffer_size": 4414,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "simulation.hpp",
+			"file": "shader.hpp",
 			"settings":
 			{
-				"buffer_size": 404,
+				"buffer_size": 593,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "thing.cpp",
+			"file": "shader.cpp",
 			"settings":
 			{
-				"buffer_size": 2645,
+				"buffer_size": 3393,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "thing.hpp",
+			"file": "stem.hpp",
 			"settings":
 			{
-				"buffer_size": 300,
+				"buffer_size": 1188,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "shaders/frag_basic.glsl",
+			"file": "stem.cpp",
 			"settings":
 			{
-				"buffer_size": 60,
+				"buffer_size": 1817,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "shaders/vert_basic.glsl",
+			"file": "node.hpp",
 			"settings":
 			{
-				"buffer_size": 128,
+				"buffer_size": 540,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "node.cpp",
+			"settings":
+			{
+				"buffer_size": 485,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "render.hpp",
+			"settings":
+			{
+				"buffer_size": 216,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/basic-vertex.glsl",
+			"settings":
+			{
+				"buffer_size": 658,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/branch-geometry.glsl",
+			"settings":
+			{
+				"buffer_size": 2350,
+				"line_ending": "Unix",
+				"name": "layout(points) in;"
+			}
+		},
+		{
+			"file": "shaders/branch-fragment.glsl",
+			"settings":
+			{
+				"buffer_size": 194,
 				"line_ending": "Unix"
 			}
 		}
@@ -884,6 +893,40 @@
 	},
 	"file_history":
 	[
+		"/home/simon/workspace/comp-308-project/mesh.cpp",
+		"/home/simon/workspace/comp-308-project/simulation.hpp",
+		"/home/simon/workspace/comp-308-project/main.cpp",
+		"/home/simon/workspace/comp-308-project/stem.cppp",
+		"/home/simon/scripts/spotdupes.py",
+		"/home/simon/workspace/comp-308-project/loadShader.cpp",
+		"/home/simon/workspace/comp-308-project/loadShader.hpp",
+		"/home/simon/workspace/comp-308-project/stem.hpp",
+		"/home/simon/workspace/comp-308-project/node.hpp",
+		"/home/simon/workspace/comp-308-project/node.cpp",
+		"/home/simon/workspace/comp-308-project/stem.cpp",
+		"/home/simon/workspace/comp-308-project/random.hpp",
+		"/home/simon/workspace/comp-308-project/random.cpp",
+		"/home/simon/workspace/comp-308-project/shaders/phong.frag",
+		"/home/simon/workspace/comp-308-project/bud.hpp",
+		"/home/simon/workspace/comp-308-project/mesh.hpp",
+		"/home/simon/workspace/comp-308-project/shaders/phong.vert",
+		"/home/simon/workspace/comp-308-project/shaders/vert_basic.glsl",
+		"/home/simon/workspace/comp-308-project/shaders/frag_basic.glsl",
+		"/home/simon/workspace/comp-308-project/bud.cpp",
+		"/home/simon/workspace/comp-308-project/internode.hpp",
+		"/home/simon/workspace/comp-308-project/branch.hpp",
+		"/home/simon/workspace/comp-308-project/thing.hpp",
+		"/home/simon/workspace/comp-308-project/thing.cpp",
+		"/home/simon/workspace/comp-308-project/glHeaders.hpp",
+		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/main.cpp",
+		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/test_vs.glsl",
+		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/test_fs.glsl",
+		"/home/simon/workspace/comp-308-project/vboutils.cpp",
+		"/home/simon/workspace/comp-308-project/vboutils.hpp",
+		"/home/simon/workspace/comp-308-project/shaders/test_fs.glsl",
+		"/home/simon/workspace/comp-308-project/shaders/test_vs.glsl",
+		"/home/simon/workspace/comp-308-project/sphere.cpp",
+		"/home/simon/workspace/comp-308-project/primitives.hpp",
 		"/home/simon/workspace/comp-308-project/project.sublime-project",
 		"/home/simon/workspace/comp-308-assignment-3/vec.c",
 		"/home/simon/workspace/comp-308-assignment-2/main.cpp",
@@ -906,7 +949,6 @@
 		"/home/simon/workspace/comp-308-project/2d-lsystem/main.py",
 		"/home/simon/workspace/comp-308-project/budding.py",
 		"/home/simon/workspace/comp-308-project/Bud.hpp",
-		"/home/simon/workspace/comp-308-project/main.cpp",
 		"/home/simon/workspace/comp-308-project/Bud.cpp",
 		"/home/simon/workspace/nwen-302-lab-2/doxy.conf",
 		"/home/simon/workspace/nwen-302-lab-2/log2.txt",
@@ -978,44 +1020,11 @@
 		"/home/simon/university/2014_T2/nwen-302/lectures/week5.md",
 		"/home/simon/workspace/swen-222-assignment-1/report.md",
 		"/home/simon/workspace/swen-222-assignment-1/RUNNING.txt",
-		"/home/simon/workspace/swen-222-assignment-1/READING.txt",
-		"/home/simon/workspace/comp-308-assignment-2/test.asf",
-		"/home/simon/workspace/comp-308-assignment-2/tt.amc",
-		"/home/simon/workspace/comp-308-assignment-2/t.amc",
-		"/home/simon/workspace/comp-308-assignment-2/priman.asf",
-		"/home/simon/workspace/comp-308-assignment-2/Makefile",
-		"/home/simon/workspace/comp-308-assignment-2/vec3.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/arb.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/Skeleton.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/readme.md",
-		"/home/simon/workspace/comp-308-assignment-1/readme.md",
-		"/home/simon/workspace/comp-308-assignment-1/src/main.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/martialArts.asf",
-		"/home/simon/workspace/comp-308-assignment-2/martialArts.amc",
-		"/home/simon/workspace/comp-308-assignment-2/poses.amc",
-		"/home/simon/workspace/swen-222-assignment-1/rules/cards.json",
-		"/home/simon/workspace/comp-308-assignment-2/report.md",
-		"/tmp/bla.whiley",
-		"/tmp/al",
-		"/tmp/asdsdf/135-martialArts.asf",
-		"/tmp/asdsdf/135_06-martialArts.amc",
-		"/home/simon/workspace/comp-308-assignment-2/85_06.amc",
-		"/home/simon/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
-		"/home/simon/.config/sublime-text-3/Packages/SublimeLinter/Default (Linux).sublime-keymap",
-		"/home/simon/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-		"/home/simon/workspace/comp-308-assignment-2/define.h",
-		"/home/simon/workspace/comp-308-assignment-2/G308_Skeleton.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/G308_Skeleton.h",
-		"/home/simon/workspace/comp-308-assignment-1/src/G308_Geometry.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/Vec3.cpp",
-		"/home/simon/workspace/comp-308-assignment-2/Vec3.hpp",
-		"/home/simon/workspace/comp-308-assignment-2/Vec3.h",
-		"/home/simon/workspace/comp-308-assignment-2/Assignment2.pdf",
-		"/home/simon/workspace/comp-308-assignment-01/src/main.cpp"
+		"/home/simon/workspace/swen-222-assignment-1/READING.txt"
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -1029,6 +1038,109 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"out",
+			"mat3",
+			"17",
+			"loation",
+			"glm",
+			"vertex_vbo",
+			"ProgramErrorMessage",
+			"InfoLogLength",
+			"Result",
+			"ProgramID",
+			"VertexShaderErrorMessage",
+			"&m",
+			"shaderlength",
+			"glGetUniformLocation",
+			"shaderData",
+			"VertexShaderStream",
+			"VertexShaderCode",
+			"_matrix",
+			"glm",
+			"BranchShader",
+			"setUniform",
+			"GLuint",
+			"load_shader",
+			"create_shader",
+			"CreateShader",
+			"createShader",
+			"LoadShader",
+			"shader",
+			"shaderProgram",
+			"fragmentShader",
+			"vertexShader",
+			"InfoLogLength",
+			"Result",
+			"iVtxLen",
+			"pVtxSrc",
+			"VertexShaderID",
+			"shader",
+			"Branch",
+			"yrot",
+			"Random",
+			"Simulation",
+			"simulation",
+			"virtual",
+			"Stem",
+			"Node",
+			"Stem",
+			"const",
+			"0.f",
+			"const",
+			"colours_vbo",
+			"verts.size()",
+			"colours",
+			"thing",
+			"g_simulation",
+			"Thing",
+			"thing",
+			"Thing",
+			"thing",
+			"Thing",
+			"thing",
+			"Thing",
+			"points_vbo",
+			"100",
+			"100f",
+			"0.5",
+			"\\.000000",
+			"vec4",
+			"10",
+			"t",
+			"vert",
+			"phong",
+			"10f",
+			"0.5",
+			"v",
+			"indexed_normals",
+			"indexed_uvs",
+			"indexed_vertices",
+			"indexed_uvs",
+			"indexed_vertices",
+			")))",
+			"\\+glm::[^\\*\\+]*\\*Type",
+			"glm::[^\\*]*Type",
+			"GLMPackedVertex",
+			"that",
+			"GLMPackedVertex",
+			"vertex.t0",
+			"[0]",
+			"MyVertex",
+			"projection",
+			"Projection",
+			"model",
+			"Model",
+			"model",
+			"Model",
+			"model",
+			"Model",
+			"prog.",
+			"View",
+			"view",
+			"View",
+			"void",
+			"ModelViewMatrix",
+			"MatrixID",
 			"5",
 			"plight_intens",
 			"dlight_intens",
@@ -1053,110 +1165,7 @@
 			"SLIGTH",
 			"0.2",
 			"0.5",
-			"object.tex_scale",
-			"4*",
-			"2",
-			"vertex_normal",
-			"diffuse",
-			"tex",
-			"use_texture",
-			"ReadTexture",
-			"light0",
-			"plight_direction",
-			"Glfloat",
-			"GlFloat",
-			"dlight_direction",
-			"GL_LIGHT2",
-			"GL_LIGHT1",
-			"GL_LIGHT0",
-			"plight_position",
-			"_direction",
-			"dl_direction",
-			"target",
-			"l1",
-			"l0",
-			"plight_position",
-			"light1",
-			"light0",
-			"original_color",
-			"\\s*ob.material.diff.r = .*;\n\\s*ob.material.diff.g = .*;\n\\s*ob.material.diff.b = .*;\n\\s*ob.material.diff.a = 1;\n",
-			"	ob.material.diff.r = .*;\n	ob.material.diff.g = .*;\n	ob.material.diff.b = .*;\n	ob.material.diff.a = 1;\n",
-			"l0_reflected",
-			"R",
-			"e",
-			"E",
-			"light0_direction",
-			"glUniform3f",
-			"attenuation",
-			"Attenuation",
-			"attenuation",
-			"distance",
-			"positionToLightSource",
-			"v",
-			"lightDirection",
-			"direction",
-			"0",
-			"glewInit",
-			"glColorMaterial",
-			"ob.scale	= 1;",
-			"glTexture2f",
-			"ob.object->toggleMode();",
-			"amb",
-			"TextureDemo",
-			"0000ff",
-			"00ff00",
-			"ff0000",
-			"^(?!(?:…)).*\\s*",
-			"\\s",
-			"roation",
-			");",
-			"started",
-			"L2",
-			"computeSphereVector",
-			"quat",
-			"at_reparamatized",
-			"N_FRAME_CORRUPTION",
-			"arp_table_length",
-			"%du",
-			"du",
-			"cnet_to_ip",
-			"dest",
-			"CnetAddr",
-			"nodeinfo.address",
-			"get_ip_from_cnet",
-			"){\n",
-			"CnetAddr",
-			"get_seqno_entry_for",
-			"seqno_table_last_element",
-			"seqno_table_size",
-			"seqno_table_last_element",
-			"successive_fail",
-			"lasttimer",
-			"protocol_no",
-			"light",
-			"Ass3",
-			"ARP_REQUEST",
-			"method",
-			"BCAST",
-			"seqno_table_max_size",
-			"seqno_table_size",
-			"SEQNO_MAX_TABLE_SIZE",
-			"fprintf\\(stderr, (.*)",
-			"fprintf(stderr, \"Node %d, stopandwait.c \\tSending ACK packet to %d. Seqno: %d\\n\", nodeinfo.nodenumber, destaddr, seqno);",
-			"queue_frame",
-			"send_ethernet",
-			"queued",
-			"time",
-			"rand",
-			"ethernet_send",
-			"EV_TIMER0, ",
-			"outgoing",
-			"(Node 6.*DATA.*from 0\\.)",
-			"(Node 6.*ACK.*from 0\\.)",
-			"Node 1, stopandwait.c 	Received DATA packet from 5",
-			"Timeout",
-			"seqno->",
-			"seqno_table"
+			"object.tex_scale"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1164,6 +1173,9 @@
 		"regex": true,
 		"replace_history":
 		[
+			"mesh",
+			"Mesh",
+			"",
 			"\\n",
 			"",
 			"ob.scale	= 0.5;",
@@ -1288,10 +1300,7 @@
 			"  \\[\\n\\[\\[\\[\\[",
 			"\\[\\n\\[\\[\\[\\[",
 			"\\[\\n\\[\\[\\[\\[\\[",
-			"\\n   [",
-			"\\n[   ",
-			"\\n",
-			"fuzzed2"
+			"\\n   ["
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1302,24 +1311,54 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 9,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main.cpp",
+					"file": "simulation.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2882,
+						"buffer_size": 4414,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3455,
+								3455
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1296.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "shader.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 593,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								593,
+								593
 							]
 						],
 						"settings":
@@ -1332,28 +1371,174 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "glHeaders.hpp",
+					"buffer": 2,
+					"file": "shader.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 565,
+						"buffer_size": 3393,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1979,
+								1979
 							]
 						],
 						"settings":
 						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1155.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "stem.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1188,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1089,
+								1089
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "stem.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1817,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1097,
+								1097
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "node.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 540,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								442,
+								442
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "node.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 485,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19,
+								19
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "render.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 216,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								195,
+								195
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -1364,233 +1549,90 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "loadShader.cpp",
+					"buffer": 8,
+					"file": "shaders/basic-vertex.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3843,
+						"buffer_size": 658,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								273,
+								273
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "shaders/branch-geometry.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2350,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1420,
+								1420
+							]
+						],
+						"settings":
+						{
+							"auto_name": "layout(points) in;",
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "shaders/branch-fragment.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 194,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								190,
+								190
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "loadShader.hpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 127,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "simulation.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2671,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "simulation.hpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 404,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "thing.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2645,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "thing.hpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 300,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "shaders/frag_basic.glsl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 60,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "shaders/vert_basic.glsl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 128,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1650,7 +1692,7 @@
 	"project": "project.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -2075,11 +2117,11 @@
 		"selected_items":
 		[
 			[
-				"test",
-				"~/notify-me/notify_me.sublime-project"
+				"",
+				"~/workspace/comp-308-assignment-3/project.sublime-project"
 			],
 			[
-				"",
+				"test",
 				"~/notify-me/notify_me.sublime-project"
 			]
 		],

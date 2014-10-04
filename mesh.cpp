@@ -4,16 +4,20 @@
 
 #include <GLFW/glfw3.h>
 
-Mesh::Mesh()/*: m_pBody(pBody)*/ {
 
+Mesh::~Mesh() {
+    glDeleteBuffers(1, &vertex_vbo);
+    glDeleteBuffers(1, &colors_vbo);
+    glDeleteBuffers(1, &normals_vbo);
+    glDeleteVertexArrays(1, &vao);
 }
 
-void Mesh::init(){
+Mesh::Mesh(float height, float radius){
 
-    unsigned short num_sides = 20;
-    float height = 20.0f;
-
+/*    float height = 20.0f;
     float radius = 1.f;
+*/
+    unsigned short num_sides = 20;
     float PI = 3.141592653589793f;
     float theta = 2.f * PI / float(num_sides);
     float cs = glm::cos(theta);
@@ -56,27 +60,14 @@ void Mesh::init(){
         z = sn*x1 + cs*z;
     }
 
-    
-
- /*   v.push_back(glm::vec3(0.0f,  10.0f,   0.0f));
-    v.push_back(glm::vec3(10.0f, -10.0f,   0.0f));
-    v.push_back(glm::vec3(-10.0f, -10.0f,   0.0f));
-    c.push_back(glm::vec3(1.0f, 0.0f,  0.0f));
-    c.push_back(glm::vec3(0.0f, 1.0f,  0.0f));
-    c.push_back(glm::vec3(0.0f, 0.0f,  1.0f));*/
-
-
-    GLuint vertex_vbo;
     glGenBuffers (1, &vertex_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
     glBufferData (GL_ARRAY_BUFFER, num_vertices * sizeof (glm::vec3), &verts[0], GL_STATIC_DRAW);
     
-    GLuint colors_vbo;
     glGenBuffers (1, &colors_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, colors_vbo);
     glBufferData (GL_ARRAY_BUFFER, num_vertices * sizeof (glm::vec3), &colors[0], GL_STATIC_DRAW);
 
-    GLuint normals_vbo;
     glGenBuffers (1, &normals_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, normals_vbo);
     glBufferData (GL_ARRAY_BUFFER, num_vertices * sizeof (glm::vec3), &normals[0], GL_STATIC_DRAW);
@@ -103,7 +94,5 @@ void Mesh::init(){
     glEnableVertexAttribArray (0);
     glEnableVertexAttribArray (1);
     glEnableVertexAttribArray (2);
-  
-
 
 }

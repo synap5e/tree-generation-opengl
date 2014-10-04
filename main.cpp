@@ -1,6 +1,6 @@
 #include "glHeaders.hpp"
-#include "loadShader.hpp"
 #include "simulation.hpp"
+#include "random.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -32,6 +32,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 int main(void)
 {
+    RandomGen::seed(1337);
+
     //Initialize GLFW
     GLFWwindow* window;
     glfwSetErrorCallback(error_callback);
@@ -59,7 +61,7 @@ int main(void)
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+   // glEnable(GL_CULL_FACE);
     glDepthFunc(GL_LESS);
 
 

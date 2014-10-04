@@ -8,10 +8,14 @@
 class Mesh
 {
 private:
+	GLuint vertex_vbo;
+	GLuint colors_vbo;
+	GLuint normals_vbo;
 
 public:
-    Mesh();
-    void init();
+    Mesh(float height, float radius);
+    ~Mesh();
+    //void create(float height, float radius);
  
     GLuint vao;
     GLuint size;
