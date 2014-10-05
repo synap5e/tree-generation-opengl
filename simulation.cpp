@@ -10,7 +10,7 @@ Simulation::Simulation(){
 }
 
 float mesh_time = 0;
-void Simulation::Initialize() {
+void Simulation::initialize() {
 
     branch_shader.load();
     point_shader.load();
@@ -18,10 +18,7 @@ void Simulation::Initialize() {
 
 }
 
-float rot = 0;
-
-void Simulation::KeyHandler(int key, int scancode, int action, int mods) {
-    rot += 0.1;
+void Simulation::key_handler(int key, int scancode, int action, int mods) {
 	/*if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_LEFT) {
         }
@@ -29,11 +26,21 @@ void Simulation::KeyHandler(int key, int scancode, int action, int mods) {
     }*/
 }
 
-void Simulation::SimulationStep(float dtSeconds) {
+void Simulation::simulation_step(float dtSeconds) {
    tree->grow();
 }
 
-void Simulation::Render(int pixelWidth, int pixelHeight) {
+void Simulation::mouse_drag(double x, double y){
+    double ox = xrot;
+
+    xrot -= y*radius / 1000;
+    yrot -= x*radius / 1000;
+
+    if (xrot >= 180) xrot = ox;
+    if (xrot < 0) xrot = ox;
+}   
+
+void Simulation::render(int pixelWidth, int pixelHeight) {
 	glViewport(0, 0, pixelWidth, pixelHeight);
 
 	float ratio = (float)pixelWidth / (float)pixelHeight;
@@ -48,14 +55,25 @@ void Simulation::Render(int pixelWidth, int pixelHeight) {
         0.01f, 
         1000.0f
     );
+
+    float x_circ = cosf(glm::radians(yrot)) * sinf(glm::radians(xrot + 180));
+    float y_circ =                            cosf(glm::radians(xrot + 180));
+    float z_circ = sinf(glm::radians(yrot)) * sinf(glm::radians(xrot + 180));
+    glm::vec3 look(x_circ, y_circ, z_circ);
+
+
+    glm::vec3 centre(0, 100, 0);
+    glm::vec3 camera = centre + look*radius;
+
     glm::mat4 view = glm::lookAt(
-        glm::vec3(0, 10, 300),
-        glm::vec3(0, 0, 0),
+        camera,
+        centre,
         glm::vec3(0, 1, 0)
     );
     glm::mat4 model = glm::mat4(1); // identity
-    model = glm::translate(model, glm::vec3(0.0f, -100.f, 0.0f));
-    model = glm::rotate(model, rot, glm::vec3(0.f, 1.f, 0.f));
+  //  model = glm::translate(model, glm::vec3(0.0f, -100.f, 0.0f));
+   // model = glm::rotate(model, yrot, glm::vec3(0.f, 1.f, 0.f));
+   // model = glm::rotate(model, xrot, glm::vec3(-1.f, 0.f, 0.f));
 
     branch_shader.activate();
     branch_shader.set_model(model);

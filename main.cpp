@@ -22,13 +22,34 @@ static void error_callback(int error, const char* description)
 	fputs(description, stderr);
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	else
-		g_simulation.KeyHandler(key, scancode, action, mods);
+		g_simulation.key_handler(key, scancode, action, mods);
 }
+
+
+bool mousedown = false;
+static void mousebutton_callback(GLFWwindow* window, int button, int actions, int mods){
+	if (button == GLFW_MOUSE_BUTTON_1 && actions == GLFW_PRESS){
+		mousedown = true;
+		//lx = -1;
+	} else if (button == GLFW_MOUSE_BUTTON_1 && actions == GLFW_RELEASE){
+		mousedown = false;
+	}
+} 
+
+double lx;
+double ly;
+static void cursorpos_callback(GLFWwindow* window, double x, double y){
+	if (mousedown){
+		g_simulation.mouse_drag(lx - x, ly - y);
+	}
+
+	lx = x;
+	ly = y;
+} 
 
 int main(void)
 {
@@ -47,6 +68,8 @@ int main(void)
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_callback);
+	glfwSetMouseButtonCallback(window, mousebutton_callback);
+	glfwSetCursorPosCallback(window, cursorpos_callback);
 
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	//glDebugMessageCallback( myCallback, NULL );
@@ -68,7 +91,7 @@ int main(void)
 	glDepthFunc(GL_LESS);
 
 
-	g_simulation.Initialize();
+	g_simulation.initialize();
 
 
 
@@ -92,7 +115,7 @@ int main(void)
 		//Simulation
 		while (accumulator >= dt)
 		{
-			g_simulation.SimulationStep((float)dt.count());
+			g_simulation.simulation_step((float)dt.count());
 			accumulator -= dt;
 			t += dt;
 		}
@@ -106,7 +129,7 @@ int main(void)
 			//Draw
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			g_simulation.Render(width, height);
+			g_simulation.render(width, height);
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 

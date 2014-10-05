@@ -14,22 +14,23 @@
 
 class Simulation
 {
-public:
-	Simulation();
-	void Initialize();
-	void KeyHandler(int key, int scancode, int action, int mods);
-	void SimulationStep(float dtSeconds);
-	void Render(int, int);
-//	void DrawMesh(Mesh& mesh,  glm::mat4& V, glm::mat4& P);
+private:
+	float xrot = 90;
+	float yrot = 0;
+	float radius = 300;
 
-//	Node* root_node;
 	Tree *tree;
 
 	BranchShader branch_shader;
 	AttractionPointShader point_shader;
+
+public:
+	Simulation();
+	void initialize();
+	void simulation_step(float dtSeconds);
+	void render(int, int);
+
+	void key_handler(int key, int scancode, int action, int mods);
+	void mouse_drag(double x, double y);
+
 };
-
-/*void setUniform( const char *name, const glm::mat4 & m);
-void setUniform( const char *name, const glm::mat3 & m);
-
-*/
