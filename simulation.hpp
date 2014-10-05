@@ -1,9 +1,10 @@
 #pragma once
 
-#include "node.hpp"
-#include "stem.hpp"
+//#include "node.hpp"
+//#include "stem.hpp"
 #include "render.hpp"
 #include "shader.hpp"
+#include "tree.hpp"
 
 #include "mesh.hpp"
 #define GLM_FORCE_RADIANS
@@ -21,9 +22,11 @@ public:
 	void Render(int, int);
 //	void DrawMesh(Mesh& mesh,  glm::mat4& V, glm::mat4& P);
 
-	Node* root_node;
+//	Node* root_node;
+	Tree *tree;
 
 	BranchShader branch_shader;
+	LeafShader leaf_shader;
 };
 
 /*void setUniform( const char *name, const glm::mat4 & m);

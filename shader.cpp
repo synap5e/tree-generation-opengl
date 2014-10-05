@@ -82,9 +82,7 @@ GLuint load_shaders(const char* vertex_shader_path, const char* geometry_shader_
 }
 
 
-void BranchShader::load(){
-    // LoadShader("../shaders/basic-vertex.glsl", "../shaders/branch-fragment.glsl");//
-    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-geometry.glsl", "../shaders/branch-fragment.glsl");
+void Shader::load_locations(){
     glUseProgram(shader_id);
 
     model_location = glGetUniformLocation(shader_id, "model");
@@ -94,18 +92,29 @@ void BranchShader::load(){
     glUseProgram(0);
 }
 
-void BranchShader::activate(){
+void Shader::activate(){
     glUseProgram(shader_id);
 }  
 
-void BranchShader::set_projection(glm::mat4& mat){
+void Shader::set_projection(glm::mat4& mat){
     glUniformMatrix4fv(projection_location, 1, GL_FALSE, &mat[0][0]);
 }
 
-void BranchShader::set_model(glm::mat4& mat){
+void Shader::set_model(glm::mat4& mat){
     glUniformMatrix4fv(model_location, 1, GL_FALSE, &mat[0][0]);
 }
 
-void BranchShader::set_view(glm::mat4& mat){
+void Shader::set_view(glm::mat4& mat){
     glUniformMatrix4fv(view_location, 1, GL_FALSE, &mat[0][0]);
+}
+
+
+void BranchShader::load(){
+    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-geometry.glsl", "../shaders/basic-fragment.glsl");
+    load_locations();
+}
+
+void LeafShader::load(){
+    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/leaf-geometry.glsl", "../shaders/basic-fragment.glsl");
+    load_locations();
 }

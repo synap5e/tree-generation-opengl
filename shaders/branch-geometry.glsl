@@ -1,75 +1,51 @@
 #version 400
 
 layout(lines) in;
-layout(triangle_strip, max_vertices = 64) out;
+layout(triangle_strip, max_vertices = 42) out;
 
 in mat4 mvp[];
 in mat3 normal_matrix[];
-//in vec4 color;
+in float size[];
+in vec4 color[];
 
 out vec3 normal;
+out vec3 geom_color;
 
-mat4 rotationMatrix(vec3 axis, float angle)
-{
-    axis = normalize(axis);
-    float s = sin(angle);
-    float c = cos(angle);
-    float oc = 1.0 - c;
-    
-    return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
-                oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
-                oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-                0.0,                                0.0,                                0.0,                                1.0);
-}
 
 void main() {
+    geom_color = vec3(0.6,0.3,0);
+
 	vec3 bvec = gl_in[0].gl_Position.xyz - gl_in[1].gl_Position.xyz;
 
-	float height = length(bvec);
-	float pf = pow(25, height/100);
-	float radius = (pf-1)/pf + 0.05;
+	//float height = length(bvec);
+/* 	float pf = pow(25, height/100);
+	float size = (pf-1)/pf + 0.05;
+    size = 5; */
 
 	vec3 nbvec = normalize(bvec);
-	vec3 i_unit = cross(vec3(1,0,0), nbvec) * radius;
-	vec3 k_unit = cross(vec3(0,0,1), nbvec) * radius;
+	vec3 i_unit = cross(vec3(1,0,0), nbvec);
+	vec3 k_unit = cross(vec3(0,0,1), nbvec);
 
-	int num_sides = 10;
+	int num_sides = 20;
     float PI = 3.141592653589793f;
 
-    for (int i = 0; i <= num_sides; i++) {
-        float ang = PI * 2.0 / num_sides * i;
-
-        vec3 offset = i_unit * cos(ang) + k_unit * -sin(ang);
-        vec4 toffset = mvp[0] * vec4(offset, 0);
-        normal =  normal_matrix[0] *  normalize(offset);
-        gl_Position = gl_in[0].gl_Position + toffset;
-        EmitVertex();
-
-        gl_Position = mix(gl_in[0].gl_Position, gl_in[1].gl_Position, 0.5) + toffset;
-        EmitVertex();
-    }
-    EndPrimitive();
+    vec3 start = gl_in[0].gl_Position.xyz + bvec/4;///*  + vec4(nbvec, 0) */;
+    vec3 end = gl_in[1].gl_Position.xyz - bvec/4;// - vec4(bvec, 0);
 
     for (int i = 0; i <= num_sides; i++) {
         float ang = PI * 2.0 / num_sides * i;
 
         vec3 offset = i_unit * cos(ang) + k_unit * -sin(ang);
-        vec4 toffset = mvp[0] * vec4(offset, 0);
         normal =  normal_matrix[0] *  normalize(offset);
-        gl_Position = mix(gl_in[0].gl_Position, gl_in[1].gl_Position, 0.5) + toffset;
+
+        //f_color = vec4(1,1,1,1);//color[0];
+        gl_Position = mvp[0] * vec4(start + offset * size[0], 1);
         EmitVertex();
 
-        gl_Position = mix(gl_in[0].gl_Position, gl_in[1].gl_Position, 0.75) + toffset/2;
+       // f_color = vec4(1,1,1,1);//color[1];
+        gl_Position = mvp[1] * vec4(end + offset * size[1], 1);
         EmitVertex();
     }
     EndPrimitive();
 
-/*     normal = vec3(0,0,1);
-    gl_Position = gl_in[0].gl_Position;
-    EmitVertex();
-
-    gl_Position = gl_in[1].gl_Position;
-    EmitVertex(); 
- 
-    EndPrimitive(); */
 }
