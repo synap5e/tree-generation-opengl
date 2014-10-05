@@ -114,7 +114,7 @@ void BranchShader::load(){
     load_locations();
 }
 
-void LeafShader::load(){
-    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/leaf-geometry.glsl", "../shaders/basic-fragment.glsl");
+void AttractionPointShader::load(){
+    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/sphere-geometry.glsl", "../shaders/basic-fragment.glsl");
     load_locations();
 }

@@ -36,7 +36,7 @@ public:
     void load();
 };
 
-class LeafShader : public Shader {
+class AttractionPointShader : public Shader {
 
 public:
     void load();

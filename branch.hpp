@@ -8,12 +8,12 @@ using namespace glm;
 
 class Branch;
 
-class Leaf {
+class AttractionPoint {
 public:
 	Branch* closest = nullptr;
 
 	vec3 position;
-	Leaf(vec3 _pos): position(_pos){};
+	AttractionPoint(vec3 _pos): position(_pos){};
 };
 
 class Branch{
@@ -23,9 +23,8 @@ public:
 	vec3 original_grow_direction;
 	int grow_count = 0;
 	vec3 position;
-	float radius = 1;
+	float radius;
 
 	Branch(Branch *_parent, vec3 _pos, vec3 _grow): parent(_parent), position(_pos), grow_direction(_grow), original_grow_direction(_grow){};
-
 
 };

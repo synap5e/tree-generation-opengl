@@ -17,10 +17,6 @@ void main() {
 
 	vec3 bvec = gl_in[0].gl_Position.xyz - gl_in[1].gl_Position.xyz;
 
-	//float height = length(bvec);
-/* 	float pf = pow(25, height/100);
-	float size = (pf-1)/pf + 0.05;
-    size = 5; */
 
 	vec3 nbvec = normalize(bvec);
 	vec3 i_unit = cross(vec3(1,0,0), nbvec);
@@ -29,8 +25,8 @@ void main() {
 	int num_sides = 20;
     float PI = 3.141592653589793f;
 
-    vec3 start = gl_in[0].gl_Position.xyz + bvec/4;///*  + vec4(nbvec, 0) */;
-    vec3 end = gl_in[1].gl_Position.xyz - bvec/4;// - vec4(bvec, 0);
+    vec3 start = gl_in[0].gl_Position.xyz + bvec/4;
+    vec3 end = gl_in[1].gl_Position.xyz - bvec/4;
 
     for (int i = 0; i <= num_sides; i++) {
         float ang = PI * 2.0 / num_sides * i;

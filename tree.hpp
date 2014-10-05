@@ -12,30 +12,35 @@
 
 using namespace glm;
 
-struct vec3_comparator{
+/*struct vec3_comparator{
 	bool operator()(const vec3 &vecA, const vec3 &vecB){ 
 		const double epsilion = 0.01;
 		return  	fabs(vecA[0] -vecB[0]) < epsilion   
 		      	&& 	fabs(vecA[1] -vecB[1]) < epsilion   
 		      	&& 	fabs(vecA[2] -vecB[2]) < epsilion;
 	} 
-};
+};*/
 
 
 class Tree{
 private:
 	vec3 position;
 
-/*	int LeafCount = 400;
-    int TreeWidth = 80;    
-    int TreeHeight = 150;   
-    int TrunkHeight = 40;
-    int MinDistance = 2;
-    int MaxDistance = 15;
-    int BranchLength = 2;*/
+	float diameter 				= 100.f;
+	float height 				= 200.f;
+	float trunk_height 			= 50.f;
+
+	int attraction_point_count 	= 1000;
+	float branch_length 		= 2.f;
+
+	float kill_distance 		= 5 * branch_length;
+	float influence_distance 	= 15 * branch_length;
+
+	float initial_radius 		= 0.25;
+	float radius_growth 		= 0.001;
 
     Branch *root;
-    std::vector<Leaf*> leaves;
+    std::vector<AttractionPoint*> attraction_points;
     std::vector<Branch*> branches;
 
     std::vector<vec3> branch_locations;
@@ -49,7 +54,7 @@ public:
 
 	void grow();
 
-	void draw(BranchShader bs, LeafShader ls);
+	void draw(BranchShader bs, AttractionPointShader ls);
 
 	void render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type);
 

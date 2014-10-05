@@ -26,7 +26,7 @@ public:
 	Tree *tree;
 
 	BranchShader branch_shader;
-	LeafShader leaf_shader;
+	AttractionPointShader point_shader;
 };
 
 /*void setUniform( const char *name, const glm::mat4 & m);

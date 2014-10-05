@@ -9,33 +9,22 @@ Tree::Tree(){
 }
 
 
-float diameter = 100.f;
-float height = 200.f;
-float trunk_height = 5.f;
-
-int leaf_count = 1000;
-float branch_length = 2.f;
-
-float kill_distance = 		5 * branch_length;
-float influence_distance = 	25 * branch_length;
-
-float radius_growth = 0.001;
-
 void Tree::generate_crown(){
 	position = vec3(0,0,0);
-	for (int i = 0; i < leaf_count; i++) {
+	for (int i = 0; i < attraction_point_count; i++) {
 	    vec3 location = vec3(	RandomGen::get(position.x - diameter, position.x + diameter),
                             	RandomGen::get(position.y + trunk_height, position.y + trunk_height + height),
                             	RandomGen::get(position.z - diameter, position.z + diameter));
 
-	    Leaf* leaf = new Leaf(location);
-	    leaves.push_back(leaf);
+	    AttractionPoint* attraction_point = new AttractionPoint(location);
+	    attraction_points.push_back(attraction_point);
 	}
 
 }
 
 void Tree::generate_trunk(){
 	root = new Branch(nullptr, position, vec3(0.f, 1.f, 0.f));
+    root->radius = initial_radius;
 	branches.push_back(root);
 
 	Branch* current = new Branch(root, vec3(position.x, position.y + branch_length, position.z), vec3(0.f, 1.f, 0.f));
@@ -43,6 +32,7 @@ void Tree::generate_trunk(){
 
 	while (length(root->position - current->position) < trunk_height) {
 	    Branch* trunk = new Branch(current, vec3(current->position.x, current->position.y + branch_length, current->position.z), vec3(0.f, 1.f, 0.f));
+        trunk->radius = initial_radius;
 	    current = trunk; 
 	    //std::cout << "insert at " << to_string(current->position) << "\n";
 	    branches.push_back(current);
@@ -60,41 +50,41 @@ void Tree::generate_trunk(){
 int r = 0;
 void Tree::grow(){
 	//return;
-    if (leaves.empty()) { 
+    if (attraction_points.empty()) { 
         return; 
     }
-    for (int i = 0; i < leaves.size(); ++i) {
-    	Leaf* leaf = leaves[i];
+    for (int i = 0; i < attraction_points.size(); ++i) {
+    	AttractionPoint* attraction_point = attraction_points[i];
 
-        leaf->closest = nullptr;
+        attraction_point->closest = nullptr;
         vec3 direction;
 
-        bool leaf_killed = false;
+        bool attraction_point_killed = false;
 
 		for (Branch* b  : branches){
-            direction = leaf->position - b->position;
+            direction = attraction_point->position - b->position;
             float distance = length(direction);
             direction = normalize(direction);
 
             if (distance < kill_distance){
-            	//printf("eat leaf\n");
-                leaves.erase(leaves.begin()+i);                        
+            	//printf("eat attraction_point\n");
+                attraction_points.erase(attraction_points.begin()+i);                        
                 i--;
-                leaf_killed = true;
+                attraction_point_killed = true;
                 break;
             } else if (distance < influence_distance
-            		   && ( leaf->closest == nullptr
-            			 || length(leaf->position - leaf->closest->position) > distance)){
-                    leaf->closest = b;
+            		   && ( attraction_point->closest == nullptr
+            			 || length(attraction_point->position - attraction_point->closest->position) > distance)){
+                    attraction_point->closest = b;
             }
         }
         
 
-        if (!leaf_killed && leaf->closest) {
-            vec3 dir = leaf->position - leaf->closest->position;
+        if (!attraction_point_killed && attraction_point->closest) {
+            vec3 dir = attraction_point->position - attraction_point->closest->position;
             dir = normalize(dir);
-            leaf->closest->grow_direction += dir;
-            leaf->closest->grow_count++;
+            attraction_point->closest->grow_direction += dir;
+            attraction_point->closest->grow_count++;
         }
         
     }
@@ -123,6 +113,7 @@ void Tree::grow(){
 
             Branch* newBranch = new Branch(b, new_pos, avgDirection);
             new_branches.push_back(newBranch);
+            newBranch->radius = initial_radius;
 
             int pc = 0;
             Branch *parent = b;
@@ -134,17 +125,23 @@ void Tree::grow(){
 
     }
 
+    for (Branch* nb : new_branches){
+        branches.push_back(nb);
+    }
+
+
     if (new_branches.empty()){
-        for (Leaf* l : leaves){
+        for (AttractionPoint* l : attraction_points){
             delete l;
         }
-    	leaves.clear();
+    	attraction_points.clear();
+       /* for (Branch* b : branches){
+            delete b;
+        }
+        branches.clear();
+        generate_crown();
+        generate_trunk();*/
     }
-
-    for (Branch* nb : new_branches){
-    	branches.push_back(nb);
-    }
-
 }
 
 void Tree::render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type){
@@ -178,7 +175,7 @@ void Tree::render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type
     glDeleteBuffers(1, &vao);
 }
 
-void Tree::draw(BranchShader bs, LeafShader ls){
+void Tree::draw(BranchShader bs, AttractionPointShader point_shader){
 
     std::vector<vec3> verts;
     std::vector<float> sizes;
@@ -196,11 +193,11 @@ void Tree::draw(BranchShader bs, LeafShader ls){
 
    	verts.clear();
    	sizes.clear();
-	for (Leaf* leaf : leaves){
-    	verts.push_back(leaf->position);
-    	sizes.push_back(1.f);
+	for (AttractionPoint* attraction_point : attraction_points){
+    	verts.push_back(attraction_point->position);
+    	sizes.push_back(2.f);
     }
-    ls.activate();
+    point_shader.activate();
     render(verts, sizes, GL_POINTS);
 
 
