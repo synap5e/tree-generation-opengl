@@ -1,5 +1,8 @@
 #version 400
 
+const int num_sides = 20;
+const float PI = 3.141592653589793f;
+
 layout(points) in;
 layout(triangle_strip, max_vertices = 42) out;
 
@@ -17,14 +20,11 @@ void main() {
 
     vec4 pos = mvp[0] * gl_in[0].gl_Position;
 
-    int num_sides = 20;
-    float PI = 3.141592653589793f;
-
     for (int i = 0; i <= num_sides; i++) {
         float ang = PI * 2.0 / num_sides * i;
 
         vec4 offset = vec4(cos(ang), -sin(ang), 0, 0);
-        normal = offset.xyz;
+        normal = mix(vec3(0,0,1), offset.xyz, 0.8);
         gl_Position = pos + offset * size[0];
         EmitVertex();
 

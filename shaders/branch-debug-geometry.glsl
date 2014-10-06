@@ -1,6 +1,6 @@
 #version 400
 
-layout(lines) in;
+layout(lines_adjacency) in;
 layout(line_strip, max_vertices=2) out;
 
 in mat4 mvp[];
@@ -17,10 +17,10 @@ void main() {
 
     normal = vec3(0,0,1);
     
-    gl_Position = mvp[0] * gl_in[0].gl_Position;
+    gl_Position = mvp[1] * gl_in[0].gl_Position;
     EmitVertex();
 
-    gl_Position = mvp[1] * gl_in[1].gl_Position;
+    gl_Position = mvp[2] * gl_in[1].gl_Position;
     EmitVertex();
 
     EndPrimitive();

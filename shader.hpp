@@ -15,6 +15,8 @@ private:
     GLuint view_location;
     GLuint projection_location;
 
+  //  GLuint use_
+
 protected:
     void load_locations();
     GLuint shader_id;

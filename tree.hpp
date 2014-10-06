@@ -26,18 +26,23 @@ class Tree{
 private:
 	vec3 position;
 
-	float diameter 				= 100.f;
-	float height 				= 200.f;
+	float radius 				= 200.f;
+	float height 				= 300.f;
 	float trunk_height 			= 50.f;
 
-	int attraction_point_count 	= 1000;
+	int attraction_point_count 	= 2000;
 	float branch_length 		= 2.f;
 
-	float kill_distance 		= 5 * branch_length;
-	float influence_distance 	= 15 * branch_length;
+	// actual distance is * branch_length
+	float kill_distance 		= 2;
+	float influence_distance 	= 10;
 
-	float initial_radius 		= 0.25;
-	float radius_growth 		= 0.001;
+	float initial_radius 		= 0.01;
+	float radius_growth 		= 0.005;
+
+	// how much wieght is given to the branches existing direction
+	// as opposed to the pull from the attraction points
+	float soft_bends_weight = 3;
 
     Branch *root;
     std::vector<AttractionPoint*> attraction_points;

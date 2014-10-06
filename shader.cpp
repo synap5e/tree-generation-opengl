@@ -42,15 +42,7 @@ GLuint create_shader(GLenum type, const char* path) {
 
 GLuint load_shaders(const char* vertex_shader_path, const char* geometry_shader_path, const char* fragment_shader_path)
 {
-
-    
-
     GLuint vertex_shader = create_shader(GL_VERTEX_SHADER, vertex_shader_path);
-    
-    GLenum err;
-    err = glGetError();
-    if(err != GL_NO_ERROR)
-        printf(" vert GL error: %d \n", err);
     
     GLuint geometry_shader;
     if (geometry_shader_path){

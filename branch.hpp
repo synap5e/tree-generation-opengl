@@ -25,6 +25,8 @@ public:
 	vec3 position;
 	float radius;
 
+	int index;
+
 	Branch(Branch *_parent, vec3 _pos, vec3 _grow): parent(_parent), position(_pos), grow_direction(_grow), original_grow_direction(_grow){};
 
 };

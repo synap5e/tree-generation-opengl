@@ -4,16 +4,76 @@
 		"selected_items":
 		[
 			[
-				"ang",
-				"angle"
+				"ra",
+				"radius"
+			],
+			[
+				"bra",
+				"branches"
+			],
+			[
+				"la",
+				"latitude_strips"
 			],
 			[
 				"no",
-				"normalize"
+				"normal"
 			],
 			[
-				"ra",
-				"radius"
+				"tr",
+				"trunk"
+			],
+			[
+				"new",
+				"new_pos"
+			],
+			[
+				"to",
+				"to_string"
+			],
+			[
+				"lea",
+				"leaves_in_range"
+			],
+			[
+				"ps",
+				"push_back"
+			],
+			[
+				"leav",
+				"leaves_in_range"
+			],
+			[
+				"leaf",
+				"leaf_to_branch"
+			],
+			[
+				"st",
+				"std"
+			],
+			[
+				"rad",
+				"radii"
+			],
+			[
+				"ver",
+				"vertex_radius"
+			],
+			[
+				"p",
+				"position"
+			],
+			[
+				"_",
+				"_grow"
+			],
+			[
+				"gr",
+				"grow_direction"
+			],
+			[
+				"ang",
+				"angle"
 			],
 			[
 				"ge",
@@ -24,20 +84,12 @@
 				"projection_loation"
 			],
 			[
-				"bra",
-				"branch_shader"
-			],
-			[
 				"Branc",
 				"BranchShader"
 			],
 			[
 				"ma",
 				"mat4"
-			],
-			[
-				"ver",
-				"vertex_colour"
 			],
 			[
 				"y",
@@ -440,10 +492,6 @@
 				"EulerAngles"
 			],
 			[
-				"to",
-				"toQuaternion"
-			],
-			[
 				"def",
 				"defined_bones"
 			],
@@ -466,72 +514,32 @@
 			[
 				"speed",
 				"speed_timeval"
-			],
-			[
-				"at",
-				"at_reparamatized"
-			],
-			[
-				"ste",
-				"step_speed"
-			],
-			[
-				"glCo",
-				"glColor3f"
-			],
-			[
-				"al",
-				"along_i"
-			],
-			[
-				"arc",
-				"arclen"
-			],
-			[
-				"ar",
-				"arclen"
-			],
-			[
-				"SP",
-				"SPLINE_HEIGHT"
-			],
-			[
-				"point",
-				"points"
-			],
-			[
-				"draw",
-				"draw_circle"
-			],
-			[
-				"add",
-				"add_point"
-			],
-			[
-				"poin",
-				"points"
-			],
-			[
-				"sele",
-				"selected"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "simulation.cpp",
+			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 4414,
+				"buffer_size": 3312,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "shader.hpp",
+			"file": "simulation.hpp",
 			"settings":
 			{
-				"buffer_size": 593,
+				"buffer_size": 631,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "simulation.cpp",
+			"settings":
+			{
+				"buffer_size": 2276,
 				"line_ending": "Unix"
 			}
 		},
@@ -539,47 +547,39 @@
 			"file": "shader.cpp",
 			"settings":
 			{
-				"buffer_size": 3393,
+				"buffer_size": 3529,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "stem.hpp",
+			"file": "shader.hpp",
 			"settings":
 			{
-				"buffer_size": 1188,
+				"buffer_size": 774,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "stem.cpp",
+			"file": "tree.cpp",
 			"settings":
 			{
-				"buffer_size": 1817,
+				"buffer_size": 6101,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "node.hpp",
+			"file": "tree.hpp",
 			"settings":
 			{
-				"buffer_size": 540,
+				"buffer_size": 1212,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "node.cpp",
+			"file": "branch.hpp",
 			"settings":
 			{
-				"buffer_size": 485,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "render.hpp",
-			"settings":
-			{
-				"buffer_size": 216,
+				"buffer_size": 557,
 				"line_ending": "Unix"
 			}
 		},
@@ -587,7 +587,7 @@
 			"file": "shaders/basic-vertex.glsl",
 			"settings":
 			{
-				"buffer_size": 658,
+				"buffer_size": 619,
 				"line_ending": "Unix"
 			}
 		},
@@ -595,16 +595,32 @@
 			"file": "shaders/branch-geometry.glsl",
 			"settings":
 			{
-				"buffer_size": 2350,
+				"buffer_size": 1094,
 				"line_ending": "Unix",
 				"name": "layout(points) in;"
 			}
 		},
 		{
-			"file": "shaders/branch-fragment.glsl",
+			"file": "shaders/branch-debug-geometry.glsl",
 			"settings":
 			{
-				"buffer_size": 194,
+				"buffer_size": 427,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/sphere-geometry.glsl",
+			"settings":
+			{
+				"buffer_size": 708,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/basic-fragment.glsl",
+			"settings":
+			{
+				"buffer_size": 196,
 				"line_ending": "Unix"
 			}
 		}
@@ -612,12 +628,40 @@
 	"build_system": "Packages/User/python2.sublime-build",
 	"command_palette":
 	{
-		"height": 272.0,
+		"height": 392.0,
 		"selected_items":
 		[
 			[
 				"diff",
 				"Git: Diff Current File"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"linter key",
+				"Preferences: SublimeLinter Key Bindings – Default"
+			],
+			[
+				"linter set",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"linter",
+				"SublimeLinter: Enable Debug Mode"
+			],
+			[
+				"toggle",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"lint",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
 			],
 			[
 				"blame",
@@ -630,10 +674,6 @@
 			[
 				"gui",
 				"Git: Gui"
-			],
-			[
-				"linter",
-				"SublimeLinter: Disable Linting"
 			],
 			[
 				"sublimelinter",
@@ -652,20 +692,12 @@
 				"Preferences: SublimeLinter Key Bindings – Default"
 			],
 			[
-				"packa",
-				"Package Control: Install Package"
-			],
-			[
 				"install",
 				"Package Control: Install Package"
 			],
 			[
 				"pac",
 				"Package Control: Install Package"
-			],
-			[
-				"package",
-				"Package Control: Upgrade/Overwrite All Packages"
 			],
 			[
 				"Package Control: li",
@@ -766,10 +798,6 @@
 			[
 				"revert",
 				"File: Revert"
-			],
-			[
-				"toggle",
-				"Git: Toggle Annotations"
 			],
 			[
 				"commi",
@@ -893,18 +921,31 @@
 	},
 	"file_history":
 	[
-		"/home/simon/workspace/comp-308-project/mesh.cpp",
+		"/home/simon/workspace/comp-308-project/shaders/leaf-geometry.glsl",
+		"/home/simon/workspace/comp-308-project/render.hpp",
+		"/home/simon/workspace/comp-308-project/random.hpp",
+		"/home/simon/workspace/comp-308-project/shader.cpp",
+		"/home/simon/workspace/comp-308-project/shader.hpp",
 		"/home/simon/workspace/comp-308-project/simulation.hpp",
+		"/home/simon/workspace/comp-308-project/log.txt",
+		"/home/simon/workspace/comp-308-project/branch.hpp",
+		"/home/simon/workspace/comp-308-project/tree.cpp",
+		"/home/simon/workspace/comp-308-project/_/stem.cpp",
+		"/home/simon/.config/sublime-text-3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/home/simon/.config/sublime-text-3/Packages/SublimeLinter/Default (Linux).sublime-keymap",
+		"/home/simon/workspace/comp-308-project/node.hpp",
+		"/home/simon/workspace/comp-308-project/leaf.hpp",
+		"/home/simon/workspace/comp-308-project/node.cpp",
+		"/home/simon/workspace/comp-308-project/stem.cpp",
+		"/home/simon/workspace/comp-308-project/stem.hpp",
+		"/home/simon/workspace/comp-308-project/build/Makefile",
+		"/home/simon/workspace/comp-308-project/CMakeLists.txt",
+		"/home/simon/workspace/comp-308-project/mesh.cpp",
 		"/home/simon/workspace/comp-308-project/main.cpp",
 		"/home/simon/workspace/comp-308-project/stem.cppp",
 		"/home/simon/scripts/spotdupes.py",
 		"/home/simon/workspace/comp-308-project/loadShader.cpp",
 		"/home/simon/workspace/comp-308-project/loadShader.hpp",
-		"/home/simon/workspace/comp-308-project/stem.hpp",
-		"/home/simon/workspace/comp-308-project/node.hpp",
-		"/home/simon/workspace/comp-308-project/node.cpp",
-		"/home/simon/workspace/comp-308-project/stem.cpp",
-		"/home/simon/workspace/comp-308-project/random.hpp",
 		"/home/simon/workspace/comp-308-project/random.cpp",
 		"/home/simon/workspace/comp-308-project/shaders/phong.frag",
 		"/home/simon/workspace/comp-308-project/bud.hpp",
@@ -914,7 +955,6 @@
 		"/home/simon/workspace/comp-308-project/shaders/frag_basic.glsl",
 		"/home/simon/workspace/comp-308-project/bud.cpp",
 		"/home/simon/workspace/comp-308-project/internode.hpp",
-		"/home/simon/workspace/comp-308-project/branch.hpp",
 		"/home/simon/workspace/comp-308-project/thing.hpp",
 		"/home/simon/workspace/comp-308-project/thing.cpp",
 		"/home/simon/workspace/comp-308-project/glHeaders.hpp",
@@ -1008,19 +1048,7 @@
 		"/usr/lib/python2.7/site-packages/pygame/examples/eventlist.py",
 		"/tmp/willie-4.0.0/willie.py",
 		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/stopandwait.h",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ip.h",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ethernet.h",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/arp.h",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/stopandwait.c",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/saworig.c",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ip.c",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/arp.c",
-		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ethernet.c",
-		"/home/simon/university/template.py",
-		"/home/simon/university/2014_T2/nwen-302/lectures/week5.md",
-		"/home/simon/workspace/swen-222-assignment-1/report.md",
-		"/home/simon/workspace/swen-222-assignment-1/RUNNING.txt",
-		"/home/simon/workspace/swen-222-assignment-1/READING.txt"
+		"/home/simon/simon-ecs/workspace/nwen-302-lab-2/ip.h"
 	],
 	"find":
 	{
@@ -1035,9 +1063,91 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"yrot",
+			"rotx",
+			"fsin",
+			"fcos",
+			"radians",
+			"leaf",
+			"leaves",
+			"num_sjdes",
+			"i",
+			"N",
+			"M",
+			"m",
+			"i",
+			"ls",
+			"leaf_shader",
+			"Leaf",
+			"leaf",
+			"Leaf",
+			"leaf",
+			"Leaf",
+			"tree_height",
+			"max_distance",
+			"min_distance",
+			"f_color",
+			"gl_in[0]",
+			"original",
+			"grow_direction",
+			"){};",
+			"branches.push_back",
+			"size",
+			"10",
+			"gl_Position[0]",
+			"newBs",
+			"leaves[i]",
+			"branch_shader",
+			"&lt;&lt",
+			"    ",
+			"   ",
+			"radii",
+			"glm::",
+			"radii",
+			"-",
+			"radius",
+			"BranchShader",
+			"insert(std::pair<vec3,Branch*>(.*->position, ",
+			"b.",
+			"BranchLength",
+			"closest.",
+			"remove",
+			"b.",
+			"current.",
+			"root.",
+			"root",
+			"root.",
+			"position",
+			"root.position",
+			"root.",
+			"position",
+			"root.position",
+			"root.",
+			"\\s([a-zA-Z]*) ([a-zA-Z]*) = new ",
+			"leaves[i].",
+			"GrowDirection",
+			"GrowCount",
+			"MaxDistance",
+			"MinDistance",
+			"int",
+			"Position",
+			"Vector2",
+			"null",
+			"ClosestBranch",
+			".Count",
+			"Count",
+			"leaves",
+			"Leaves",
+			"leaves",
+			"Leaves",
+			"height",
+			"y",
+			"x",
+			")",
+			"void",
 			"out",
 			"mat3",
 			"17",
@@ -1083,89 +1193,7 @@
 			"virtual",
 			"Stem",
 			"Node",
-			"Stem",
-			"const",
-			"0.f",
-			"const",
-			"colours_vbo",
-			"verts.size()",
-			"colours",
-			"thing",
-			"g_simulation",
-			"Thing",
-			"thing",
-			"Thing",
-			"thing",
-			"Thing",
-			"thing",
-			"Thing",
-			"points_vbo",
-			"100",
-			"100f",
-			"0.5",
-			"\\.000000",
-			"vec4",
-			"10",
-			"t",
-			"vert",
-			"phong",
-			"10f",
-			"0.5",
-			"v",
-			"indexed_normals",
-			"indexed_uvs",
-			"indexed_vertices",
-			"indexed_uvs",
-			"indexed_vertices",
-			")))",
-			"\\+glm::[^\\*\\+]*\\*Type",
-			"glm::[^\\*]*Type",
-			"GLMPackedVertex",
-			"that",
-			"GLMPackedVertex",
-			"vertex.t0",
-			"[0]",
-			"MyVertex",
-			"projection",
-			"Projection",
-			"model",
-			"Model",
-			"model",
-			"Model",
-			"model",
-			"Model",
-			"prog.",
-			"View",
-			"view",
-			"View",
-			"void",
-			"ModelViewMatrix",
-			"MatrixID",
-			"5",
-			"plight_intens",
-			"dlight_intens",
-			"glutSpecialFunc",
-			"special",
-			"1",
-			"0.5",
-			"0.2",
-			"0.4",
-			"z",
-			"case",
-			"/",
-			"draw_lights",
-			"position",
-			"aroundx",
-			"4",
-			"1",
-			"0.8",
-			"SLIGHT",
-			"SLIGTH",
-			"PLIGTH",
-			"SLIGTH",
-			"0.2",
-			"0.5",
-			"object.tex_scale"
+			"Stem"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1173,6 +1201,9 @@
 		"regex": true,
 		"replace_history":
 		[
+			"branches.insert",
+			"",
+			"push_back",
 			"mesh",
 			"Mesh",
 			"",
@@ -1297,10 +1328,7 @@
 			"        \\[\\n\\[\\[\\[",
 			"     \\[\\n\\[\\[\\[",
 			"  \\[\\n\\[\\[\\[",
-			"  \\[\\n\\[\\[\\[\\[",
-			"\\[\\n\\[\\[\\[\\[",
-			"\\[\\n\\[\\[\\[\\[\\[",
-			"\\n   ["
+			"  \\[\\n\\[\\[\\[\\["
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1311,34 +1339,34 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "simulation.cpp",
+					"file": "main.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4414,
+						"buffer_size": 3312,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3455,
-								3455
+								1141,
+								1141
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1296.0,
+						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1346,19 +1374,47 @@
 				},
 				{
 					"buffer": 1,
-					"file": "shader.hpp",
+					"file": "simulation.hpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 593,
+						"buffer_size": 631,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								593,
-								593
+								333,
+								333
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": -0.0,
+						"translation.y": 162.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "simulation.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2276,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								376,
+								376
 							]
 						],
 						"settings":
@@ -1371,24 +1427,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "shader.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3393,
+						"buffer_size": 3529,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1979,
-								1979
+								2816,
+								2816
 							]
 						],
 						"settings":
@@ -1398,65 +1454,37 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1155.0,
+						"translation.y": 594.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "stem.hpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1188,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1089,
-								1089
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": -0.0,
-						"translation.y": 324.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
 					"buffer": 4,
-					"file": "stem.cpp",
+					"file": "shader.hpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1817,
+						"buffer_size": 774,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1097,
-								1097
+								726,
+								726
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 270.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 7,
@@ -1464,24 +1492,83 @@
 				},
 				{
 					"buffer": 5,
-					"file": "node.hpp",
+					"file": "tree.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 540,
+						"buffer_size": 6101,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								442,
-								442
+								232,
+								232
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "tree.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								805,
+								805
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "branch.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 557,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12,
+								12
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1491,78 +1578,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "node.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 485,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								19,
-								19
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "render.hpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 216,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								195,
-								195
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
 					"buffer": 8,
 					"file": "shaders/basic-vertex.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 658,
+						"buffer_size": 619,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								273,
-								273
+								363,
+								363
 							]
 						],
 						"settings":
@@ -1573,7 +1602,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -1582,15 +1611,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2350,
+						"buffer_size": 1094,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1420,
-								1420
+								312,
+								312
 							]
 						],
 						"settings":
@@ -1601,27 +1630,87 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 540.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "shaders/branch-fragment.glsl",
+					"file": "shaders/branch-debug-geometry.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 194,
+						"buffer_size": 427,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								190,
-								190
+								316,
+								316
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "shaders/sphere-geometry.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 708,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								685,
+								685
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "shaders/basic-fragment.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 196,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								87,
+								87
 							]
 						],
 						"settings":
@@ -1632,7 +1721,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]
@@ -1700,6 +1789,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"sim",
+				"~/workspace/comp-308-project/simulation.hpp"
+			],
 			[
 				"rot",
 				"~/workspace/comp-308-assignment-3/Rotations.cpp"
