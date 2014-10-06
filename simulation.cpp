@@ -40,6 +40,11 @@ void Simulation::mouse_drag(double x, double y){
     if (xrot < 0) xrot = ox;
 }   
 
+void Simulation::scroll(double ammount){
+    radius = radius = fmin(500, fmax(4, radius - ammount * 10));
+}   
+
+
 void Simulation::render(int pixelWidth, int pixelHeight) {
 	glViewport(0, 0, pixelWidth, pixelHeight);
 
@@ -55,6 +60,7 @@ void Simulation::render(int pixelWidth, int pixelHeight) {
         0.01f, 
         1000.0f
     );
+    projection = glm::translate(projection, glm::vec3(0, -130, 0));
 
     float x_circ = cosf(glm::radians(yrot)) * sinf(glm::radians(xrot + 180));
     float y_circ =                            cosf(glm::radians(xrot + 180));
@@ -62,8 +68,8 @@ void Simulation::render(int pixelWidth, int pixelHeight) {
     glm::vec3 look(x_circ, y_circ, z_circ);
 
 
-    glm::vec3 centre(0, 100, 0);
-    glm::vec3 camera = centre + look*radius;
+    glm::vec3 centre(0, 0, 0);
+    glm::vec3 camera = centre + look*radius;// + glm::vec3(0, -200, 0);
 
     glm::mat4 view = glm::lookAt(
         camera,
@@ -71,7 +77,7 @@ void Simulation::render(int pixelWidth, int pixelHeight) {
         glm::vec3(0, 1, 0)
     );
     glm::mat4 model = glm::mat4(1); // identity
-  //  model = glm::translate(model, glm::vec3(0.0f, -100.f, 0.0f));
+    //model = glm::translate(model, glm::vec3(0.0f, -100.f, 0.0f));
    // model = glm::rotate(model, yrot, glm::vec3(0.f, 1.f, 0.f));
    // model = glm::rotate(model, xrot, glm::vec3(-1.f, 0.f, 0.f));
 

@@ -51,6 +51,10 @@ static void cursorpos_callback(GLFWwindow* window, double x, double y){
 	ly = y;
 } 
 
+static void scroll_callback(GLFWwindow* window, double x, double y){
+	g_simulation.scroll(y);
+}
+
 int main(void)
 {
 	RandomGen::seed(1337);
@@ -60,6 +64,13 @@ int main(void)
 	glfwSetErrorCallback(error_callback);
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
+
+	glfwWindowHint(GLFW_SAMPLES, 4); 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+
 	window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
 	if (!window)
 	{
@@ -70,8 +81,8 @@ int main(void)
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetMouseButtonCallback(window, mousebutton_callback);
 	glfwSetCursorPosCallback(window, cursorpos_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 	//glDebugMessageCallback( myCallback, NULL );
 
 	glewExperimental = GL_TRUE;
@@ -84,7 +95,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.9f, 0.9f, 0.87f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
    // glEnable(GL_CULL_FACE);
@@ -92,8 +103,6 @@ int main(void)
 
 
 	g_simulation.initialize();
-
-
 
 	std::chrono::duration<double> t(0.0);
 //	std::chrono::duration<double> dt(0.01);
@@ -113,12 +122,12 @@ int main(void)
 		accumulator += elapsed_seconds;
 
 		//Simulation
-		while (accumulator >= dt)
-		{
+	/*	while (accumulator >= dt)
+		{*/
 			g_simulation.simulation_step((float)dt.count());
-			accumulator -= dt;
+	/*		accumulator -= dt;
 			t += dt;
-		}
+		}*/
 
 		//Render
 		{
