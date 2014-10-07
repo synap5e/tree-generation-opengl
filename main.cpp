@@ -63,7 +63,6 @@ static void scroll_callback(GLFWwindow* window, double x, double y){
 static void run_simulation(){
 	while (simulate){
 		tree->grow();
-		renderer->refresh_display();
 	}
 }
 
