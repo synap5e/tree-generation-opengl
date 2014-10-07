@@ -45,23 +45,21 @@ private:
 	float soft_bends_weight = 3;
 
     Branch *root;
-    std::vector<AttractionPoint*> attraction_points;
+    std::vector<vec3> branch_locations;
+
+	std::vector<AttractionPoint*> attraction_points;
     std::vector<Branch*> branches;
 
-    std::vector<vec3> branch_locations;
+	void generate_crown();
+	void generate_trunk();
 
 public:
 	Tree();
 
-	void generate_crown();
-
-	void generate_trunk();
-
 	void grow();
+	//void draw(BranchShader bs, AttractionPointShader ls);
+	//void render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type);
 
-	void draw(BranchShader bs, AttractionPointShader ls);
-
-	void render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type);
-
-
+	std::vector<AttractionPoint*> get_attraction_points();
+	std::vector<Branch*> get_branches();
 };

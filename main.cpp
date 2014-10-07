@@ -1,5 +1,7 @@
 #include "glHeaders.hpp"
-#include "simulation.hpp"
+#include "userinterface.hpp"
+#include "tree.hpp"
+#include "treerenderer.hpp"
 #include "random.hpp"
 
 #include <GLFW/glfw3.h>
@@ -15,10 +17,11 @@
 
 #include <glm/glm.hpp>
 
-Simulation g_simulation;
+UserInterface interface;
+Tree *tree;
+TreeRenderer *renderer;
 
-static void error_callback(int error, const char* description)
-{
+static void error_callback(int error, const char* description){
 	fputs(description, stderr);
 }
 
@@ -26,7 +29,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	else
-		g_simulation.key_handler(key, scancode, action, mods);
+		interface.key_handler(key, scancode, action, mods);
 }
 
 
@@ -44,7 +47,7 @@ double lx;
 double ly;
 static void cursorpos_callback(GLFWwindow* window, double x, double y){
 	if (mousedown){
-		g_simulation.mouse_drag(lx - x, ly - y);
+		interface.mouse_drag(lx - x, ly - y);
 	}
 
 	lx = x;
@@ -52,12 +55,33 @@ static void cursorpos_callback(GLFWwindow* window, double x, double y){
 } 
 
 static void scroll_callback(GLFWwindow* window, double x, double y){
-	g_simulation.scroll(y);
+	interface.scroll(y);
+}
+
+void render(int pixelWidth, int pixelHeight){
+	glViewport(0, 0, pixelWidth, pixelHeight);
+
+	float ratio = (float)pixelWidth / (float)pixelHeight;
+    float orthoHeight = 40.f;
+    float top = orthoHeight / 2.f;
+    float bottom = -top;
+    float left = bottom * ratio;
+    float right = -left;
+    glm::mat4 projection = glm::perspective(
+        45.0f,
+        float(pixelWidth) / float(pixelHeight), 
+        0.01f, 
+        1000.0f
+    );
+
+    renderer->render(projection, interface.view);
+
 }
 
 int main(void)
 {
 	RandomGen::seed(1337);
+	RandomGen::rseed();
 
 	//Initialize GLFW
 	GLFWwindow* window;
@@ -66,9 +90,9 @@ int main(void)
 		exit(EXIT_FAILURE);
 
 	glfwWindowHint(GLFW_SAMPLES, 4); 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 	window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
@@ -98,14 +122,19 @@ int main(void)
 	glClearColor(0.9f, 0.9f, 0.87f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
-   // glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
 
+	GLenum err;
+	err = glGetError();
+	if(err != GL_NO_ERROR)
+		printf(">> GL error: %d \n", err);
 
-	g_simulation.initialize();
 
-	std::chrono::duration<double> t(0.0);
-//	std::chrono::duration<double> dt(0.01);
+	tree = new Tree();
+	renderer = new TreeRenderer(tree);
+
+/*	std::chrono::duration<double> t(0.0);
 	std::chrono::duration<double> dt(0.1);
 	std::chrono::duration<double> accumulator(0.0);
 
@@ -122,31 +151,30 @@ int main(void)
 		accumulator += elapsed_seconds;
 
 		//Simulation
-	/*	while (accumulator >= dt)
-		{*/
+		while (accumulator >= dt)
+		{
 			g_simulation.simulation_step((float)dt.count());
-	/*		accumulator -= dt;
+			accumulator -= dt;
 			t += dt;
 		}*/
 
 		//Render
-		{
-			//If user has resized window, update viewport and projection
-			int width, height;
-			glfwGetFramebufferSize(window, &width, &height);
+	while (!glfwWindowShouldClose(window)){
+		tree->grow();
 
-			//Draw
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		int width, height;
+		glfwGetFramebufferSize(window, &width, &height);
 
-			g_simulation.render(width, height);
-			glfwSwapBuffers(window);
-			glfwPollEvents();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			GLenum err;
-			err = glGetError();
-			if(err != GL_NO_ERROR)
-				printf("GL error: %d \n", err);
+		render(width, height);
+		glfwSwapBuffers(window);
+		glfwPollEvents();
 
+		GLenum err;
+		err = glGetError();
+		if(err != GL_NO_ERROR){
+			printf("GL error: %d \n", err);
 		}
 	}
 

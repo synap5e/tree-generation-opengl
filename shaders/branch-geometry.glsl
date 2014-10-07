@@ -38,14 +38,14 @@ void main() {
         float cs = cos(ang);
         float sn = -sin(ang);
 
-        vec3 offset = prev_i_unit * cs + prev_k_unit * sn;
-        normal = -(mvp[1] * vec4(normalize(offset), 0)).xyz;
-        gl_Position = mvp[1] * vec4(start + offset * size[1], 1);
-        EmitVertex();
-
-        offset = c_i_unit * cs + c_k_unit * sn;
+        vec3 offset = c_i_unit * cs + c_k_unit * sn;
         normal = -(mvp[2] * vec4(normalize(offset), 0)).xyz;
         gl_Position = mvp[2] * vec4(end + offset * size[2], 1);
+        EmitVertex();
+
+        offset = prev_i_unit * cs + prev_k_unit * sn;
+        normal = -(mvp[1] * vec4(normalize(offset), 0)).xyz;
+        gl_Position = mvp[1] * vec4(start + offset * size[1], 1);
         EmitVertex();
     }
     EndPrimitive();

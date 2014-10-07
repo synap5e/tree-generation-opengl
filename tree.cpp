@@ -196,107 +196,11 @@ void Tree::grow(){
     }
 }
 
-void Tree::render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type){
-	GLuint vertex_vbo; 
-    GLuint size_vbo;
-    GLuint vao; 
 
-    glGenBuffers (1, &vertex_vbo);
-    glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
-    glBufferData (GL_ARRAY_BUFFER, verts.size() * sizeof (vec3), &verts[0], GL_STATIC_DRAW);
+std::vector<AttractionPoint*> Tree::get_attraction_points(){
+    return attraction_points; 
+};
 
-    glGenBuffers (1, &size_vbo);
-    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
-    glBufferData (GL_ARRAY_BUFFER, sizes.size() * sizeof (float), &sizes[0], GL_STATIC_DRAW);
-
-    glGenVertexArrays (1, &vao);
-    glBindVertexArray (vao);
-    
-    glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
-    glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
-    glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    glEnableVertexAttribArray (0);
-    glEnableVertexAttribArray (1);
-    glDrawArrays (type, 0, verts.size());
-
-    glDeleteBuffers(1, &vertex_vbo);
-    glDeleteBuffers(1, &size_vbo);
-    glDeleteBuffers(1, &vao);
-}
-
-void Tree::draw(BranchShader bs, AttractionPointShader point_shader){
-
-    std::vector<vec3> verts;
-    std::vector<float> sizes;
-    std::vector<unsigned int> indexs;
-
-    verts.push_back(vec3(0,0,0));
-    sizes.push_back(0.f);
-    int index = 1;
-    for (Branch* b  : branches){
-        verts.push_back(b->position);
-        sizes.push_back(sqrt(b->radius));
-        b->index = index++;
-    }
-    for (Branch* b  : branches){
-        if (b->parent && b->parent->parent){
-
-            indexs.push_back(b->parent->parent->index);
-            indexs.push_back(b->parent->index);
-            indexs.push_back(b->index);
-            indexs.push_back(0); // next adjacent is unused
-        }
-    }
-
-
-    bs.activate();
-
-    GLuint element_buffer;
-    GLuint vertex_vbo; 
-    GLuint size_vbo;
-
-    glGenBuffers (1, &vertex_vbo);
-    glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
-    glBufferData (GL_ARRAY_BUFFER, verts.size() * sizeof (vec3), &verts[0], GL_STATIC_DRAW);
-
-    glGenBuffers (1, &size_vbo);
-    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
-    glBufferData (GL_ARRAY_BUFFER, sizes.size() * sizeof (float), &sizes[0], GL_STATIC_DRAW);
-
-    glGenBuffers (1, &element_buffer);
-    glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, element_buffer);
-    glBufferData (GL_ELEMENT_ARRAY_BUFFER, indexs.size() * sizeof (unsigned int), &indexs[0], GL_STATIC_DRAW);
-
-    glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
-    glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
-    glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    glEnableVertexAttribArray (0);
-    glEnableVertexAttribArray (1);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer);
-    glDrawElements (GL_LINES_ADJACENCY, indexs.size(), GL_UNSIGNED_INT, (void*)0);
-
-    glDeleteBuffers(1, &vertex_vbo);
-    glDeleteBuffers(1, &size_vbo);
-    glDeleteBuffers(1, &element_buffer);
-
-//   	render(verts, sizes, GL_LINES_ADJACENCY);
-
-   	verts.clear();
-   	sizes.clear();
-	for (AttractionPoint* attraction_point : attraction_points){
-    	verts.push_back(attraction_point->position);
-    	sizes.push_back(2.f);
-    }
-    point_shader.activate();
-    render(verts, sizes, GL_POINTS);
-
-
-
-}
+std::vector<Branch*> Tree::get_branches(){
+    return branches; 
+};

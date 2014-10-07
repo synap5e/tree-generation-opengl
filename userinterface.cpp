@@ -1,24 +1,42 @@
-#include "simulation.hpp"
+#include "userinterface.hpp"
 
 #include <GLFW/glfw3.h>
 #include <glm/gtc/constants.hpp>
 #include <math.h>
 #include <glm/gtx/string_cast.hpp>
 
-Simulation::Simulation(){
-
+UserInterface::UserInterface(){
+    regen_view();
 }
 
-float mesh_time = 0;
-void Simulation::initialize() {
+void UserInterface::regen_view(){
+    float x_circ = cosf(glm::radians(yrot)) * sinf(glm::radians(xrot + 180));
+    float y_circ =                            cosf(glm::radians(xrot + 180));
+    float z_circ = sinf(glm::radians(yrot)) * sinf(glm::radians(xrot + 180));
+    glm::vec3 look(x_circ, y_circ, z_circ);
+
+
+    glm::vec3 centre(0, 0, 0);
+    glm::vec3 camera = centre + look*radius;// + glm::vec3(0, -200, 0);
+
+    view = glm::lookAt(
+        camera,
+        centre,
+        glm::vec3(0, 1, 0)
+    );
+}
+
+/*float mesh_time = 0;
+void UserInterface::initialize() {
 
     branch_shader.load();
     point_shader.load();
+
     tree = new Tree();
+    renderer = new TreeRenderer(tree);
+}*/
 
-}
-
-void Simulation::key_handler(int key, int scancode, int action, int mods) {
+void UserInterface::key_handler(int key, int scancode, int action, int mods) {
 	/*if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_LEFT) {
         }
@@ -26,11 +44,11 @@ void Simulation::key_handler(int key, int scancode, int action, int mods) {
     }*/
 }
 
-void Simulation::simulation_step(float dtSeconds) {
+/*void UserInterface::simulation_step(float dtSeconds) {
    tree->grow();
 }
-
-void Simulation::mouse_drag(double x, double y){
+*/
+void UserInterface::mouse_drag(double x, double y){
     double ox = xrot;
 
     xrot -= y*radius / 1000;
@@ -38,14 +56,17 @@ void Simulation::mouse_drag(double x, double y){
 
     if (xrot >= 180) xrot = ox;
     if (xrot < 0) xrot = ox;
+
+    regen_view();
 }   
 
-void Simulation::scroll(double ammount){
+void UserInterface::scroll(double ammount){
     radius = radius = fmin(500, fmax(4, radius - ammount * 10));
+    regen_view();
 }   
 
 
-void Simulation::render(int pixelWidth, int pixelHeight) {
+/*void UserInterface::render(int pixelWidth, int pixelHeight) {
 	glViewport(0, 0, pixelWidth, pixelHeight);
 
 	float ratio = (float)pixelWidth / (float)pixelHeight;
@@ -76,10 +97,7 @@ void Simulation::render(int pixelWidth, int pixelHeight) {
         centre,
         glm::vec3(0, 1, 0)
     );
-    glm::mat4 model = glm::mat4(1); // identity
-    //model = glm::translate(model, glm::vec3(0.0f, -100.f, 0.0f));
-   // model = glm::rotate(model, yrot, glm::vec3(0.f, 1.f, 0.f));
-   // model = glm::rotate(model, xrot, glm::vec3(-1.f, 0.f, 0.f));
+    glm::mat4 model = glm::mat4(1);
 
     branch_shader.activate();
     branch_shader.set_model(model);
@@ -95,4 +113,4 @@ void Simulation::render(int pixelWidth, int pixelHeight) {
    tree->draw(branch_shader, point_shader);
 
 
-}
+}*/

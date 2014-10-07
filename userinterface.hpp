@@ -2,33 +2,33 @@
 
 //#include "node.hpp"
 //#include "stem.hpp"
-#include "render.hpp"
-#include "shader.hpp"
+/*#include "shader.hpp"
 #include "tree.hpp"
+#include "treerenderer.hpp"*/
 
-#include "mesh.hpp"
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <memory>
 
-class Simulation
-{
+class UserInterface {
 private:
 	float xrot = 90;
 	float yrot = 0;
 	float radius = 300;
 
-	Tree *tree;
+/*	Tree *tree;
+	TreeRenderer *renderer;
 
 	BranchShader branch_shader;
-	AttractionPointShader point_shader;
+	AttractionPointShader point_shader;*/
+
+	void regen_view();
 
 public:
-	Simulation();
-	void initialize();
-	void simulation_step(float dtSeconds);
-	void render(int, int);
+	glm::mat4 view;
+
+	
+	UserInterface();
 
 	void key_handler(int key, int scancode, int action, int mods);
 	void mouse_drag(double x, double y);
