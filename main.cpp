@@ -13,13 +13,15 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include <chrono>
+//#include <chrono>
+#include <thread>
 
 #include <glm/glm.hpp>
 
 UserInterface interface;
 Tree *tree;
 TreeRenderer *renderer;
+bool simulate = true;
 
 static void error_callback(int error, const char* description){
 	fputs(description, stderr);
@@ -56,6 +58,13 @@ static void cursorpos_callback(GLFWwindow* window, double x, double y){
 
 static void scroll_callback(GLFWwindow* window, double x, double y){
 	interface.scroll(y);
+}
+
+static void run_simulation(){
+	while (simulate){
+		tree->grow();
+		renderer->refresh_display();
+	}
 }
 
 void render(int pixelWidth, int pixelHeight){
@@ -134,6 +143,12 @@ int main(void)
 	tree = new Tree();
 	renderer = new TreeRenderer(tree);
 
+	std::thread simulation(run_simulation);
+
+	std::chrono::time_point<std::chrono::system_clock> now, last;
+
+	last = std::chrono::system_clock::now();
+
 /*	std::chrono::duration<double> t(0.0);
 	std::chrono::duration<double> dt(0.1);
 	std::chrono::duration<double> accumulator(0.0);
@@ -160,7 +175,7 @@ int main(void)
 
 		//Render
 	while (!glfwWindowShouldClose(window)){
-		tree->grow();
+		//tree->grow();
 
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
@@ -168,6 +183,7 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		render(width, height);
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
@@ -179,6 +195,10 @@ int main(void)
 	}
 
 	//Main loop has exited, clean up
+	simulate = false;
+	simulation.join();
+	std::cout << "Simulation thread ended" << std::endl;
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);

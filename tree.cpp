@@ -98,10 +98,10 @@ void Tree::generate_trunk(){
 
 int r = 0;
 void Tree::grow(){
-	//return;
     if (attraction_points.empty()) { 
         return; 
     }
+
     for (int i = 0; i < attraction_points.size(); ++i) {
     	AttractionPoint* attraction_point = attraction_points[i];
 
@@ -202,5 +202,5 @@ std::vector<AttractionPoint*> Tree::get_attraction_points(){
 };
 
 std::vector<Branch*> Tree::get_branches(){
-    return branches; 
+    return branches;
 };
