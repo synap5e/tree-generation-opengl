@@ -58,10 +58,33 @@ static void scroll_callback(GLFWwindow* window, double x, double y){
 	interface.scroll(y);
 }
 
+#define MAXSAMPLES 100
+int tickindex=0;
+int ticksum=0;
+int ticklist[MAXSAMPLES];
+
+double get_fps(int newtick)
+{
+    ticksum-=ticklist[tickindex];  /* subtract value falling off */
+    ticksum+=newtick;              /* add new value */
+    ticklist[tickindex]=newtick;   /* save new value so it can be subtracted later */
+    if(++tickindex==MAXSAMPLES)    /* inc buffer index */
+        tickindex=0;
+
+    /* return average */
+    return((double)ticksum/MAXSAMPLES);
+}
+
+
+static int throttle = 0;
 static void run_simulation(){
-	while (simulate){
-		tree->grow();
+	while (simulate && tree->grow()){
+		if (throttle > 0){
+			std::chrono::milliseconds dura(throttle);
+			std::this_thread::sleep_for( dura );
+		}
 	}
+	std::cout << "Tree growth finished\n";
 }
 
 void render(int pixelWidth, int pixelHeight){
@@ -84,10 +107,66 @@ void render(int pixelWidth, int pixelHeight){
 
 }
 
+
+double calcFPS(GLFWwindow* window, double theTimeInterval = 1.0)
+{
+	// Static values which only get initialised the first time the function runs
+	static double t0Value       = glfwGetTime(); // Set the initial time to now
+	static int    fpsFrameCount = 0;             // Set the initial FPS frame count to 0
+	static double fps           = 0.0;           // Set the initial FPS value to 0.0
+ 
+	// Get the current time in seconds since the program started (non-static, so executed every time)
+	double currentTime = glfwGetTime();
+ 
+	// Ensure the time interval between FPS checks is sane (low cap = 0.1s, high-cap = 10.0s)
+	// Negative numbers are invalid, 10 fps checks per second at most, 1 every 10 secs at least.
+	if (theTimeInterval < 0.1)
+	{
+		theTimeInterval = 0.1;
+	}
+	if (theTimeInterval > 10.0)
+	{
+		theTimeInterval = 10.0;
+	}
+ 
+	// Calculate and display the FPS every specified time interval
+	if ((currentTime - t0Value) > theTimeInterval)
+	{
+		// Calculate the FPS as the number of frames divided by the interval in seconds
+		fps = (double)fpsFrameCount / (currentTime - t0Value);
+ 
+
+		// Convert the fps value into a string using an output stringstream
+		std::ostringstream stream;
+		stream << fps;
+		std::string fpsString = stream.str();
+
+		// Append the FPS value to the window title details
+		std::string theWindowTitle = " | FPS: " + fpsString;
+
+		// Convert the new window title to a c_str and set it
+		const char* pszConstString = theWindowTitle.c_str();
+		glfwSetWindowTitle(window, pszConstString);
+	
+		std::cout << "FPS: " << fps << std::endl;
+		
+		// Reset the FPS frame counter and set the initial time to be now
+		fpsFrameCount = 0;
+		t0Value = glfwGetTime();
+	}
+	else // FPS calculation time interval hasn't elapsed yet? Simply increment the FPS frame counter
+	{
+		fpsFrameCount++;
+	}
+ 
+	// Return the current FPS - doesn't have to be used if you don't want it!
+	return fps;
+}
+
 int main(void)
 {
 	RandomGen::seed(1337);
-	RandomGen::rseed();
+	//RandomGen::rseed();
 
 	//Initialize GLFW
 	GLFWwindow* window;
@@ -95,6 +174,7 @@ int main(void)
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 
+	glfwSwapInterval(1);
 	glfwWindowHint(GLFW_SAMPLES, 4); 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -128,7 +208,7 @@ int main(void)
 	glClearColor(0.9f, 0.9f, 0.87f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
 
 	GLenum err;
@@ -141,10 +221,6 @@ int main(void)
 	renderer = new TreeRenderer(tree);
 
 	std::thread simulation(run_simulation);
-
-	std::chrono::time_point<std::chrono::system_clock> now, last;
-
-	last = std::chrono::system_clock::now();
 
 /*	std::chrono::duration<double> t(0.0);
 	std::chrono::duration<double> dt(0.1);
@@ -171,8 +247,23 @@ int main(void)
 		}*/
 
 		//Render
+
+	double fps = 60;
+	double last, now, delta;
+	last = glfwGetTime();
 	while (!glfwWindowShouldClose(window)){
-		//tree->grow();
+		now = glfwGetTime();
+		delta = now - last;
+		//std::cout << delta << "\n";
+		if (delta < 1./fps){
+			std::chrono::milliseconds dura(int(1000 * (1./fps - delta)));
+			std::this_thread::sleep_for( dura );
+			continue;
+		}
+
+		last = now;
+
+		calcFPS(window);
 
 		int width, height;
 		glfwGetFramebufferSize(window, &width, &height);
