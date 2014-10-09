@@ -64,6 +64,8 @@ void Tree::generate_trunk(){
 	root = new Branch(nullptr, position, vec3(0.f, 1.f, 0.f));
 //    root->radius = 15;
 	branches.push_back(root);
+    live_branches.push_back(root);
+
 
 /*	Branch* current = new Branch(root, vec3(position.x, position.y + branch_length*10, position.z), vec3(0.f, 1.f, 0.f));
     current->radius = 15;
@@ -97,11 +99,7 @@ void Tree::generate_trunk(){
 }
 
 int r = 0;
-void Tree::grow(){
-    if (attraction_points.empty()) { 
-        return; 
-    }
-
+bool Tree::grow(){
     for (int i = 0; i < attraction_points.size(); ++i) {
     	AttractionPoint* attraction_point = attraction_points[i];
 
@@ -110,7 +108,7 @@ void Tree::grow(){
 
         bool attraction_point_killed = false;
 
-		for (Branch* b  : branches){
+		for (Branch* b  : live_branches){
             direction = attraction_point->position - b->position;
             float distance = length(direction);
             direction = normalize(direction);
@@ -140,7 +138,8 @@ void Tree::grow(){
     }
 
     std::vector<Branch*> new_branches;
-    for (Branch* b : branches){
+    for (int i=0;i<live_branches.size();i++){
+        Branch* b = live_branches[i];
         if (b->grow_count > 0){
         	//std::cout << "Add branch, grow count:" << b->grow_count << "\n";
 
@@ -172,12 +171,18 @@ void Tree::grow(){
             	parent->radius += radius_growth;
             	parent = parent->parent;
             }
+        } else {
+            if (b->lifespan-- < 0){
+                live_branches.erase(live_branches.begin()+i);
+                ++i;
+            }
         }
 
     }
 
     for (Branch* nb : new_branches){
         branches.push_back(nb);
+        live_branches.push_back(nb);
     }
 
 
@@ -187,6 +192,7 @@ void Tree::grow(){
             delete l;
         }
     	attraction_points.clear();
+        return false;
        /* for (Branch* b : branches){
             delete b;
         }
@@ -194,6 +200,8 @@ void Tree::grow(){
         generate_crown();
         generate_trunk();*/
     }
+
+    return true;
 }
 
 

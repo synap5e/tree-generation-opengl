@@ -34,8 +34,8 @@ private:
 	float branch_length 		= 2.f;
 
 	// actual distance is * branch_length
-	float kill_distance 		= 2;
-	float influence_distance 	= 10;
+	float kill_distance 		= 0.5;
+	float influence_distance 	= 20;
 
 	float initial_radius 		= 0.01;
 	float radius_growth 		= 0.005;
@@ -50,13 +50,15 @@ private:
 	std::vector<AttractionPoint*> attraction_points;
     std::vector<Branch*> branches;
 
+	std::vector<Branch*> live_branches;    
+
 	void generate_crown();
 	void generate_trunk();
 
 public:
 	Tree();
 
-	void grow();
+	bool grow();
 	//void draw(BranchShader bs, AttractionPointShader ls);
 	//void render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type);
 
