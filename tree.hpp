@@ -26,20 +26,6 @@ class Tree{
 private:
 	vec3 position;
 
-	float radius 				= 200.f;
-	float height 				= 300.f;
-	float trunk_height 			= 50.f;
-
-	int attraction_point_count 	= 2000;
-	float branch_length 		= 2.f;
-
-	// actual distance is * branch_length
-	float kill_distance 		= 0.5;
-	float influence_distance 	= 20;
-
-	float initial_radius 		= 0.01;
-	float radius_growth 		= 0.005;
-
 	// how much wieght is given to the branches existing direction
 	// as opposed to the pull from the attraction points
 	float soft_bends_weight = 3;
@@ -56,6 +42,22 @@ private:
 	void generate_trunk();
 
 public:
+	float radius 				= 200.f;
+	float height 				= 300.f;
+	float trunk_height 			= 50.f;
+
+	int attraction_point_count 	= 2000;
+	float branch_length 		= 2.f;
+
+	// actual distance is * branch_length
+	float kill_distance 		= 1;
+	float influence_distance 	= 10;
+
+	float initial_radius 		= 0.01;
+	float radius_growth 		= 0.005;
+	float leaf_twig_max_size  	= 0.02;
+
+
 	Tree();
 
 	bool grow();

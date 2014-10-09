@@ -16,7 +16,10 @@ out vec3 geom_color;
 
 void main() {
    
-    geom_color = vec3(0.9,0.2,0.8);
+    geom_color = vec3(0.2,0.9,0.4);
+    if (size[0] > 1.9){
+        geom_color = vec3(0.9,0.2,0.8);
+    }
 
     vec4 pos = mvp[0] * gl_in[0].gl_Position;
 

@@ -47,11 +47,13 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
             indexs.push_back(b->parent->index);
             indexs.push_back(b->index);
             indexs.push_back(0); // next adjacent is unused
+
+            if (b->radius < tree->leaf_twig_max_size){
+                leaf_location_index.push_back(b->index);
+            }
         }
 
-        if (b->radius < tree->leaf_twig_max_size){
-            leaf_location_index.push_back(b->index);
-        }
+       
     }
 
     branch_shader.activate();
@@ -87,16 +89,52 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     
     glDeleteBuffers(1, &size_vbo);
     glDeleteBuffers(1, &element_buffer);
+    glDeleteBuffers(1, &vertex_vbo);
 
 
     //TODO: USE glDrawArraysInstanced/glDrawElementsInstanced to draw leaves
     // leaf_location_index indexes the verticies in vertex_vbo at positions to draw leaves
 
 
+    // begin test code 
+
+    GLuint vao;
+    std::vector<vec3> verts2;
+    sizes.clear();
+    for (unsigned int idx : leaf_location_index){
+        verts2.push_back(verts[idx]);
+        sizes.push_back(1.5f);
+    }
+    point_shader.activate();
+
+    glGenBuffers (1, &vertex_vbo);
+    glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
+    glBufferData (GL_ARRAY_BUFFER, verts2.size() * sizeof (vec3), &verts2[0], GL_STATIC_DRAW);
+
+    glGenBuffers (1, &size_vbo);
+    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
+    glBufferData (GL_ARRAY_BUFFER, sizes.size() * sizeof (float), &sizes[0], GL_STATIC_DRAW);
+
+    glGenVertexArrays (1, &vao);
+    glBindVertexArray (vao);
+    
+    glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
+    glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
+    glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    glEnableVertexAttribArray (0);
+    glEnableVertexAttribArray (1);
+    glDrawArrays (GL_POINTS, 0, verts.size());
+
     glDeleteBuffers(1, &vertex_vbo);
+    glDeleteBuffers(1, &size_vbo);
+    glDeleteBuffers(1, &vao);
 
 
-    return;
+
+    // end test code
 
    	verts.clear();
    	sizes.clear();
@@ -105,8 +143,6 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     	sizes.push_back(2.f);
     }
     point_shader.activate();
-    
-    GLuint vao;
 
     glGenBuffers (1, &vertex_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
@@ -133,11 +169,5 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     glDeleteBuffers(1, &size_vbo);
     glDeleteBuffers(1, &vao);
 
-/*
-
-}
-
-
-   tree->draw(branch_shader, point_shader);*/
 }
 
