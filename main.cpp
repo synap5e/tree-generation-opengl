@@ -11,6 +11,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <atomic>
 //#include <chrono>
 #include <thread>
 
@@ -19,7 +20,12 @@
 UserInterface interface;
 Tree *tree;
 TreeRenderer *renderer;
-bool simulate = true;
+
+//float model_update_fps = 10;
+std::atomic<bool> simulate;
+std::atomic<bool> regenerate_display;
+std::atomic<bool> updating;
+
 
 static void error_callback(int error, const char* description){
 	fputs(description, stderr);
@@ -58,33 +64,18 @@ static void scroll_callback(GLFWwindow* window, double x, double y){
 	interface.scroll(y);
 }
 
-#define MAXSAMPLES 100
-int tickindex=0;
-int ticksum=0;
-int ticklist[MAXSAMPLES];
-
-double get_fps(int newtick)
-{
-    ticksum-=ticklist[tickindex];  /* subtract value falling off */
-    ticksum+=newtick;              /* add new value */
-    ticklist[tickindex]=newtick;   /* save new value so it can be subtracted later */
-    if(++tickindex==MAXSAMPLES)    /* inc buffer index */
-        tickindex=0;
-
-    /* return average */
-    return((double)ticksum/MAXSAMPLES);
-}
-
-
-static int throttle = 0;
 static void run_simulation(){
-	while (simulate && tree->grow()){
-		if (throttle > 0){
-			std::chrono::milliseconds dura(throttle);
-			std::this_thread::sleep_for( dura );
+	while (simulate){
+		updating = true;
+		if (!tree->grow()){
+			updating = false;
+			std::cout << "Tree growth finished\n";
+			break;
 		}
+		updating = false;
+		while (regenerate_display && simulate);
 	}
-	std::cout << "Tree growth finished\n";
+	std::cout << "Simulation thread ending\n";
 }
 
 void render(int pixelWidth, int pixelHeight){
@@ -103,8 +94,11 @@ void render(int pixelWidth, int pixelHeight){
         1000.0f
     );
 
+    /*if (regenerate_display){
+    	renderer->regenerate();
+    	regenerate_display = false;
+    }*/
     renderer->render(projection, interface.view);
-
 }
 
 
@@ -208,7 +202,7 @@ int main(void)
 	glClearColor(0.9f, 0.9f, 0.87f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
 
 	GLenum err;
@@ -219,49 +213,40 @@ int main(void)
 
 	tree = new Tree();
 	renderer = new TreeRenderer(tree);
+	simulate = true;
+	regenerate_display = false;
+	updating = false;
+	renderer->regenerate();
+
 
 	std::thread simulation(run_simulation);
 
-/*	std::chrono::duration<double> t(0.0);
-	std::chrono::duration<double> dt(0.1);
-	std::chrono::duration<double> accumulator(0.0);
-
-	std::chrono::time_point<std::chrono::system_clock> currentTime, newTime;
-	currentTime = std::chrono::system_clock::now();
-
-
-	
-	while (!glfwWindowShouldClose(window))
-	{
-		newTime = std::chrono::system_clock::now();
-		std::chrono::duration<double> elapsed_seconds = newTime - currentTime;
-		currentTime = newTime;
-		accumulator += elapsed_seconds;
-
-		//Simulation
-		while (accumulator >= dt)
-		{
-			g_simulation.simulation_step((float)dt.count());
-			accumulator -= dt;
-			t += dt;
-		}*/
-
-		//Render
-
 	double fps = 60;
-	double last, now, delta;
-	last = glfwGetTime();
+	double model_fps = 15;
+	double last_render_frame, last_model_frame, now, frame_delta, model_delta;
+	last_render_frame = last_model_frame = glfwGetTime();
 	while (!glfwWindowShouldClose(window)){
 		now = glfwGetTime();
-		delta = now - last;
-		//std::cout << delta << "\n";
-		if (delta < 1./fps){
-			std::chrono::milliseconds dura(int(1000 * (1./fps - delta)));
+		frame_delta = now - last_render_frame;
+		model_delta = now - last_model_frame;
+
+		//std::cout << frame_delta << "\n";
+		if (frame_delta < 1./fps){
+			std::chrono::milliseconds dura(int(1000 * (1./fps - frame_delta)));
 			std::this_thread::sleep_for( dura );
 			continue;
 		}
 
-		last = now;
+		last_render_frame = now;
+
+		if (model_delta > 1./model_fps){
+			regenerate_display = true;
+			while (updating);
+			// update thread is now waiting for regenerate_display to go false
+			renderer->regenerate();
+	    	regenerate_display = false;
+	    	last_model_frame = now;
+		}
 
 		calcFPS(window);
 
@@ -283,7 +268,9 @@ int main(void)
 	}
 
 	//Main loop has exited, clean up
+	std::cout << "simulate = false\n";
 	simulate = false;
+	std::cout << simulate << "\n";
 	simulation.join();
 	std::cout << "Simulation thread ended" << std::endl;
 
