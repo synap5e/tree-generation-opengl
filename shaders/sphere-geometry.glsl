@@ -28,7 +28,7 @@ void main() {
 
         vec4 offset = vec4(cos(ang), -sin(ang), 0, 0);
         normal = mix(vec3(0,0,1), offset.xyz, 0.8);
-        gl_Position = pos + offset * size[0];
+        gl_Position = pos + offset * size[0] * 10;
         EmitVertex();
 
         normal = vec3(0,0,1);
