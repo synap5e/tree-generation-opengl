@@ -38,6 +38,13 @@ public:
     void load();
 };
 
+class BranchShadowShader : public Shader {
+
+public:
+    void load();
+};
+
+
 class AttractionPointShader : public Shader {
 
 public:
