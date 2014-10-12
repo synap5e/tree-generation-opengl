@@ -51,8 +51,8 @@ void UserInterface::key_handler(int key, int scancode, int action, int mods) {
 void UserInterface::mouse_drag(double x, double y){
     double ox = xrot;
 
-    xrot -= y*radius / 1000;
-    yrot -= x*radius / 1000;
+    xrot -= y / 10;
+    yrot -= x / 10;
 
 //    printf("%f, %f, %f\n", xrot, yrot, radius);
 

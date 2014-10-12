@@ -204,7 +204,7 @@ int main(void)
 	glClearColor(0.9f, 0.9f, 0.87f, 0.0f);
 
 	glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LESS);
 
 	GLenum err;

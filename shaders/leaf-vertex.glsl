@@ -1,8 +1,9 @@
 #version 400
 
 layout(location = 0) in vec3 vertex_position;
-layout(location = 1) in vec3 vertex_colour_in;
-layout(location = 2) in vec3 vertex_offset;
+layout(location = 1) in vec3 vertex_colour;
+layout(location = 2) in vec3 vertex_normal;
+layout(location = 3) in vec3 vertex_offset;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -14,11 +15,11 @@ out vec3 normal;
 void main() {
 	mat4 mv = view * model;
 
-	//normal_matrix = mat3( vec3(mv[0]), vec3(mv[1]), vec3(mv[2]) );
+	mat3 normal_matrix = mat3( vec3(mv[0]), vec3(mv[1]), vec3(mv[2]) );
 	mat4 mvp = projection * mv;
 
-	normal = vec3(0,0,1);
-	geom_color = vertex_colour_in;//vec3(1,0,0);//vertex_colour;
+	normal = normal_matrix * vertex_normal;
+	geom_color = vertex_colour;//vec3(1,0,0);//vertex_colour;
 
 /* 	if (gl_InstanceID == 0){
 		vp2 = vec3(0, 0, 0);

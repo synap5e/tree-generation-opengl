@@ -70,6 +70,10 @@ void TreeRenderer::regenerate(){
     glBufferData (GL_ELEMENT_ARRAY_BUFFER, leaf_location_indexes.size() * sizeof (unsigned int), &leaf_location_indexes[0], GL_STATIC_DRAW);
     leaf_elements.size = leaf_location_indexes.size();*/
 
+    /*leaf_locations.clear();
+    leaf_locations.push_back(vec3(0,95,0));*/
+
+
     glGenBuffers (1, &(leaf_elements.element_buffer));
     glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
     glBufferData (GL_ARRAY_BUFFER, leaf_locations.size() * sizeof (vec3), &leaf_locations[0], GL_STATIC_DRAW);
@@ -110,10 +114,10 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     leaf_shader.set_projection(projection);
     leaf_model.bind();
 
-    glEnableVertexAttribArray(2);
+    glEnableVertexAttribArray(3);
     glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
-    glVertexAttribPointer (2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    glVertexAttribDivisor(2, 1);
+    glVertexAttribPointer (3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribDivisor(3, 1);
     glDrawArraysInstanced(GL_TRIANGLES, 0, leaf_model.size, leaf_elements.size);
 
 

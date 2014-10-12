@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"ps",
+				"pstep"
+			],
+			[
+				"po",
+				"point_shader"
+			],
+			[
 				"lea",
 				"leaf_locations"
 			],
@@ -122,10 +130,6 @@
 			[
 				"to",
 				"to_string"
-			],
-			[
-				"ps",
-				"push_back"
 			],
 			[
 				"leav",
@@ -250,10 +254,6 @@
 			[
 				"of",
 				"ofilename"
-			],
-			[
-				"po",
-				"position_to_light"
 			],
 			[
 				"GL",
@@ -523,7 +523,7 @@
 			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 7162,
+				"buffer_size": 8319,
 				"line_ending": "Unix"
 			}
 		},
@@ -536,10 +536,13 @@
 			}
 		},
 		{
+			"contents": "#include \"tree.hpp\"\n\n#include \"random.hpp\"\n#include \"glm/gtx/string_cast.hpp\"\n\nTree::Tree(){\n	generate_crown();\n	generate_trunk();\n}\n\n\nvoid Tree::generate_crown(){\n	position = vec3(0,0,0);\n\n    float PI = 3.141592653589793f;\n\n    /*\n\n    The unit teardrop is defined by \n    x = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi)\n    y = 0.5 * (1-cosf(theta))\n    z = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi)\n\n    0 <= theta <= 2pi\n    0 <= phi <= pi\n\n    so\n\n    choose a y from [0,1]\n    theta = acos(1-2y)\n    choose a phi [0,pi]\n    \n    */\n\n    for (int i=0; i<attraction_point_count; ++i){\n        float yu = RandomGen::get(0, 1);\n        \n        float theta = acosf(1-2*yu);\n        float phi = RandomGen::get(0, PI);\n\n        float xrad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);\n        float zrad = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi);\n       \n        vec3 location = vec3(   RandomGen::get(-xrad, xrad) * radius,\n                                yu * height,\n                                RandomGen::get(-zrad, zrad) * radius);\n        attraction_points.push_back(new AttractionPoint(location));\n\n/*        vec3 location = vec3(   xrad,\n                                yu*2,\n                                zrad) * 100.f;\n        attraction_points.push_back(new AttractionPoint(location));\n\n        location = vec3(-xrad,\n                        yu*2,\n                        -zrad) * 100.f;\n        attraction_points.push_back(new AttractionPoint(location));*/\n\n    }\n\n}\n\nvoid Tree::generate_trunk(){\n	root = new Branch(nullptr, position, vec3(0.f, 1.f, 0.f));\n//    root->radius = 15;\n	branches.push_back(root);\n    live_branches.push_back(root);\n\n\n/*	Branch* current = new Branch(root, vec3(position.x, position.y + branch_length*10, position.z), vec3(0.f, 1.f, 0.f));\n    current->radius = 15;\n	branches.push_back(current);\n\n    current = new Branch(current, vec3(position.x-20, position.y + branch_length*50, position.z), vec3(0.f, 1.f, 0.f));\n    current->radius = 15;\n    branches.push_back(current);\n\n    current = new Branch(current, vec3(position.x + 20, position.y + branch_length*100, position.z), vec3(0.f, 1.f, 0.f));\n    current->radius = 15;\n    branches.push_back(current);*/\n\n    /*\n\n	while (length(root->position - current->position) < trunk_height) {\n	    Branch* trunk = new Branch(current, vec3(current->position.x, current->position.y + branch_length, current->position.z), vec3(0.f, 1.f, 0.f));\n        trunk->radius = initial_radius;// * (trunk_height / branch_length);\n	    current = trunk; \n	    //std::cout << \"insert at \" << to_string(current->position) << \"\\n\";\n	    branches.push_back(current);\n	}   */\n\n	/*printf(\"{\\n\");\n	for (Branch* b : branches){\n		std::cout << \"\\t\" << to_string(b->position) << \" : \" << (void*)*(&b) << \"\\n\";\n		//Branch* b = kv.second;\n\n	}\n	std::cout << \"}\\n\";*/\n}\n\nint r = 0;\nbool Tree::grow(){\n    for (int i = 0; i < attraction_points.size(); ++i) {\n    	AttractionPoint* attraction_point = attraction_points[i];\n\n        attraction_point->closest = nullptr;\n        vec3 direction;\n\n        bool attraction_point_killed = false;\n\n		for (Branch* b  : live_branches){\n            direction = attraction_point->position - b->position;\n            float distance = length(direction);\n            direction = normalize(direction);\n\n\n            if (distance < kill_distance * branch_length){\n            	//printf(\"eat attraction_point\\n\");\n                attraction_points.erase(attraction_points.begin()+i);                        \n                i--;\n                attraction_point_killed = true;\n                break;\n            } else if (distance < influence_distance * branch_length\n            		   && ( attraction_point->closest == nullptr\n            			 || length(attraction_point->position - attraction_point->closest->position) > distance)){\n                    attraction_point->closest = b;\n            }\n        }\n        \n\n        if (!attraction_point_killed && attraction_point->closest) {\n            vec3 dir = attraction_point->position - attraction_point->closest->position;\n            dir = normalize(dir);\n            attraction_point->closest->grow_direction += dir;\n            attraction_point->closest->grow_count++;\n        }\n        \n    }\n\n    std::vector<Branch*> new_branches;\n    for (int i=0;i<live_branches.size();i++){\n        Branch* b = live_branches[i];\n        if (b->grow_count > 0){\n        	//std::cout << \"Add branch, grow count:\" << b->grow_count << \"\\n\";\n\n            vec3 avgDirection = b->grow_direction / float(b->grow_count+soft_bends_weight);\n            avgDirection = normalize(avgDirection);\n\n            b->grow_direction = b->original_grow_direction*float(soft_bends_weight);\n            b->grow_count = 0;\n\n            /*if (RandomGen::get(0, 2) > 1){\n                continue;\n            }*/\n\n\n			vec3 new_pos = b->position + avgDirection * branch_length;\n\n			if (std::find(branch_locations.begin(), branch_locations.end(), new_pos)!=branch_locations.end()){\n				continue;\n			}\n			branch_locations.push_back(new_pos);\n\n            Branch* newBranch = new Branch(b, new_pos, avgDirection);\n            new_branches.push_back(newBranch);\n            newBranch->radius = initial_radius;\n\n            int pc = 0;\n            Branch *parent = b;\n            while (parent){\n            	parent->radius += radius_growth;\n            	parent = parent->parent;\n            }\n        } else {\n            if (b->lifespan-- < 0){\n                live_branches.erase(live_branches.begin()+i);\n                ++i;\n            }\n        }\n\n    }\n\n    for (Branch* nb : new_branches){\n        branches.push_back(nb);\n        live_branches.push_back(nb);\n    }\n\n\n    if (new_branches.empty()){\n        //return;\n        for (AttractionPoint* l : attraction_points){\n            delete l;\n        }\n    	attraction_points.clear();\n        return false;\n       /* for (Branch* b : branches){\n            delete b;\n        }\n        branches.clear();\n        generate_crown();\n        generate_trunk();*/\n    }\n\n    return true;\n}\n\n\nstd::vector<AttractionPoint*> Tree::get_attraction_points(){\n    return attraction_points; \n};\n\nstd::vector<Branch*> Tree::get_branches(){\n    return branches;\n};\n",
 			"file": "tree.cpp",
+			"file_size": 6198,
+			"file_write_time": 130573656859047766,
 			"settings":
 			{
-				"buffer_size": 6198,
+				"buffer_size": 6236,
 				"line_ending": "Unix"
 			}
 		},
@@ -555,7 +558,7 @@
 			"file": "treerenderer.hpp",
 			"settings":
 			{
-				"buffer_size": 716,
+				"buffer_size": 714,
 				"line_ending": "Unix"
 			}
 		},
@@ -563,7 +566,7 @@
 			"file": "treerenderer.cpp",
 			"settings":
 			{
-				"buffer_size": 5451,
+				"buffer_size": 6095,
 				"line_ending": "Unix"
 			}
 		},
@@ -571,15 +574,18 @@
 			"file": "leafmodel.hpp",
 			"settings":
 			{
-				"buffer_size": 103,
+				"buffer_size": 265,
 				"line_ending": "Unix"
 			}
 		},
 		{
+			"contents": "#include \"leafmodel.hpp\"\n\nLeafModel::LeafModel(){\n	std::vector<vec3> points;\n	std::vector<vec3> colors;\n\n/*	points.push_back(vec3(0,	0.5,	0));\n	points.push_back(vec3(-0.5,	-0.5,	0));\n	points.push_back(vec3(0.5,	-0.5,	0));\n	\n	colors.push_back(vec3(1.0f, 0.0f,  0.0f));\n	colors.push_back(vec3(0.0f, 1.0f,  0.0f));\n	colors.push_back(vec3(0.0f, 0.0f,  1.0f));*/\n\n	float PI = 3.141592653589793f;\n\n	float ystep = 0.01;\n	for (float yu=0;yu<1;yu+=ystep){\n		float yn = yu + ystep;\n\n		float theta = acosf(1-2*yu);\n		float thetan = acosf(1-2*yn);\n\n		float pstep = PI/10.;\n		for (float phi=0; phi<PI; phi+=)\n	    	float phin = phi + pstep;\n\n	    float xu = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);\n	    float zu = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi);\n\n	}\n	/*float yu = RandomGen::get(0, 1);\n        \n    float theta = acosf(1-2*yu);\n    float phi = RandomGen::get(0, PI);\n\n    float xrad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);\n    float zrad = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi);*/\n\n\n\n\n\n	\n	glGenBuffers (1, &points_vbo);\n	glBindBuffer (GL_ARRAY_BUFFER, points_vbo);\n	glBufferData (GL_ARRAY_BUFFER, points.size() * sizeof(vec3), &points[0], GL_STATIC_DRAW);\n	\n	glGenBuffers (1, &colours_vbo);\n	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);\n	glBufferData (GL_ARRAY_BUFFER, colors.size() * sizeof(vec3), &colors[0], GL_STATIC_DRAW);\n	\n	glGenVertexArrays (1, &vao);\n	glBindVertexArray (vao);\n	glBindBuffer (GL_ARRAY_BUFFER, points_vbo);\n	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);\n	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);\n	glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 0, NULL);\n\n	size = points.size();\n}\n\nvoid LeafModel::bind(){\n	glBindVertexArray (vao);\n	glBindBuffer (GL_ARRAY_BUFFER, points_vbo);\n	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);\n	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);\n	glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 0, NULL);\n    glEnableVertexAttribArray (0);\n    glEnableVertexAttribArray (1);\n}\n",
 			"file": "leafmodel.cpp",
+			"file_size": 1878,
+			"file_write_time": 130575808756688537,
 			"settings":
 			{
-				"buffer_size": 1471,
+				"buffer_size": 1991,
 				"line_ending": "Unix"
 			}
 		},
@@ -595,7 +601,15 @@
 			"file": "shader.cpp",
 			"settings":
 			{
-				"buffer_size": 3595,
+				"buffer_size": 3876,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/basic-vertex.glsl",
+			"settings":
+			{
+				"buffer_size": 619,
 				"line_ending": "Unix"
 			}
 		},
@@ -609,27 +623,27 @@
 			}
 		},
 		{
-			"file": "shaders/basic-vertex.glsl",
-			"settings":
-			{
-				"buffer_size": 619,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "shaders/leaf-vertex.glsl",
 			"settings":
 			{
-				"buffer_size": 735,
+				"buffer_size": 750,
 				"line_ending": "Unix",
 				"name": "layout(location = 0) in vec3 vertex_position;"
 			}
 		},
 		{
-			"file": "shaders/sphere-geometry.glsl",
+			"file": "shaders/leaf-debug-vertex.glsl",
 			"settings":
 			{
-				"buffer_size": 810,
+				"buffer_size": 783,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/leaf-debug-geometry.glsl",
+			"settings":
+			{
+				"buffer_size": 1246,
 				"line_ending": "Unix"
 			}
 		},
@@ -638,6 +652,14 @@
 			"settings":
 			{
 				"buffer_size": 437,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shaders/sphere-geometry.glsl",
+			"settings":
+			{
+				"buffer_size": 862,
 				"line_ending": "Unix"
 			}
 		}
@@ -946,6 +968,10 @@
 	},
 	"file_history":
 	[
+		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/main.cpp",
+		"/home/simon/workspace/comp-308-project/shaders/basic-vertex-debug.glsl",
+		"/home/simon/workspace/comp-308-project/shaders/debug-leaf.glsl",
+		"/home/simon/workspace/comp-308-project/test.cpp",
 		"/home/simon/workspace/comp-308-project/userinterface.cpp",
 		"/home/simon/workspace/comp-308-project/userinterface.hpp",
 		"/home/simon/workspace/comp-308-project/random.cpp",
@@ -993,7 +1019,6 @@
 		"/home/simon/workspace/comp-308-project/thing.hpp",
 		"/home/simon/workspace/comp-308-project/thing.cpp",
 		"/home/simon/workspace/comp-308-project/glHeaders.hpp",
-		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/main.cpp",
 		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/test_vs.glsl",
 		"/tmp/antons_opengl_tutorials_book/03_vertex_buffer_objects/test_fs.glsl",
 		"/home/simon/workspace/comp-308-project/vboutils.cpp",
@@ -1070,10 +1095,7 @@
 		"/home/simon/workspace/comp-308-assignment-3/quaternion.h",
 		"/home/simon/workspace/comp-308-assignment-3/Roations.hpp",
 		"/home/simon/workspace/comp-308-assignment-3/out.txt",
-		"/home/simon/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/simon/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
-		"/home/simon/workspace/comp-308-assignment-2/Skeleton.hpp",
-		"/home/simon/workspace/comp-308-assignment-3/Motion.cpp"
+		"/home/simon/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap"
 	],
 	"find":
 	{
@@ -1091,6 +1113,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"cev3",
+			"50",
+			"normal",
+			"geom_color",
+			"0.5f",
+			"vertex_normal",
+			"vertex_color",
+			"1",
+			"geom_color",
+			"size[0]",
+			"vec3",
+			"p2",
 			"(void*)0",
 			"verts",
 			"vertex_vbo",
@@ -1206,19 +1240,7 @@
 			"branch_shader",
 			"&lt;&lt",
 			"    ",
-			"   ",
-			"radii",
-			"glm::",
-			"radii",
-			"-",
-			"radius",
-			"BranchShader",
-			"insert(std::pair<vec3,Branch*>(.*->position, ",
-			"b.",
-			"BranchLength",
-			"closest.",
-			"remove",
-			"b."
+			"   "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1364,7 +1386,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -1373,15 +1395,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7162,
+						"buffer_size": 8319,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5439,
-								5439
+								6438,
+								6438
 							]
 						],
 						"settings":
@@ -1391,10 +1413,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3222.0,
+						"translation.y": 3942.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
@@ -1420,7 +1442,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 342.0,
+						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 14,
@@ -1432,15 +1454,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6198,
+						"buffer_size": 6236,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								92,
-								92
+								194,
+								194
 							]
 						],
 						"settings":
@@ -1453,7 +1475,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1482,7 +1504,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -1491,15 +1513,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 716,
+						"buffer_size": 714,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								598,
-								598
+								142,
+								142
 							]
 						],
 						"settings":
@@ -1510,7 +1532,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1519,15 +1541,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5451,
+						"buffer_size": 6095,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4243,
-								4243
+								4994,
+								4994
 							]
 						],
 						"settings":
@@ -1538,10 +1560,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1512.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1550,44 +1572,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 103,
+						"buffer_size": 265,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								24,
-								24
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "leafmodel.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1471,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								85,
-								85
+								105,
+								105
 							]
 						],
 						"settings":
@@ -1600,6 +1593,36 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "leafmodel.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1991,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								880,
+								880
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -1625,11 +1648,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
-						"translation.y": 216.0,
+						"translation.x": 0.0,
+						"translation.y": 165.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -1638,15 +1661,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3595,
+						"buffer_size": 3876,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3342,
-								3342
+								3190,
+								3190
 							]
 						],
 						"settings":
@@ -1656,45 +1679,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1404.0,
+						"translation.y": 1335.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "shaders/branch-geometry.glsl",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1882,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								202,
-								202
-							]
-						],
-						"settings":
-						{
-							"auto_name": "layout(points) in;",
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
 					"file": "shaders/basic-vertex.glsl",
 					"semi_transient": false,
 					"settings":
@@ -1706,13 +1698,74 @@
 						"selection":
 						[
 							[
-								401,
-								401
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "shaders/branch-geometry.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1882,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1478,
+								1478
+							]
+						],
+						"settings":
+						{
+							"auto_name": "layout(points) in;",
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "shaders/leaf-vertex.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 750,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								740,
+								740
+							]
+						],
+						"settings":
+						{
+							"auto_name": "layout(location = 0) in vec3 vertex_position;",
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1722,49 +1775,49 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-					"file": "shaders/leaf-vertex.glsl",
+					"buffer": 13,
+					"file": "shaders/leaf-debug-vertex.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 735,
+						"buffer_size": 783,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								488,
-								488
+								733,
+								733
 							]
 						],
 						"settings":
 						{
-							"auto_name": "layout(location = 0) in vec3 vertex_position;",
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "shaders/sphere-geometry.glsl",
+					"buffer": 14,
+					"file": "shaders/leaf-debug-geometry.glsl",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 810,
+						"buffer_size": 1246,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								625,
-								625
+								240,
+								240
 							]
 						],
 						"settings":
@@ -1777,11 +1830,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 15,
 					"file": "shaders/basic-fragment.glsl",
 					"semi_transient": false,
 					"settings":
@@ -1793,8 +1846,8 @@
 						"selection":
 						[
 							[
-								400,
-								400
+								32,
+								32
 							]
 						],
 						"settings":
@@ -1805,7 +1858,37 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "shaders/sphere-geometry.glsl",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 862,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								283,
+								283
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
