@@ -2,8 +2,8 @@
 
 TreeRenderer::TreeRenderer(Tree* _tree): tree(_tree){
 	branch_shader.load();
-	point_shader.load();
-
+	leaf_shader.load();
+    point_shader.load();
 }
 
 void TreeRenderer::regenerate(){
@@ -17,6 +17,7 @@ void TreeRenderer::regenerate(){
 
 
     std::vector<vec3> verts;
+    std::vector<vec3> leaf_locations;
     std::vector<float> branch_radius;
     //std::vector<float> branch_radius;
     std::vector<unsigned int> indexs;
@@ -40,6 +41,7 @@ void TreeRenderer::regenerate(){
             indexs.push_back(0); // next adjacent is unused
 
             if (b->radius < tree->leaf_twig_max_size){
+                leaf_locations.push_back(b->position);
                 leaf_location_indexes.push_back(b->index);
             }
         }
@@ -63,10 +65,15 @@ void TreeRenderer::regenerate(){
     branch_elements.size = indexs.size();   
 
     // generate leaf element buffer
-    glGenBuffers (1, &leaf_elements.element_buffer);
+    /*glGenBuffers (1, &(leaf_elements.element_buffer));
     glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, leaf_elements.element_buffer);
     glBufferData (GL_ELEMENT_ARRAY_BUFFER, leaf_location_indexes.size() * sizeof (unsigned int), &leaf_location_indexes[0], GL_STATIC_DRAW);
-    leaf_elements.size = leaf_location_indexes.size();
+    leaf_elements.size = leaf_location_indexes.size();*/
+
+    glGenBuffers (1, &(leaf_elements.element_buffer));
+    glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
+    glBufferData (GL_ARRAY_BUFFER, leaf_locations.size() * sizeof (vec3), &leaf_locations[0], GL_STATIC_DRAW);
+    leaf_elements.size = leaf_locations.size();
 
 }
 
@@ -92,18 +99,48 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     branch_shader.set_view(view);
     branch_shader.set_projection(projection);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, branch_elements.element_buffer);
-    glDrawElements (GL_LINES_ADJACENCY, branch_elements.size, GL_UNSIGNED_INT, (void*)0);
+    glDrawElements (GL_LINES_ADJACENCY, branch_elements.size, GL_UNSIGNED_INT, NULL);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
+    //leaf_shader.load();
+    leaf_shader.activate();
+    leaf_shader.set_model(model);
+    leaf_shader.set_view(view);
+    leaf_shader.set_projection(projection);
+    leaf_model.bind();
+
+    glEnableVertexAttribArray(2);
+    glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
+    glVertexAttribPointer (2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribDivisor(2, 1);
+    glDrawArraysInstanced(GL_TRIANGLES, 0, leaf_model.size, leaf_elements.size);
+
+
+     return;}/*
 
     point_shader.activate();
     point_shader.set_model(model);
     point_shader.set_view(view);
     point_shader.set_projection(projection);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, leaf_elements.element_buffer);
-    glDrawElements (GL_POINTS, leaf_elements.size, GL_UNSIGNED_INT, (void*)0);
+    glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
+    glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
+    glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
+    glDrawArrays (GL_POINTS, 0, leaf_elements.size);
 
-    return;}/*
+
+/*    glEnableVertexAttribArray (2);
+    glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
+    glVertexAttribPointer (2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribDivisor(2, leaf_model.size);*/
+
+//    glDrawArrays (GL_TRIANGLES, 0, 3);
+//    glDrawArrays (GL_TRIANGLES, 0, leaf_model.size);
+    //glBindVertexArray(0);
+    /*
+
+   
 
    	verts.clear();
    	sizes.clear();

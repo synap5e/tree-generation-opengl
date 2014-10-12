@@ -54,6 +54,8 @@ void UserInterface::mouse_drag(double x, double y){
     xrot -= y*radius / 1000;
     yrot -= x*radius / 1000;
 
+//    printf("%f, %f, %f\n", xrot, yrot, radius);
+
     if (xrot >= 180) xrot = ox;
     if (xrot < 0) xrot = ox;
 

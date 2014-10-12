@@ -1,6 +1,8 @@
 #pragma once  
 
+#include "glHeaders.hpp"
 #include "tree.hpp"
+#include "leafmodel.hpp"
 #include "shader.hpp"
 
 #include <vector>
@@ -19,9 +21,11 @@ private:
 	} ElementGroup;
 
 	Tree* tree;
+	LeafModel leaf_model;
+
 	BranchShader branch_shader;
 	AttractionPointShader point_shader;
-
+	LeafShader leaf_shader;
     
     GLuint vertex_vbo; 
     GLuint size_vbo;

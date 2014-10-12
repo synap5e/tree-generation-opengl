@@ -44,6 +44,13 @@ public:
     void load();
 };
 
+class LeafShader : public Shader {
+
+public:
+    void load();
+};
+
+
 
 class AttractionPointShader : public Shader {
 

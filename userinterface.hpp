@@ -16,6 +16,11 @@ private:
 	float yrot = 0;
 	float radius = 300;
 
+/*	//124.899925, 47.431683, 14.000000
+	float xrot = 124.899925;
+	float yrot = 47.431683;
+	float radius = 14.000000;*/
+
 /*	Tree *tree;
 	TreeRenderer *renderer;
 

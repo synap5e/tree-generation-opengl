@@ -103,11 +103,18 @@ void Shader::set_view(glm::mat4& mat){
 
 void BranchShader::load(){
     shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-geometry.glsl", "../shaders/basic-fragment.glsl");
+//    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-debug-geometry.glsl", "../shaders/basic-fragment.glsl");
     load_locations();
 }
 
 void BranchShadowShader::load(){
 
+}
+
+void LeafShader::load(){
+    shader_id = load_shaders("../shaders/leaf-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
+    //shader_id = load_shaders("../shaders/leaf-debug-vertex.glsl", "../shaders/leaf-debug-geometry.glsl", "../shaders/basic-fragment.glsl");
+    load_locations();
 }
 
 void AttractionPointShader::load(){
