@@ -1,28 +1,29 @@
 #include "leafmodel.hpp"
 
+typedef struct Triangle{
+	vec3 v1, v2, v3;
+} Triangle;
+
+vec3 get_normal(std::vector<Triangle> &tris){
+	vec3 total;
+	for (Triangle &tri : tris){
+		vec3 side1 = normalize(tri.v2 - tri.v1);
+		vec3 side2 = normalize(tri.v3 - tri.v1);
+
+		vec3 normal = normalize(cross(side1, side2));
+
+		total += normal;
+	}
+	return normalize(total / float(tris.size()))	;
+}
+
 LeafModel::LeafModel(){
 	std::vector<vec3> triangle_points;
 	std::vector<vec3> triangle_normals;
 
 	std::vector<vec3> colors;
 
-/*	triangle_points.push_back(vec3(0,	0.5,	0));
-	triangle_points.push_back(vec3(-0.5,	-0.5,	0));
-	triangle_points.push_back(vec3(0.5,	-0.5,	0));
-	
-	colors.push_back(vec3(1.0f, 0.0f,  0.0f));
-	colors.push_back(vec3(0.0f, 1.0f,  0.0f));
-	colors.push_back(vec3(0.0f, 0.0f,  1.0f));*/
-
-	float PI = 3.141592653589793f;
-
-	float ystep = 0.1;
-
-	int i = 75;
 	std::map<int, std::map<int, vec3>> points;
-
-	int x_steps = 20;
-	int z_steps = 2;
 
 	for (int x=0; x<=x_steps; ++x){
 		float u = ((PI * 2.f) / float(x_steps)) * x;
@@ -32,76 +33,112 @@ LeafModel::LeafModel(){
 
 			points[x][z] = vec3(/* x = */ (1.f-cosf(u)) * sinf(u) * cosf(v),
 							   	/* y = */ 2.5f * (1.f - cosf(u)),
-								/* z = */ 0.15f * sinf(u) * sinf(v));
+								/* z = */ 0.15f * sinf(u) * sinf(v)) * scale;
 		}
 	}
 
+	Triangle tri;
+	std::map<int, std::map<int, std::vector<Triangle>>> tris;
+
 	for (int x=0; x<x_steps; ++x){
 		for (int z=0; z<z_steps; ++z){
-
 			if (points[x][z].z >= 0){
 				// wind one way
-				triangle_points.push_back(points[x][z]);
-				triangle_normals.push_back(normalize(points[x][z]));
+				tri.v1 = points[x][z];
+				tri.v2 = points[x+1][z];
+				tri.v3 = points[x][z+1];
+				tris[x][z].push_back(tri);
+				tris[x+1][z].push_back(tri);
+				tris[x][z+1].push_back(tri);
 
-				triangle_points.push_back(points[x+1][z]);
-				triangle_normals.push_back(normalize(points[x+1][z]));
-
-				triangle_points.push_back(points[x][z+1]);
-				triangle_normals.push_back(normalize(points[x][z+1]));
-
-
-				triangle_points.push_back(points[x][z+1]);
-				triangle_normals.push_back(normalize(points[x][z+1]));
-
-				triangle_points.push_back(points[x+1][z]);
-				triangle_normals.push_back(normalize(points[x+1][z]));
-
-				triangle_points.push_back(points[x+1][z+1]);
-				triangle_normals.push_back(normalize(points[x+1][z+1]));
-
-
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-
+				tri.v1 = points[x][z+1];
+				tri.v2 = points[x+1][z];
+				tri.v3 = points[x+1][z+1];
+				tris[x][z+1].push_back(tri);
+				tris[x+1][z].push_back(tri);
+				tris[x+1][z+1].push_back(tri);
+				
 			}
 
 			if (points[x][z].z <= 0){
 				// wind the other
 
-				triangle_points.push_back(points[x][z+1]);
-				triangle_normals.push_back(normalize(points[x][z+1]));
+				tri.v1 = points[x][z+1];
+				tri.v2 = points[x+1][z];
+				tri.v3 = points[x][z];
+				tris[x][z+1].push_back(tri);
+				tris[x+1][z].push_back(tri);
+				tris[x][z].push_back(tri);
+								
+				tri.v1 = points[x+1][z+1];
+				tri.v2 = points[x+1][z];
+				tri.v3 = points[x][z+1];
+				tris[x+1][z+1].push_back(tri);
+				tris[x+1][z].push_back(tri);
+				tris[x][z+1].push_back(tri);
+				
+			}
+		}
+	}
+
+	vec3 leaf_color = vec3(0.f, 0.6f, 0.f);
+	for (int x=0; x<x_steps; ++x){
+		for (int z=0; z<z_steps; ++z){
+			if (points[x][z].z >= 0){
+				triangle_points.push_back(points[x][z]);
+				triangle_normals.push_back(get_normal(tris[x][z]));
+				colors.push_back(leaf_color);
 
 				triangle_points.push_back(points[x+1][z]);
-				triangle_normals.push_back(normalize(points[x+1][z]));
+				triangle_normals.push_back(get_normal(tris[x+1][z]));
+				colors.push_back(leaf_color);
 
-				triangle_points.push_back(points[x][z]);
-				triangle_normals.push_back(normalize(points[x][z]));
+				triangle_points.push_back(points[x][z+1]);
+				triangle_normals.push_back(get_normal(tris[x][z+1]));
+				colors.push_back(leaf_color);
 
+				
+
+				triangle_points.push_back(points[x][z+1]);
+				triangle_normals.push_back(get_normal(tris[x][z+1]));
+				colors.push_back(leaf_color);
+
+				triangle_points.push_back(points[x+1][z]);
+				triangle_normals.push_back(get_normal(tris[x+1][z]));
+				colors.push_back(leaf_color);
 
 				triangle_points.push_back(points[x+1][z+1]);
-				triangle_normals.push_back(normalize(points[x+1][z+1]));
+				triangle_normals.push_back(get_normal(tris[x+1][z+1]));
+				colors.push_back(leaf_color);
+
+			}
+			if (points[x][z].z <= 0){
+				triangle_points.push_back(points[x][z+1]);
+				triangle_normals.push_back(get_normal(tris[x][z+1]));
+				colors.push_back(leaf_color);
 
 				triangle_points.push_back(points[x+1][z]);
-				triangle_normals.push_back(normalize(points[x+1][z]));
+				triangle_normals.push_back(get_normal(tris[x+1][z]));
+				colors.push_back(leaf_color);
+
+				triangle_points.push_back(points[x][z]);
+				triangle_normals.push_back(get_normal(tris[x][z]));
+				colors.push_back(leaf_color);
+
+
+								
+				triangle_points.push_back(points[x+1][z+1]);
+				triangle_normals.push_back(get_normal(tris[x+1][z+1]));
+				colors.push_back(leaf_color);
+
+				triangle_points.push_back(points[x+1][z]);
+				triangle_normals.push_back(get_normal(tris[x+1][z]));
+				colors.push_back(leaf_color);
 
 				triangle_points.push_back(points[x][z+1]);
-				triangle_normals.push_back(normalize(points[x][z+1]));
+				triangle_normals.push_back(get_normal(tris[x][z+1]));
+				colors.push_back(leaf_color);
 
-
-
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
-				colors.push_back(vec3(0.f, 0.8f, 0.f));
 			}
 		}
 	}

@@ -18,42 +18,45 @@ out vec3 geom_color;
 
 
 void main() {
-/* 	geom_color = vec3(1,0,0);
-	gl_Position = vec4(0,0,0,1);
-    EmitVertex();
+    normal = vec3(0,0,1);
+
+    geom_color = vertex_color[0];
+
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();
-    EndPrimitive();
 
-	geom_color = vec3(0,1,0);
-	gl_Position = vec4(0,0,0,1);
-    EmitVertex();
     gl_Position = gl_in[1].gl_Position;
     EmitVertex();
-    EndPrimitive();
 
-	geom_color = vec3(0,0,1);
-	gl_Position = vec4(0,0,0,1);
-    EmitVertex();
     gl_Position = gl_in[2].gl_Position;
     EmitVertex();
-    EndPrimitive(); */
-	
 
-    vec4 pos = gl_in[0].gl_Position;
-    geom_color = vec3(0,1,0);
+    gl_Position = gl_in[0].gl_Position;
+    EmitVertex();
 
-    for (int i = 0; i <= num_sides; i++) {
-        float ang = PI * 2.0 / num_sides * i;
+    EndPrimitive();
+ 
 
-        vec4 offset = vec4(cos(ang), -sin(ang), 0, 0);
-        normal = mix(vec3(0,0,1), offset.xyz, 0.8);
-        gl_Position = mvp[0] * (pos + offset * radius);
-        EmitVertex();
 
-        normal = vec3(0,0,1);
-        gl_Position = mvp[0] * pos;
-        EmitVertex();
-    }
+    geom_color = vec3(1,0,0);
+
+    gl_Position = gl_in[0].gl_Position;
+    EmitVertex();
+    gl_Position = gl_in[0].gl_Position + mvp[0] * vec4(vertex_normal[0] * 3, 0);
+    EmitVertex();
+    EndPrimitive();
+
+    gl_Position = gl_in[1].gl_Position;
+    EmitVertex();
+    gl_Position = gl_in[1].gl_Position + mvp[1] * vec4(vertex_normal[1] * 3, 0);
+    EmitVertex();
+    EndPrimitive();
+
+
+    gl_Position = gl_in[2].gl_Position;
+    EmitVertex();
+    gl_Position = gl_in[2].gl_Position + mvp[2] * vec4(vertex_normal[2] * 3, 0);
+    EmitVertex();
+    EndPrimitive();
 
 }

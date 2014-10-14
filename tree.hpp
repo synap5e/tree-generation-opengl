@@ -28,7 +28,7 @@ private:
 
 	// how much wieght is given to the branches existing direction
 	// as opposed to the pull from the attraction points
-	float soft_bends_weight = 3;
+	float soft_bends_weight = 2;
 
     Branch *root;
     std::vector<vec3> branch_locations;
@@ -42,19 +42,19 @@ private:
 	void generate_trunk();
 
 public:
-	float radius 				= 200.f;
-	float height 				= 300.f;
-	float trunk_height 			= 50.f;
+	float radius 				= 100.f;
+	float height 				= 200.f;
+	float root_height 			= 5.f;
 
-	int attraction_point_count 	= 2000;
-	float branch_length 		= 2.f;
+	int attraction_point_count 	= 5000;
+	float branch_length 		= 1.f;
 
 	// actual distance is * branch_length
 	float kill_distance 		= 1;
 	float influence_distance 	= 10;
 
-	float initial_radius 		= 0.01;
-	float radius_growth 		= 0.005;
+	float initial_radius 		= 0;
+	float radius_growth 		= 0.002;
 	float leaf_twig_max_size  	= 0.02;
 
 

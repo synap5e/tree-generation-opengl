@@ -16,7 +16,7 @@ void Tree::generate_crown(){
 
     /*
 
-    Teardrop is defined by 
+    The unit teardrop is defined by 
     x = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi)
     y = 0.5 * (1-cosf(theta))
     z = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi)
@@ -26,10 +26,10 @@ void Tree::generate_crown(){
 
     so
 
+    choose a y from [0,1]
     theta = acos(1-2y)
-    with 0 <= phi <= pi
-
-
+    choose a phi [0,pi]
+    
     */
 
     for (int i=0; i<attraction_point_count; ++i){
@@ -44,6 +44,9 @@ void Tree::generate_crown(){
         vec3 location = vec3(   RandomGen::get(-xrad, xrad) * radius,
                                 yu * height,
                                 RandomGen::get(-zrad, zrad) * radius);
+        if (location.y < root_height){
+            continue;
+        }
         attraction_points.push_back(new AttractionPoint(location));
 
 /*        vec3 location = vec3(   xrad,
@@ -61,41 +64,11 @@ void Tree::generate_crown(){
 }
 
 void Tree::generate_trunk(){
-	root = new Branch(nullptr, position, vec3(0.f, 1.f, 0.f));
+	root = new Branch(nullptr, position + vec3(0, root_height, 0), vec3(0.f, 1.f, 0.f));
 //    root->radius = 15;
 	branches.push_back(root);
     live_branches.push_back(root);
 
-
-/*	Branch* current = new Branch(root, vec3(position.x, position.y + branch_length*10, position.z), vec3(0.f, 1.f, 0.f));
-    current->radius = 15;
-	branches.push_back(current);
-
-    current = new Branch(current, vec3(position.x-20, position.y + branch_length*50, position.z), vec3(0.f, 1.f, 0.f));
-    current->radius = 15;
-    branches.push_back(current);
-
-    current = new Branch(current, vec3(position.x + 20, position.y + branch_length*100, position.z), vec3(0.f, 1.f, 0.f));
-    current->radius = 15;
-    branches.push_back(current);*/
-
-    /*
-
-	while (length(root->position - current->position) < trunk_height) {
-	    Branch* trunk = new Branch(current, vec3(current->position.x, current->position.y + branch_length, current->position.z), vec3(0.f, 1.f, 0.f));
-        trunk->radius = initial_radius;// * (trunk_height / branch_length);
-	    current = trunk; 
-	    //std::cout << "insert at " << to_string(current->position) << "\n";
-	    branches.push_back(current);
-	}   */
-
-	/*printf("{\n");
-	for (Branch* b : branches){
-		std::cout << "\t" << to_string(b->position) << " : " << (void*)*(&b) << "\n";
-		//Branch* b = kv.second;
-
-	}
-	std::cout << "}\n";*/
 }
 
 int r = 0;
@@ -191,6 +164,7 @@ bool Tree::grow(){
         for (AttractionPoint* l : attraction_points){
             delete l;
         }
+        std::cout << "Finished with " << attraction_points.size() << " unused points\n";
     	attraction_points.clear();
         return false;
        /* for (Branch* b : branches){

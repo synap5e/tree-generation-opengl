@@ -14,7 +14,7 @@ class UserInterface {
 private:
 	float xrot = 90;
 	float yrot = 90;
-	float radius = 10;
+	float radius = 400;
 
 /*	//124.899925, 47.431683, 14.000000
 	float xrot = 124.899925;

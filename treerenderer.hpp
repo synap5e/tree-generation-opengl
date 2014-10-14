@@ -31,7 +31,10 @@ private:
     GLuint size_vbo;
     ElementGroup branch_elements;
     ElementGroup leaf_elements;
-    
+
+    GLuint leaf_axis_vbo;
+    GLuint leaf_rotation_vbo;
+
 public:
 	TreeRenderer(Tree* _tree);
 

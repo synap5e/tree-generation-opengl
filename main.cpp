@@ -213,53 +213,6 @@ int main(void)
 		printf(">> GL error: %d \n", err);
 
 
-	/*LeafModel leaf_model;
-	LeafShader leaf_shader;
-	leaf_shader.load();
-	glm::mat4 model = glm::mat4(1);
-	glm::mat4 view = glm::mat4(1);
-	while (!glfwWindowShouldClose(window)){
-		int width, height;
-		glfwGetFramebufferSize(window, &width, &height);
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		glViewport(0, 0, width, height);
-
-		float ratio = (float)width / (float)height;
-	    float orthoHeight = 40.f;
-	    float top = orthoHeight / 2.f;
-	    float bottom = -top;
-	    float left = bottom * ratio;
-	    float right = -left;
-	    glm::mat4 projection = glm::perspective(
-	        45.0f,
-	        float(width) / float(height), 
-	        0.01f, 
-	        1000.0f
-	    );
-
-	    leaf_shader.activate();
-	    leaf_shader.set_model(model);
-	    leaf_shader.set_view(view);
-	    leaf_shader.set_projection(projection);
-
-		glEnableVertexAttribArray (0);
-		glEnableVertexAttribArray (1);
-	    glBindVertexArray(leaf_model.vao);
-	    glDrawArrays (GL_TRIANGLES, 0, 3);
-
-
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-
-		GLenum err;
-		err = glGetError();
-		if(err != GL_NO_ERROR){
-			printf("GL error: %d \n", err);
-		}
-	}*/
-
 	tree = new Tree();
 	renderer = new TreeRenderer(tree);
 	simulate = true;
@@ -289,12 +242,18 @@ int main(void)
 		last_render_frame = now;
 
 		if (model_delta > 1./model_fps){
-			regenerate_display = true;
-			while (updating);
+			if (regenerate_display && !updating){
+				renderer->regenerate();
+				regenerate_display = false;
+				last_model_frame = now;
+			} else {
+				regenerate_display = true;
+			}
+			// want to do an update
+			/*regenerate_display = true;
+			while (updating);*/
 			// update thread is now waiting for regenerate_display to go false
-			renderer->regenerate();
-	    	regenerate_display = false;
-	    	last_model_frame = now;
+			
 		}
 
 		calcFPS(window);
