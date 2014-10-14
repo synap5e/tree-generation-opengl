@@ -47,13 +47,13 @@ void TreeRenderer::regenerate(){
             if (b->radius < tree->leaf_twig_max_size){
                 leaf_locations.push_back(b->position);
 
-                vec3 leaf_orientation(0.,1.,0.);
+               /* vec3 leaf_orientation(0.,1.,0.);
                 vec3 branch_orientation = normalize(b->parent->position - b->position);
 
                 float rot = acos(dot(leaf_orientation, branch_orientation));
-                vec3 ax = cross(leaf_orientation, branch_orientation);
-                leaf_axes.push_back(ax);
-                leaf_rotation.push_back(rot);
+                vec3 ax = cross(leaf_orientation, branch_orientation);*/
+                leaf_axes.push_back(b->random_rotation_axis);
+                leaf_rotation.push_back(b->random_rotation);
                 //leaf_location_indexes.push_back(b->index);
             }
         }
@@ -82,8 +82,10 @@ void TreeRenderer::regenerate(){
     glBufferData (GL_ELEMENT_ARRAY_BUFFER, leaf_location_indexes.size() * sizeof (unsigned int), &leaf_location_indexes[0], GL_STATIC_DRAW);
     leaf_elements.size = leaf_location_indexes.size();*/
 
-    /*leaf_locations.clear();
-    leaf_locations.push_back(vec3(0,95,0));*/
+/*    leaf_locations.clear();
+    leaf_locations.push_back(vec3(0,95,0));
+    leaf_axes.push_back(vec3(0.,0.,0.));
+    leaf_rotation.push_back(0.);*/
 
 
     glGenBuffers(1, &leaf_axis_vbo);
@@ -155,38 +157,40 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     glDrawArraysInstanced(GL_TRIANGLES, 0, leaf_model.size, leaf_elements.size);
 
 
-/*    GLuint tvertex_vbo, tsize_vbo, vao;
-    std::vector<vec3> verts;
-    std::vector<float> sizes;
-	for (AttractionPoint* attraction_point : tree->get_attraction_points()){
-    	verts.push_back(attraction_point->position);
-    	sizes.push_back(2);
+    if (draw_attraction_points){
+        GLuint tvertex_vbo, tsize_vbo, vao;
+        std::vector<vec3> verts;
+        std::vector<float> sizes;
+    	for (AttractionPoint* attraction_point : tree->get_attraction_points()){
+        	verts.push_back(attraction_point->position);
+        	sizes.push_back(2);
+        }
+        point_shader.activate();
+        point_shader.set_model(model);
+        point_shader.set_view(view);
+        point_shader.set_projection(projection);
+
+        glGenBuffers (1, &tvertex_vbo);
+        glBindBuffer (GL_ARRAY_BUFFER, tvertex_vbo);
+        glBufferData (GL_ARRAY_BUFFER, verts.size() * sizeof (vec3), &verts[0], GL_STATIC_DRAW);
+
+        glGenBuffers (1, &tsize_vbo);
+        glBindBuffer (GL_ARRAY_BUFFER, tsize_vbo);
+        glBufferData (GL_ARRAY_BUFFER, sizes.size() * sizeof (float), &sizes[0], GL_STATIC_DRAW);
+
+        glBindBuffer (GL_ARRAY_BUFFER, tvertex_vbo);
+        glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+        glBindBuffer (GL_ARRAY_BUFFER, tsize_vbo);
+        glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
+
+        glEnableVertexAttribArray (0);
+        glEnableVertexAttribArray (1);
+        glDrawArrays (GL_POINTS, 0, verts.size());
+
+        glDeleteBuffers(1, &tvertex_vbo);
+        glDeleteBuffers(1, &tsize_vbo);
     }
-    point_shader.activate();
-    point_shader.set_model(model);
-    point_shader.set_view(view);
-    point_shader.set_projection(projection);
-
-    glGenBuffers (1, &tvertex_vbo);
-    glBindBuffer (GL_ARRAY_BUFFER, tvertex_vbo);
-    glBufferData (GL_ARRAY_BUFFER, verts.size() * sizeof (vec3), &verts[0], GL_STATIC_DRAW);
-
-    glGenBuffers (1, &tsize_vbo);
-    glBindBuffer (GL_ARRAY_BUFFER, tsize_vbo);
-    glBufferData (GL_ARRAY_BUFFER, sizes.size() * sizeof (float), &sizes[0], GL_STATIC_DRAW);
-
-    glBindBuffer (GL_ARRAY_BUFFER, tvertex_vbo);
-    glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    glBindBuffer (GL_ARRAY_BUFFER, tsize_vbo);
-    glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
-
-    glEnableVertexAttribArray (0);
-    glEnableVertexAttribArray (1);
-    glDrawArrays (GL_POINTS, 0, verts.size());
-
-    glDeleteBuffers(1, &tvertex_vbo);
-    glDeleteBuffers(1, &tsize_vbo);*/
 
 }
 

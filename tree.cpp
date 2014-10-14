@@ -38,26 +38,16 @@ void Tree::generate_crown(){
         float theta = acosf(1-2*yu);
         float phi = RandomGen::get(0, PI);
 
-        float xrad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);
-        float zrad = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi);
+        float rad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);
+        rad = pow(rad, canopy_exponent);
        
-        vec3 location = vec3(   RandomGen::get(-xrad, xrad) * radius,
+        vec3 location = vec3(   RandomGen::get(-rad, rad) * radius,
                                 yu * height,
-                                RandomGen::get(-zrad, zrad) * radius);
+                                RandomGen::get(-rad, rad) * radius);
         if (location.y < root_height){
             continue;
         }
         attraction_points.push_back(new AttractionPoint(location));
-
-/*        vec3 location = vec3(   xrad,
-                                yu*2,
-                                zrad) * 100.f;
-        attraction_points.push_back(new AttractionPoint(location));
-
-        location = vec3(-xrad,
-                        yu*2,
-                        -zrad) * 100.f;
-        attraction_points.push_back(new AttractionPoint(location));*/
 
     }
 

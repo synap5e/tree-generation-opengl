@@ -45,15 +45,16 @@ public:
 	float radius 				= 100.f;
 	float height 				= 200.f;
 	float root_height 			= 5.f;
+	float canopy_exponent 		= 1.01f;
 
-	int attraction_point_count 	= 5000;
+	int attraction_point_count 	= 10000;
 	float branch_length 		= 1.f;
 
 	// actual distance is * branch_length
 	float kill_distance 		= 1;
 	float influence_distance 	= 10;
 
-	float initial_radius 		= 0;
+	float initial_radius 		= 0.001;
 	float radius_growth 		= 0.002;
 	float leaf_twig_max_size  	= 0.02;
 
