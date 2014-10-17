@@ -6,6 +6,10 @@ layout(location = 2) in vec3 vertex_normal;
 
 layout(location = 3) in vec3 model_offset;
 layout(location = 4) in mat3 model_rotation;
+// 5
+// 6
+layout(location=7) in float model_scale;
+
 
 uniform mat4 model;
 uniform mat4 view;
@@ -35,5 +39,5 @@ void main() {
 	normal = normal_matrix * model_rotation * vertex_normal;
 	geom_color = vertex_colour;
 
-	gl_Position = mvp * vec4(model_rotation * vertex_position + model_offset, 1.0);
+	gl_Position = mvp * vec4(model_rotation * (vertex_position * model_scale) + model_offset, 1.0);
 }
