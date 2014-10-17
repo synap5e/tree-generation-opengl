@@ -105,7 +105,7 @@ void TreeRenderer::regenerate(){
 
 void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     glm::mat4 model = glm::mat4(1);
-    model = glm::translate(model, glm::vec3(0, -100, 0));
+    model = glm::translate(model, glm::vec3(0, -50, 0));
 
 
     glEnableVertexAttribArray (0);
@@ -124,9 +124,12 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     branch_shader.set_model(model);
     branch_shader.set_view(view);
     branch_shader.set_projection(projection);
+    glDisableVertexAttribArray(3);
+    glDisableVertexAttribArray(4);
+    glDisableVertexAttribArray(5);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, branch_elements.element_buffer);
     glDrawElements (GL_LINES_ADJACENCY, branch_elements.size, GL_UNSIGNED_INT, NULL);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
 
