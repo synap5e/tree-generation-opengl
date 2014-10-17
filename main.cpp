@@ -26,10 +26,9 @@ TreeRenderer *renderer;
 
 //float model_update_fps = 10;
 std::atomic<bool> simulate;
+std::atomic<bool> regenerate_display;
+std::atomic<bool> updating;
 
-bool regenerate_display;
-std::mutex updating;
-std::mutex regenerating_renderer;
 
 static void error_callback(int error, const char* description){
 	fputs(description, stderr);
@@ -70,18 +69,14 @@ static void scroll_callback(GLFWwindow* window, double x, double y){
 
 static void run_simulation(){
 	while (simulate){
-		updating.lock();
-		//std::cout << "run_simulation:\t\tgot updating\n";
+		updating = true;
 		if (!tree->grow()){
-			updating.unlock();
+			updating = false;
 			std::cout << "Tree growth finished\n";
 			break;
 		}
-		updating.unlock();
-
-		// wait for model regeneration to finish
-		regenerating_renderer.lock();
-		regenerating_renderer.unlock();
+		updating = false;
+		while (regenerate_display && simulate);
 	}
 	std::cout << "Simulation thread ending\n";
 }
@@ -223,6 +218,7 @@ int main(void)
 	renderer = new TreeRenderer(tree);
 	simulate = true;
 	regenerate_display = false;
+	updating = false;
 	renderer->regenerate();
 
 
@@ -247,25 +243,12 @@ int main(void)
 		last_render_frame = now;
 
 		if (model_delta > 1./model_fps){
-			if (!regenerate_display){
-				regenerating_renderer.lock();
-				//std::cout << "main:\t\t\t Got regenerating_renderer\n";
-				regenerate_display = true;
-			}
-
-
-			if (updating.try_lock()){
-				//std::cout << "main:\t\t\t Got updating\n";
-				// we will only be able to acquire the updating mutex when the 
-				// model has finished updating. This will happen the next render loop
-				// after the last update as the model update will be waiting on regenerating_renderer
-
+			if (regenerate_display && !updating){
 				renderer->regenerate();
-				
-				updating.unlock();
-				regenerating_renderer.unlock();
-				last_model_frame = now;
 				regenerate_display = false;
+				last_model_frame = now;
+			} else {
+				regenerate_display = true;
 			}
 			// want to do an update
 			/*regenerate_display = true;
@@ -292,7 +275,6 @@ int main(void)
 			printf("GL error: %d \n", err);
 		}
 	}
-	updating.unlock();
 
 	//Main loop has exited, clean up
 	std::cout << "simulate = false\n";
