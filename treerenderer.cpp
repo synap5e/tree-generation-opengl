@@ -12,8 +12,7 @@ void TreeRenderer::regenerate(){
         glDeleteBuffers(1, &leaf_elements.element_buffer);
         glDeleteBuffers(1, &vertex_vbo);
         glDeleteBuffers(1, &size_vbo);
-        glDeleteBuffers(1, &leaf_axis_vbo);
-        glDeleteBuffers(1, &leaf_rotation_vbo);
+        glDeleteBuffers(1, &leaf_rotations_vbo);
     }
 
 
@@ -24,8 +23,7 @@ void TreeRenderer::regenerate(){
     //std::vector<float> branch_radius;
     std::vector<unsigned int> indexs;
 //    std::vector<unsigned int> leaf_location_indexes;
-    std::vector<vec3> leaf_axes;
-    std::vector<float> leaf_rotation;
+    std::vector<mat3> leaf_rotations;
 
     verts.push_back(vec3(0,0,0));
     branch_radius.push_back(0.f);
@@ -52,8 +50,8 @@ void TreeRenderer::regenerate(){
 
                 float rot = acos(dot(leaf_orientation, branch_orientation));
                 vec3 ax = cross(leaf_orientation, branch_orientation);*/
-                leaf_axes.push_back(b->random_rotation_axis);
-                leaf_rotation.push_back(b->random_rotation);
+                //leaf_axes.push_back(b->random_rotation_axis);
+                leaf_rotations.push_back(b->rotation);
                 //leaf_location_indexes.push_back(b->index);
             }
         }
@@ -88,13 +86,17 @@ void TreeRenderer::regenerate(){
     leaf_rotation.push_back(0.);*/
 
 
-    glGenBuffers(1, &leaf_axis_vbo);
+/*    glGenBuffers(1, &leaf_axis_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, leaf_axis_vbo);
     glBufferData(GL_ARRAY_BUFFER, leaf_axes.size() * sizeof(vec3), &leaf_axes[0], GL_STATIC_DRAW);
 
     glGenBuffers(1, &leaf_rotation_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, leaf_rotation_vbo);
-    glBufferData(GL_ARRAY_BUFFER, leaf_rotation.size() * sizeof(float), &leaf_rotation[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, leaf_rotation.size() * sizeof(float), &leaf_rotation[0], GL_STATIC_DRAW);*/
+
+    glGenBuffers(1, &leaf_rotations_vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, leaf_rotations_vbo);
+    glBufferData(GL_ARRAY_BUFFER, leaf_rotations.size() * sizeof(mat3), &leaf_rotations[0], GL_STATIC_DRAW);
 
     glGenBuffers (1, &(leaf_elements.element_buffer));
     glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
@@ -127,6 +129,7 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     glDisableVertexAttribArray(3);
     glDisableVertexAttribArray(4);
     glDisableVertexAttribArray(5);
+    glDisableVertexAttribArray(6);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, branch_elements.element_buffer);
     glDrawElements (GL_LINES_ADJACENCY, branch_elements.size, GL_UNSIGNED_INT, NULL);
     //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -144,18 +147,18 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
 
     glEnableVertexAttribArray(3);
     glBindBuffer (GL_ARRAY_BUFFER, leaf_elements.element_buffer);
-    glVertexAttribPointer (3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribPointer (3, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)0);
     glVertexAttribDivisor(3, 1);
 
-    glEnableVertexAttribArray(4);
-    glBindBuffer (GL_ARRAY_BUFFER, leaf_axis_vbo);
-    glVertexAttribPointer (4, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    glVertexAttribDivisor(4, 1);
-
-    glEnableVertexAttribArray(5);
-    glBindBuffer (GL_ARRAY_BUFFER, leaf_rotation_vbo);
-    glVertexAttribPointer (5, 1, GL_FLOAT, GL_FALSE, 0, NULL);
-    glVertexAttribDivisor(5, 1);
+    int rotation_attribute_location = 4;
+    for (int i=0;i<3;i++){
+        glEnableVertexAttribArray(rotation_attribute_location+i);
+    }
+    glBindBuffer (GL_ARRAY_BUFFER, leaf_rotations_vbo);
+    for (int i=0;i<3;i++){
+        glVertexAttribPointer (rotation_attribute_location+i, 3, GL_FLOAT, GL_FALSE, sizeof(mat3), (void*)(i*sizeof(vec3)));
+        glVertexAttribDivisor(rotation_attribute_location+i, 1);
+    }
 
     glDrawArraysInstanced(GL_TRIANGLES, 0, leaf_model.size, leaf_elements.size);
 
