@@ -32,19 +32,19 @@ void Tree::generate_crown(){
     
     */
 
-    for (int i=0; i<attraction_point_count; ++i){
+    for (int i=0; i< params.attraction_point_count; ++i){
         float yu = RandomGen::get(0, 1);
         
         float theta = acosf(1-2*yu);
         float phi = RandomGen::get(0, PI);
 
         float rad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);
-        rad = pow(rad, canopy_exponent);
+        rad = pow(rad, params.canopy_exponent);
        
-        vec3 location = vec3(   RandomGen::get(-rad, rad) * radius,
-                                yu * height,
-                                RandomGen::get(-rad, rad) * radius);
-        if (location.y < root_height){
+        vec3 location = vec3(   RandomGen::get(-rad, rad) * params.radius,
+                                yu * params.height,
+                                RandomGen::get(-rad, rad) * params.radius);
+        if (location.y < params.root_height){
             continue;
         }
         attraction_points.push_back(new AttractionPoint(location));
@@ -54,11 +54,15 @@ void Tree::generate_crown(){
 }
 
 void Tree::generate_trunk(){
-	root = new Branch(nullptr, position + vec3(0, root_height, 0), vec3(0.f, 1.f, 0.f));
+	root = new Branch(nullptr, position + vec3(0, params.root_height, 0), vec3(0.f, 1.f, 0.f), 0);
 //    root->radius = 15;
 	branches.push_back(root);
     live_branches.push_back(root);
 
+}
+
+int Tree::ageof(Branch* b){
+    return simulation_time - b->born;
 }
 
 int r = 0;
@@ -77,13 +81,13 @@ bool Tree::grow(){
             direction = normalize(direction);
 
 
-            if (distance < kill_distance * branch_length){
+            if (distance < params.kill_distance * params.branch_length){
             	//printf("eat attraction_point\n");
                 attraction_points.erase(attraction_points.begin()+i);                        
                 i--;
                 attraction_point_killed = true;
                 break;
-            } else if (distance < influence_distance * branch_length
+            } else if (distance < params.influence_distance * params.branch_length
             		   && ( attraction_point->closest == nullptr
             			 || length(attraction_point->position - attraction_point->closest->position) > distance)){
                     attraction_point->closest = b;
@@ -106,10 +110,10 @@ bool Tree::grow(){
         if (b->grow_count > 0){
         	//std::cout << "Add branch, grow count:" << b->grow_count << "\n";
 
-            vec3 avgDirection = b->grow_direction / float(b->grow_count+soft_bends_weight);
+            vec3 avgDirection = b->grow_direction / float(b->grow_count+params.soft_bends_weight);
             avgDirection = normalize(avgDirection);
 
-            b->grow_direction = b->original_grow_direction*float(soft_bends_weight);
+            b->grow_direction = b->original_grow_direction*float(params.soft_bends_weight);
             b->grow_count = 0;
 
             /*if (RandomGen::get(0, 2) > 1){
@@ -117,25 +121,26 @@ bool Tree::grow(){
             }*/
 
 
-			vec3 new_pos = b->position + avgDirection * branch_length;
+			vec3 new_pos = b->position + avgDirection * params.branch_length;
 
 			if (std::find(branch_locations.begin(), branch_locations.end(), new_pos)!=branch_locations.end()){
 				continue;
 			}
 			branch_locations.push_back(new_pos);
 
-            Branch* newBranch = new Branch(b, new_pos, avgDirection);
+            Branch* newBranch = new Branch(b, new_pos, avgDirection, simulation_time);
             new_branches.push_back(newBranch);
-            newBranch->radius = initial_radius;
-
+            
             int pc = 0;
-            Branch *parent = b;
+            Branch *parent = b->parent;
             while (parent){
-            	parent->radius += radius_growth;
+                //std::cout << parent->descendants << " -> ";
+            	++(parent->descendants);
+                //std::cout << parent->descendants << "\n";
             	parent = parent->parent;
             }
         } else {
-            if (b->lifespan-- < 0){
+            if (ageof(b) > params.branch_kill_age){
                 live_branches.erase(live_branches.begin()+i);
                 ++i;
             }
@@ -165,6 +170,7 @@ bool Tree::grow(){
         generate_trunk();*/
     }
 
+    ++simulation_time;
     return true;
 }
 
@@ -182,7 +188,9 @@ void Tree::regenerate_vertex_lists(){
     int index = 1;
     for (Branch* b : branches){
         vertex_lists.branch_verts.push_back(b->position);
-        vertex_lists.branch_radii.push_back(sqrt(b->radius));
+
+        float radius = sqrt(params.radius_growth * b->descendants + params.initial_radius);
+        vertex_lists.branch_radii.push_back(radius);
         b->index = index++;
     }
     for (Branch* b : branches){
@@ -193,10 +201,12 @@ void Tree::regenerate_vertex_lists(){
             vertex_lists.branch_indexes.push_back(b->index);
             vertex_lists.branch_indexes.push_back(0); // next adjacent is unused
 
-            if (b->radius < leaf_twig_max_size){
+            if (b->descendants <= params.twig_max_descendants){
                 vertex_lists.leaf_locations.push_back(b->position);
                 vertex_lists.leaf_rotations.push_back(b->rotation);
-                vertex_lists.leaf_scales.push_back(sqrt(b->radius));
+
+                float leaf_size = sqrt(b->descendants + 0.01);
+                vertex_lists.leaf_scales.push_back(leaf_size);
             }
         }
     }

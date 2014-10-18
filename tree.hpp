@@ -33,25 +33,7 @@ typedef struct VertexLists{
     std::vector<float> leaf_scales;
 } VertexLists;
 
-class Tree{
-private:
-	vec3 position;
-
-	// how much wieght is given to the branches existing direction
-	// as opposed to the pull from the attraction points
-	float soft_bends_weight = 2;
-
-    Branch *root;
-    std::vector<vec3> branch_locations;
-
-	std::vector<AttractionPoint*> attraction_points;
-    std::vector<Branch*> branches;
-
-	std::vector<Branch*> live_branches;    
-
-	void generate_crown();
-	void generate_trunk();
-
+class TreeParams{
 public:
 	float radius 				= 100.f;
 	float height 				= 200.f;
@@ -67,16 +49,47 @@ public:
 
 	float initial_radius 		= 0.001;
 	float radius_growth 		= 0.002;
-	float leaf_twig_max_size  	= 0.02;
 
-	std::mutex vertex_lists_mtx;
+	// The maximum number of descendants a branch can have
+	// to be considered a twig and grow leaves
+	float twig_max_descendants = 0;
 
+	// how much wieght is given to the branches existing direction
+	// as opposed to the pull from the attraction points
+	float soft_bends_weight = 2;
+
+	int branch_kill_age = 10;
+
+};
+
+class Tree{
+private:
+	vec3 position;
+
+	Branch *root;
+	int simulation_time = 0;
+
+
+    std::vector<vec3> branch_locations;
+
+	std::vector<AttractionPoint*> attraction_points;
+    std::vector<Branch*> branches;
+
+	std::vector<Branch*> live_branches;    
+
+	void generate_crown();
+	void generate_trunk();
+
+
+	int ageof(Branch* b);
+
+public:
+
+	TreeParams params;
+	VertexLists vertex_lists;
 
 	Tree();
-
 	bool grow();
-	
-	VertexLists vertex_lists;
 	void regenerate_vertex_lists();
 
 	std::vector<AttractionPoint*> get_attraction_points();

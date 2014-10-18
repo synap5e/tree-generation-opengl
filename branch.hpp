@@ -18,17 +18,19 @@ public:
 class Branch{
 public:
 	Branch* parent;
-	vec3 grow_direction;
-	vec3 original_grow_direction;
 	int grow_count = 0;
 	vec3 position;
-	float radius;
-	int lifespan=10;
+	
+	int born;
+	int descendants = 0;
+	int depth = 0;
+
+	vec3 grow_direction;
+	vec3 original_grow_direction;
 
 	mat3 rotation;
-
 	int index;
 
-	Branch(Branch *_parent, vec3 _pos, vec3 _grow);
+	Branch(Branch *_parent, vec3 _pos, vec3 _grow, int _born);
 
 };

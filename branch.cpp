@@ -5,7 +5,12 @@
 #include <math.h>
 #include "random.hpp"
 
-Branch::Branch(Branch *_parent, vec3 _pos, vec3 _grow): parent(_parent), position(_pos), grow_direction(_grow), original_grow_direction(_grow){
+Branch::Branch(Branch *_parent, vec3 _pos, vec3 _grow, int _born): parent(_parent), position(_pos), grow_direction(_grow), original_grow_direction(_grow), born(_born){
+	if (parent){
+		depth = parent->depth+1;
+	}
+
+
 	// http://math.stackexchange.com/questions/442418/random-generation-of-rotation-matrices/442423#442423
 	float u1 = RandomGen::get(0, 1);
 	float u2 = RandomGen::get(0, 1);
