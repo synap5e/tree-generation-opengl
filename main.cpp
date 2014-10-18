@@ -26,8 +26,9 @@ TreeRenderer *renderer;
 
 //float model_update_fps = 10;
 std::atomic<bool> simulate;
+
 std::atomic<bool> regenerate_display;
-std::atomic<bool> updating;
+std::atomic<bool> regenerate_display_complete;
 
 
 static void error_callback(int error, const char* description){
@@ -69,14 +70,14 @@ static void scroll_callback(GLFWwindow* window, double x, double y){
 
 static void run_simulation(){
 	while (simulate){
-		updating = true;
 		if (!tree->grow()){
-			updating = false;
 			std::cout << "Tree growth finished\n";
 			break;
 		}
-		updating = false;
-		while (regenerate_display && simulate);
+		if (regenerate_display){
+			tree->regenerate_vertex_lists();
+			regenerate_display_complete = true;
+		}
 	}
 	std::cout << "Simulation thread ending\n";
 }
@@ -217,9 +218,12 @@ int main(void)
 	tree = new Tree();
 	renderer = new TreeRenderer(tree);
 	simulate = true;
-	regenerate_display = false;
-	updating = false;
+	tree->regenerate_vertex_lists();
 	renderer->regenerate();
+
+
+	regenerate_display = true;
+	regenerate_display_complete = false;
 
 
 	std::thread simulation(run_simulation);
@@ -243,19 +247,18 @@ int main(void)
 		last_render_frame = now;
 
 		if (model_delta > 1./model_fps){
-			if (regenerate_display && !updating){
+			if (regenerate_display && regenerate_display_complete){
 				renderer->regenerate();
 				regenerate_display = false;
+				regenerate_display_complete = false;
 				last_model_frame = now;
-			} else {
+			} else if (!regenerate_display) {
 				regenerate_display = true;
-			}
-			// want to do an update
-			/*regenerate_display = true;
-			while (updating);*/
-			// update thread is now waiting for regenerate_display to go false
-			
+			} 
+			// else if regenerate_display and not regenerate_display_complete do
+			// nothing while we wait for regenerate_display_complete to become true
 		}
+
 
 		calcFPS(window);
 
@@ -272,7 +275,7 @@ int main(void)
 		GLenum err;
 		err = glGetError();
 		if(err != GL_NO_ERROR){
-			printf("GL error: %d \n", err);
+			printf("< GL error: %d \n", err);
 		}
 	}
 

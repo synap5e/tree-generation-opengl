@@ -9,6 +9,8 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <atomic>
+#include <mutex>
 
 using namespace glm;
 
@@ -21,6 +23,15 @@ using namespace glm;
 	} 
 };*/
 
+typedef struct VertexLists{
+    std::vector<vec3> branch_verts;
+    std::vector<float> branch_radii;
+    std::vector<unsigned int> branch_indexes;
+
+    std::vector<vec3> leaf_locations;
+    std::vector<mat3> leaf_rotations;
+    std::vector<float> leaf_scales;
+} VertexLists;
 
 class Tree{
 private:
@@ -58,13 +69,16 @@ public:
 	float radius_growth 		= 0.002;
 	float leaf_twig_max_size  	= 0.02;
 
+	std::mutex vertex_lists_mtx;
+
 
 	Tree();
 
 	bool grow();
-	//void draw(BranchShader bs, AttractionPointShader ls);
-	//void render(std::vector<vec3> verts, std::vector<float> sizes, GLenum type);
+	
+	VertexLists vertex_lists;
+	void regenerate_vertex_lists();
 
 	std::vector<AttractionPoint*> get_attraction_points();
-	std::vector<Branch*> get_branches();
+
 };

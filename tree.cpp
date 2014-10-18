@@ -169,10 +169,39 @@ bool Tree::grow(){
 }
 
 
+void Tree::regenerate_vertex_lists(){
+    vertex_lists.branch_verts.clear();
+    vertex_lists.branch_radii.clear();
+    vertex_lists.branch_indexes.clear();
+    vertex_lists.leaf_locations.clear();
+    vertex_lists.leaf_rotations.clear();
+    vertex_lists.leaf_scales.clear();
+
+    vertex_lists.branch_verts.push_back(vec3(0,0,0));
+    vertex_lists.branch_radii.push_back(0.f);
+    int index = 1;
+    for (Branch* b : branches){
+        vertex_lists.branch_verts.push_back(b->position);
+        vertex_lists.branch_radii.push_back(sqrt(b->radius));
+        b->index = index++;
+    }
+    for (Branch* b : branches){
+        if (b->parent && b->parent->parent){
+
+            vertex_lists.branch_indexes.push_back(b->parent->parent->index);
+            vertex_lists.branch_indexes.push_back(b->parent->index);
+            vertex_lists.branch_indexes.push_back(b->index);
+            vertex_lists.branch_indexes.push_back(0); // next adjacent is unused
+
+            if (b->radius < leaf_twig_max_size){
+                vertex_lists.leaf_locations.push_back(b->position);
+                vertex_lists.leaf_rotations.push_back(b->rotation);
+                vertex_lists.leaf_scales.push_back(sqrt(b->radius));
+            }
+        }
+    }
+}
+
 std::vector<AttractionPoint*> Tree::get_attraction_points(){
     return attraction_points; 
-};
-
-std::vector<Branch*> Tree::get_branches(){
-    return branches;
 };
