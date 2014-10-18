@@ -31,8 +31,12 @@ include_directories(${GLEW_DIR}/include)
 
 #### GLM ####
 set(GLM_DIR "${PROJECT_SOURCE_DIR}/external/glm")
-
 include_directories(${GLM_DIR})
+
+
+#### PicoJson ####
+set(PICOJSON_DIR "${PROJECT_SOURCE_DIR}/external/picojson")
+include_directories(${PICOJSON_DIR})
 
 #### Application ####
 

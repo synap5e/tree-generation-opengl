@@ -11,6 +11,7 @@
 #include <set>
 #include <atomic>
 #include <mutex>
+#include "picojson.h"
 
 using namespace glm;
 
@@ -89,6 +90,7 @@ public:
 	VertexLists vertex_lists;
 
 	Tree();
+	Tree(picojson::object tree_params);
 	bool grow();
 	void regenerate_vertex_lists();
 

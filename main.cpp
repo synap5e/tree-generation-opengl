@@ -20,6 +20,10 @@
 
 #include <glm/glm.hpp>
 
+#include <picojson.h>
+#include <fstream>
+#include <iostream>
+
 UserInterface interface;
 Tree *tree;
 TreeRenderer *renderer;
@@ -161,6 +165,26 @@ double calcFPS(GLFWwindow* window, double theTimeInterval = 1.0)
 	return fps;
 }
 
+picojson::object load_json(std::string filename){
+	std::fstream ifile;
+	ifile.open(filename);
+	if (!ifile){
+		std::cerr << "Could not open " << filename << std::endl;
+		exit(-1);
+	}
+
+	picojson::value v;
+	ifile >> v;
+
+	std::string err = picojson::get_last_error();
+	if (! err.empty()) {
+		std::cerr << err << std::endl;
+		exit(-1);
+	}
+
+	return v.get<picojson::object>();
+}
+
 int main(void)
 {
 	RandomGen::seed(1337);
@@ -215,7 +239,9 @@ int main(void)
 		printf(">> GL error: %d \n", err);
 
 
-	tree = new Tree();
+	picojson::object params = load_json("tree.json");
+
+	tree = new Tree(params);
 	renderer = new TreeRenderer(tree);
 	simulate = true;
 	tree->regenerate_vertex_lists();

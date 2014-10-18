@@ -9,6 +9,31 @@ Tree::Tree(){
 }
 
 
+Tree::Tree(picojson::object tree_params){
+    params.radius                  = tree_params["radius"].get<double>();
+    params.height                  = tree_params["height"].get<double>();
+    params.root_height             = tree_params["root_height"].get<double>();
+    params.canopy_exponent         = tree_params["canopy_exponent"].get<double>();
+    params.attraction_point_count  = tree_params["attraction_point_count"].get<double>();
+    params.branch_length           = tree_params["branch_length"].get<double>();
+    params.kill_distance           = tree_params["kill_distance"].get<double>();
+    params.influence_distance      = tree_params["influence_distance"].get<double>();
+    params.initial_radius          = tree_params["initial_radius"].get<double>();
+    params.radius_growth           = tree_params["radius_growth"].get<double>();
+    params.twig_max_descendants    = tree_params["twig_max_descendants"].get<double>();
+    params.soft_bends_weight       = tree_params["soft_bends_weight"].get<double>();
+    params.branch_kill_age         = tree_params["branch_kill_age"] .get<double>();
+
+    std::string err = picojson::get_last_error();
+    if (! err.empty()) {
+        std::cerr << err << std::endl;
+        exit(-1);
+    }
+
+    generate_crown();
+    generate_trunk();
+}
+
 void Tree::generate_crown(){
 	position = vec3(0,0,0);
 

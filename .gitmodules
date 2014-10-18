@@ -4,3 +4,6 @@
 [submodule "external/glfw"]
 	path = external/glfw
 	url = git@github.com:glfw/glfw.git
+[submodule "external/picojson"]
+	path = external/picojson
+	url = git@github.com:kazuho/picojson.git
