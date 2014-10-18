@@ -142,8 +142,8 @@ bool Tree::grow(){
         if (!attraction_point_killed && attraction_point->closest) {
             vec3 dir = attraction_point->position - attraction_point->closest->position;
             dir = normalize(dir);
-            attraction_point->closest->grow_direction += dir;
-            attraction_point->closest->grow_count++;
+            attraction_point->closest->grow_direction += dir * attraction_point->weight;
+            attraction_point->closest->grow_count += attraction_point->weight;
         }
         
     }

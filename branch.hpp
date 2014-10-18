@@ -11,6 +11,7 @@ class AttractionPoint {
 public:
 	Branch* closest = nullptr;
 
+	float weight = 1;
 	vec3 position;
 	AttractionPoint(vec3 _pos): position(_pos){};
 };
@@ -18,7 +19,7 @@ public:
 class Branch{
 public:
 	Branch* parent;
-	int grow_count = 0;
+	float grow_count = 0;
 	vec3 position;
 	
 	int born;

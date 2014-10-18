@@ -49,8 +49,6 @@ public:
 	float kill_distance 		= 1;
 	float influence_distance 	= 10;
 
-/*	float initial_radius 		= 0.001;
-	float radius_growth 		= 0.002;*/
 
 	// The maximum number of descendants a branch can have
 	// to be considered a twig and grow leaves
