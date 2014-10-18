@@ -121,3 +121,8 @@ void AttractionPointShader::load(){
     shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/sphere-geometry.glsl", "../shaders/basic-fragment.glsl");
     load_locations();
 }
+
+void GridShader::load(){
+    shader_id = load_shaders("../shaders/grid-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
+    load_locations();
+}

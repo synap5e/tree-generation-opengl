@@ -38,9 +38,9 @@ private:
 public:
 	TreeRenderer(Tree* _tree);
 
-	bool draw_attraction_points = false;
+	bool draw_attraction_points = true;
 
 	void regenerate();
-	void render(glm::mat4 projection, glm::mat4 view);
+	void render(glm::mat4 projection, glm::mat4 view, glm::mat4 model);
 
 };

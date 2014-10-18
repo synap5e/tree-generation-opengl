@@ -3,8 +3,7 @@
 #include "tree.hpp"
 #include "treerenderer.hpp"
 #include "random.hpp"
-
-#include "leafmodel.hpp"
+#include "voxels.hpp"
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -27,6 +26,7 @@
 UserInterface interface;
 Tree *tree;
 TreeRenderer *renderer;
+VoxelGrid *grid;
 
 //float model_update_fps = 10;
 std::atomic<bool> simulate;
@@ -82,6 +82,8 @@ static void run_simulation(){
 			tree->regenerate_vertex_lists();
 			regenerate_display_complete = true;
 		}
+		grid->reset();
+		tree->update(grid);
 	}
 	std::cout << "Simulation thread ending\n";
 }
@@ -102,11 +104,12 @@ void render(int pixelWidth, int pixelHeight){
         1000.0f
     );
 
-    /*if (regenerate_display){
-    	renderer->regenerate();
-    	regenerate_display = false;
-    }*/
-    renderer->render(projection, interface.view);
+    mat4 model(1);
+    model = glm::translate(model, glm::vec3(0, -50, 0));
+
+    renderer->render(projection, interface.view, model);
+    grid->render(projection, interface.view, model);
+    grid->render_cast(projection, interface.view, model, 500, 500, vec3(100, 200, 0));
 }
 
 
@@ -196,24 +199,27 @@ int main(void)
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 
-	glfwSwapInterval(1);
-	glfwWindowHint(GLFW_SAMPLES, 4); 
+	//glfwSwapInterval(1);
+/*	glfwWindowHint(GLFW_SAMPLES, 4); 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);*/
 //	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
+	glfwWindowHint(GLFW_SAMPLES, 4); 
 	window = glfwCreateWindow(640, 480, "Tree renderer", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetMouseButtonCallback(window, mousebutton_callback);
 	glfwSetCursorPosCallback(window, cursorpos_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	
 
 	//glDebugMessageCallback( myCallback, NULL );
 
@@ -243,6 +249,7 @@ int main(void)
 
 	tree = new Tree(params);
 	renderer = new TreeRenderer(tree);
+	grid = new VoxelGrid(vec3(-100, 0, -100), vec3(100, 210, 100));
 	simulate = true;
 	tree->regenerate_vertex_lists();
 	renderer->regenerate();

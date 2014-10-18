@@ -105,20 +105,15 @@ void TreeRenderer::regenerate(){
 
 }
 
-void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
-    glm::mat4 model = glm::mat4(1);
-    model = glm::translate(model, glm::vec3(0, -50, 0));
-
-
-    glEnableVertexAttribArray (0);
-    glEnableVertexAttribArray (1);
-
+void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model){
+    
     glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
+    glEnableVertexAttribArray (0);
     glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
     glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
+    glEnableVertexAttribArray (1);
     glVertexAttribPointer (1, 1, GL_FLOAT, GL_FALSE, 0, NULL);
-
 
 
     //branch_shader.load(); // debuging the shader - live reload
@@ -126,14 +121,10 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     branch_shader.set_model(model);
     branch_shader.set_view(view);
     branch_shader.set_projection(projection);
-    glDisableVertexAttribArray(3);
-    glDisableVertexAttribArray(4);
-    glDisableVertexAttribArray(5);
-    glDisableVertexAttribArray(6);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, branch_elements.element_buffer);
     glDrawElements (GL_LINES_ADJACENCY, branch_elements.size, GL_UNSIGNED_INT, NULL);
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
 
 
 
@@ -143,6 +134,7 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     leaf_shader.set_view(view);
     leaf_shader.set_projection(projection);
 
+    // enables and uses attrib 0-2
     leaf_model.bind();
 
     glEnableVertexAttribArray(3);
@@ -166,7 +158,13 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view){
     glVertexAttribDivisor(7, 1);
 
     glDrawArraysInstanced(GL_TRIANGLES, 0, leaf_model.size, leaf_elements.size);
-
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(3);
+    glDisableVertexAttribArray(4);
+    glDisableVertexAttribArray(5);
+    glDisableVertexAttribArray(6);
 
     if (draw_attraction_points){
         GLuint tvertex_vbo, tsize_vbo, vao;

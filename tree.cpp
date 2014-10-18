@@ -72,24 +72,29 @@ void Tree::generate_crown(){
     
     */
 
+    float mx = 0;
     for (int i=0; i< params.attraction_point_count; ++i){
         float yu = RandomGen::get(0, 1);
         
         float theta = acosf(1-2*yu);
         float phi = RandomGen::get(0, PI);
 
-        float rad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);
-        rad = pow(rad, params.canopy_exponent);
+        float xrad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);
+        float zrad = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi);
+        xrad = pow(xrad, params.canopy_exponent);
+        zrad = pow(zrad, params.canopy_exponent);
        
-        vec3 location = vec3(   RandomGen::get(-rad, rad) * params.radius,
+        vec3 location = vec3(   RandomGen::get(-xrad, xrad) * params.radius,
                                 yu * params.height,
-                                RandomGen::get(-rad, rad) * params.radius);
+                                RandomGen::get(-zrad, zrad) * params.radius);
         if (location.y < params.root_height){
             continue;
         }
+        mx = max(location.x, mx);
         attraction_points.push_back(new AttractionPoint(location));
 
     }
+    printf("%f\n", mx);
 
 }
 
@@ -256,6 +261,12 @@ void Tree::regenerate_vertex_lists(){
             vertex_lists.branch_indexes.push_back(b->index);
             vertex_lists.branch_indexes.push_back(0); // next adjacent is unused
         }
+    }
+}
+
+void Tree::update(VoxelGrid *grid){
+    for (Branch *b : branches){
+        grid->add(b->position);
     }
 }
 

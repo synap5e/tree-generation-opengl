@@ -180,13 +180,17 @@ LeafModel::LeafModel(){
 
 void LeafModel::bind(){
 	glBindVertexArray (vao);
+
 	glBindBuffer (GL_ARRAY_BUFFER, points_vbo);
+	glEnableVertexAttribArray (0);
 	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
 	glBindBuffer (GL_ARRAY_BUFFER, colours_vbo);
+	glEnableVertexAttribArray (1);
 	glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+
 	glBindBuffer (GL_ARRAY_BUFFER, normals_vbo);
+	glEnableVertexAttribArray (2);
 	glVertexAttribPointer (2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    glEnableVertexAttribArray (0);
-    glEnableVertexAttribArray (1);
-    glEnableVertexAttribArray (2);
 }

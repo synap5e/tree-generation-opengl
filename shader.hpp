@@ -57,3 +57,9 @@ class AttractionPointShader : public Shader {
 public:
     void load();
 };
+
+class GridShader : public Shader {
+
+public:
+    void load();
+};

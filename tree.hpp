@@ -2,6 +2,7 @@
 
 #include "branch.hpp"
 #include "shader.hpp"
+#include "voxels.hpp"
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -108,6 +109,8 @@ public:
 	~Tree();
 	bool grow();
 	void regenerate_vertex_lists();
+
+	void update(VoxelGrid *grid);
 
 	std::vector<AttractionPoint*> get_attraction_points();
 
