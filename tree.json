@@ -7,9 +7,28 @@
 	"branch_length" 			: 1,
 	"kill_distance" 			: 1,
 	"influence_distance" 		: 10,
-	"initial_radius" 			: 0.001,
-	"radius_growth" 			: 0.002,
 	"twig_max_descendants" 		: 0,
 	"soft_bends_weight" 		: 2,
-	"branch_kill_age" 			: 2
+	"branch_kill_age" 			: 2,
+
+	"branch_radius" : {
+		"constants" : {
+			"initial_radius" 			: 0.001,
+			"radius_growth" 			: 0.002
+		},
+		"function" : "sqrt(radius_growth * descendants + initial_radius)"
+	},
+
+	"leaf_check" : {
+		"constants" : {
+			"twig_max_descendants" : 0
+		},
+		"function" : "descendants <= twig_max_descendants"
+	},
+
+	"leaf_size" : {
+		"constants" : {
+		},
+		"function" : "sqrt(descendants + 0.01)"
+	}
 }

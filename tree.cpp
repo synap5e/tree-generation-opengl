@@ -18,11 +18,13 @@ Tree::Tree(picojson::object tree_params){
     params.branch_length           = tree_params["branch_length"].get<double>();
     params.kill_distance           = tree_params["kill_distance"].get<double>();
     params.influence_distance      = tree_params["influence_distance"].get<double>();
-    params.initial_radius          = tree_params["initial_radius"].get<double>();
-    params.radius_growth           = tree_params["radius_growth"].get<double>();
     params.twig_max_descendants    = tree_params["twig_max_descendants"].get<double>();
     params.soft_bends_weight       = tree_params["soft_bends_weight"].get<double>();
     params.branch_kill_age         = tree_params["branch_kill_age"] .get<double>();
+
+    init_branch_parser(branch_radius_parser, tree_params["branch_radius"].get<picojson::object>());
+    init_branch_parser(leaf_check_parser, tree_params["leaf_check"].get<picojson::object>());
+    init_branch_parser(leaf_size_parser, tree_params["leaf_size"].get<picojson::object>());
 
     std::string err = picojson::get_last_error();
     if (! err.empty()) {
@@ -32,6 +34,19 @@ Tree::Tree(picojson::object tree_params){
 
     generate_crown();
     generate_trunk();
+}
+
+void Tree::init_branch_parser(mu::Parser &parser, picojson::object function_params){
+    picojson::object constants = function_params["constants"].get<picojson::object>();
+    for (auto &kv : constants){
+        parser.DefineConst(kv.first, kv.second.get<double>());
+    }
+
+    parser.DefineVar("descendants", &(brach_radius_variables.descendants)); 
+    parser.DefineVar("age", &(brach_radius_variables.age)); 
+    parser.DefineVar("depth", &(brach_radius_variables.depth)); 
+
+    parser.SetExpr(function_params["function"].get<std::string>());
 }
 
 void Tree::generate_crown(){
@@ -76,6 +91,10 @@ void Tree::generate_crown(){
 
     }
 
+}
+
+Tree::~Tree(){
+    // TODO: delete the things
 }
 
 void Tree::generate_trunk(){
@@ -214,9 +233,20 @@ void Tree::regenerate_vertex_lists(){
     for (Branch* b : branches){
         vertex_lists.branch_verts.push_back(b->position);
 
-        float radius = sqrt(params.radius_growth * b->descendants + params.initial_radius);
-        vertex_lists.branch_radii.push_back(radius);
+        // fill out the variables used by the parser
+        brach_radius_variables.descendants = b->descendants;
+        brach_radius_variables.age = ageof(b);
+        brach_radius_variables.depth = b->depth;
+
+        vertex_lists.branch_radii.push_back(branch_radius_parser.Eval());
         b->index = index++;
+
+        if (leaf_check_parser.Eval()){
+            vertex_lists.leaf_locations.push_back(b->position);
+            vertex_lists.leaf_rotations.push_back(b->rotation);
+
+            vertex_lists.leaf_scales.push_back(leaf_size_parser.Eval());
+        }
     }
     for (Branch* b : branches){
         if (b->parent && b->parent->parent){
@@ -225,14 +255,6 @@ void Tree::regenerate_vertex_lists(){
             vertex_lists.branch_indexes.push_back(b->parent->index);
             vertex_lists.branch_indexes.push_back(b->index);
             vertex_lists.branch_indexes.push_back(0); // next adjacent is unused
-
-            if (b->descendants <= params.twig_max_descendants){
-                vertex_lists.leaf_locations.push_back(b->position);
-                vertex_lists.leaf_rotations.push_back(b->rotation);
-
-                float leaf_size = sqrt(b->descendants + 0.01);
-                vertex_lists.leaf_scales.push_back(leaf_size);
-            }
         }
     }
 }

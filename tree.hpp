@@ -11,7 +11,8 @@
 #include <set>
 #include <atomic>
 #include <mutex>
-#include "picojson.h"
+#include <picojson.h>
+#include <muParser.h>
 
 using namespace glm;
 
@@ -48,8 +49,8 @@ public:
 	float kill_distance 		= 1;
 	float influence_distance 	= 10;
 
-	float initial_radius 		= 0.001;
-	float radius_growth 		= 0.002;
+/*	float initial_radius 		= 0.001;
+	float radius_growth 		= 0.002;*/
 
 	// The maximum number of descendants a branch can have
 	// to be considered a twig and grow leaves
@@ -84,6 +85,21 @@ private:
 
 	int ageof(Branch* b);
 
+
+	typedef struct BranchRadiusVariables{
+		double descendants;
+		double age;
+		double depth;
+	} BranchRadiusVariables;
+	BranchRadiusVariables brach_radius_variables;
+
+	mu::Parser branch_radius_parser;
+	mu::Parser leaf_check_parser;
+	mu::Parser leaf_size_parser;
+	
+	void init_branch_parser(mu::Parser &parser, picojson::object function_params);
+
+
 public:
 
 	TreeParams params;
@@ -91,6 +107,7 @@ public:
 
 	Tree();
 	Tree(picojson::object tree_params);
+	~Tree();
 	bool grow();
 	void regenerate_vertex_lists();
 

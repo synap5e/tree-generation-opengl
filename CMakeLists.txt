@@ -19,14 +19,12 @@ include_directories(${GLFW_DIR}/include)
 set(GLEW_DIR "${PROJECT_SOURCE_DIR}/external/glew")
 add_subdirectory(${GLEW_DIR} glew)
 include_directories(${GLEW_DIR}/include)
-#set(Link_libs glew ${GLEW_LIBRARIES})
 
-#add_library(glew_static STATIC IMPORTED)
-#set_target_properties(glew_static PROPERTIES IMPORTED_LOCATION /usr/lib/libGLEW.a)
-#target_link_libraries(${PROJECT_NAME} glew_static)
 
-#find_package(GLEW REQUIRED)
-#include_directories(${GLEW_DIR}/include)
+#### muparser ####
+set(MUPARSER_DIR "${PROJECT_SOURCE_DIR}/external/muparser")
+add_subdirectory(${MUPARSER_DIR} muparser)
+include_directories(${MUPARSER_DIR}/include)
 
 
 #### GLM ####
@@ -54,5 +52,5 @@ FILE(GLOB Header_files
 
 add_executable(${PROJECT_NAME} ${Source_files} ${Header_files})
 
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${GLEW_LIBRARIES} glew glfw)
+target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${GLEW_LIBRARIES} ${MUPARSER_LIBRARIES} glfw glew muparser)
 
