@@ -7,6 +7,3 @@
 [submodule "external/picojson"]
 	path = external/picojson
 	url = git@github.com:kazuho/picojson.git
-[submodule "external/libjpeg"]
-	path = external/libjpeg
-	url = git@github.com:LuaDist/libjpeg.git

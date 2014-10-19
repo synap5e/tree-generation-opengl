@@ -5,6 +5,7 @@ TreeRenderer::TreeRenderer(Tree* _tree): tree(_tree){
 	leaf_shader.load();
     point_shader.load();
     grid_shader.load();
+    branch_elements.size = 0;
 }
 
 void TreeRenderer::regenerate(){
@@ -119,6 +120,7 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model,
     glDisableVertexAttribArray(4);
     glDisableVertexAttribArray(5);
     glDisableVertexAttribArray(6);
+    glDisableVertexAttribArray(7);
 
     if (draw_attraction_points){
         GLuint tvertex_vbo, tsize_vbo, vao;

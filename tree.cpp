@@ -17,7 +17,9 @@ Tree::Tree(vec3 pos, picojson::object tree_params, int _seed_timer){
     params.kill_distance           = tree_params["kill_distance"].get<double>();
     params.influence_distance      = tree_params["influence_distance"].get<double>();
     params.soft_bends_weight       = tree_params["soft_bends_weight"].get<double>();
-    params.branch_kill_age         = tree_params["branch_kill_age"] .get<double>();
+    params.branch_kill_age         = tree_params["branch_kill_age"].get<double>();
+
+    params.raycast_attraction_points = tree_params["raycast_attraction_points"].get<bool>();
 
     init_branch_parser(branch_radius_parser, tree_params["branch_radius"].get<picojson::object>());
     init_branch_parser(leaf_check_parser, tree_params["leaf_check"].get<picojson::object>());
@@ -274,10 +276,12 @@ void Tree::update(VoxelGrid *grid, vec3 light){
     for (Branch *b : branches){
         grid->add(b->position);
     }
-    for (int i=0; i <attraction_points.size(); i++){
-        AttractionPoint *a = attraction_points[i];
-        int intersections = grid->cast(a->position, normalize(light - a->position));
-        a->weight = fmax(-20, 100 - intersections)/100.f;
+    if (params.raycast_attraction_points){
+        for (int i=0; i <attraction_points.size(); i++){
+            AttractionPoint *a = attraction_points[i];
+            int intersections = grid->cast(a->position, normalize(light - a->position));
+            a->weight = fmax(-20, 150 - intersections)/150.f;
+        }
     }
    // printf("Shadow level at (0,0,0) is %d\n", grid->cast(vec3(0,0,0), vec3(0,1,0)));
 }

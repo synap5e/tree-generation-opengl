@@ -3,13 +3,15 @@
 	"height" 							: 200,
 	"root_height" 						: 5,
 	"canopy_exponent" 					: 1.01,
-	"initial_attraction_points"			: 5000,
+	"initial_attraction_points"			: 10000,
 	"attraction_point_creation_rate" 	: 0,
 	"branch_length" 					: 1,
 	"kill_distance" 					: 1,
 	"influence_distance" 				: 10,
 	"soft_bends_weight" 				: 2,
 	"branch_kill_age" 					: 10,
+
+	"raycast_attraction_points"			: false,
 
 	"branch_radius" : {
 		"constants" : {
@@ -21,14 +23,14 @@
 
 	"leaf_check" : {
 		"constants" : {
-			"twig_max_descendants" : 10
+			"twig_max_descendants" : 15
 		},
 		"function" : "descendants <= twig_max_descendants"
 	},
 
 	"leaf_size" : {
 		"constants" : {
-			"growth_step" : 0.005
+			"growth_step" : 0.002
 		},
 		"function" : "(min(5, descendants+1) * growth_step)^0.5"
 	}

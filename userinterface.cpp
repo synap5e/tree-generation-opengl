@@ -26,6 +26,8 @@ void UserInterface::regen_view(){
     for (int i=0;i<9;i++){
         enable[i] = true;
     }
+
+    //printf("    xrot = %f;\n    yrot = %f;\n    radius = %f;\n    centre = vec3(%f, %f, %f);\n\n", xrot, yrot, radius, camera.x, camera.y, camera.z);
 }
 
 void UserInterface::key_handler(int key, int scancode, int action, int mods) {

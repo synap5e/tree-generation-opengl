@@ -49,6 +49,8 @@ public:
 
 	int branch_kill_age;
 
+	bool raycast_attraction_points;
+
 };
 
 class Tree{

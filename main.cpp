@@ -45,6 +45,7 @@ bool draw_attraction = false;
 
 static void error_callback(int error, const char* description){
 	fputs(description, stderr);
+	fputs("\nAre you sure this machine supports OpenGL 4.0?\n", stderr);
 }
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
