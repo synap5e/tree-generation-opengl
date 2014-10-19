@@ -16,6 +16,8 @@ private:
 	float yrot = 90;
 	float radius = 400;
 
+
+
 /*	//124.899925, 47.431683, 14.000000
 	float xrot = 124.899925;
 	float yrot = 47.431683;
@@ -32,6 +34,7 @@ private:
 public:
 	glm::mat4 view;
 
+	bool enable[9];
 	
 	UserInterface();
 

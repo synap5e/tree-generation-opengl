@@ -8,9 +8,8 @@
 	"branch_length" 					: 1,
 	"kill_distance" 					: 1,
 	"influence_distance" 				: 10,
-	"twig_max_descendants" 				: 0,
 	"soft_bends_weight" 				: 2,
-	"branch_kill_age" 					: 2,
+	"branch_kill_age" 					: 10,
 
 	"branch_radius" : {
 		"constants" : {

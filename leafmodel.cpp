@@ -83,7 +83,7 @@ LeafModel::LeafModel(){
 	}
 
 	vec3 leaf_color = vec3(0.f, 0.6f, 0.f);
-	leaf_color.x = RandomGen::get(0, 0.1);
+	leaf_color.x = RandomGen::get(0, 0.3);
 	leaf_color.y += RandomGen::get(-0.1, 0.1);
 	leaf_color.z = RandomGen::get(0, 0.2);
 

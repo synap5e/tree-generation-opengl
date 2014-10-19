@@ -123,17 +123,18 @@ void render(int pixelWidth, int pixelHeight){
     mat4 model(1);
     model = glm::translate(model, glm::vec3(0, -100, 0));
 
-	for (RenderableTree t : trees){
+	for (int i=0; i<trees.size(); ++i){
+		if (i < 9 && !interface.enable[i]) continue;
+		RenderableTree t = trees[i];
 		t.renderer->render(projection, interface.view, model, light);
 	}
-//	trees[1].renderer->render(projection, interface.view, model, light);
+
 	if (draw_grid){
     	grid->render(projection, interface.view, model);
 	}
-    //grid->render_cast(projection, interface.view, model, 500, 500, vec3(100, 200, 0));
 }
 
-
+// adapted from http://r3dux.org/2012/07/a-simple-glfw-fps-counter/
 double calcFPS(GLFWwindow* window, double theTimeInterval = 1.0)
 {
 	// Static values which only get initialised the first time the function runs
@@ -168,7 +169,7 @@ double calcFPS(GLFWwindow* window, double theTimeInterval = 1.0)
 		std::string fpsString = stream.str();
 
 		// Append the FPS value to the window title details
-		std::string theWindowTitle = " | FPS: " + fpsString;
+		std::string theWindowTitle = "Tree | FPS: " + fpsString;
 
 		// Convert the new window title to a c_str and set it
 		const char* pszConstString = theWindowTitle.c_str();

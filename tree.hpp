@@ -51,11 +51,6 @@ public:
 	float kill_distance;
 	float influence_distance;
 
-
-	// The maximum number of descendants a branch can have
-	// to be considered a twig and grow leaves
-	float twig_max_descendants;
-
 	// how much wieght is given to the branches existing direction
 	// as opposed to the pull from the attraction points
 	float soft_bends_weight;

@@ -16,7 +16,6 @@ Tree::Tree(vec3 pos, picojson::object tree_params, int _seed_timer){
     params.branch_length           = tree_params["branch_length"].get<double>();
     params.kill_distance           = tree_params["kill_distance"].get<double>();
     params.influence_distance      = tree_params["influence_distance"].get<double>();
-    params.twig_max_descendants    = tree_params["twig_max_descendants"].get<double>();
     params.soft_bends_weight       = tree_params["soft_bends_weight"].get<double>();
     params.branch_kill_age         = tree_params["branch_kill_age"] .get<double>();
 
