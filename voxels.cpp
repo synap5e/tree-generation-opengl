@@ -3,7 +3,6 @@
 
 VoxelGrid::VoxelGrid(vec3 _bottom_left, vec3 _top_right): bottom_left(_bottom_left), top_right(_top_right){
 	grid_shader.load();
-	shadow_shader.load();
 
 	x_res = (top_right.x -  bottom_left.x) / voxel_size;
 	y_res = (top_right.y -  bottom_left.y) / voxel_size;

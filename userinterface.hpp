@@ -15,7 +15,7 @@ private:
 	float xrot = 90;
 	float yrot = 90;
 	float radius = 400;
-
+	glm::vec3 centre;
 
 
 /*	//124.899925, 47.431683, 14.000000
@@ -40,6 +40,7 @@ public:
 
 	void key_handler(int key, int scancode, int action, int mods);
 	void mouse_drag(double x, double y);
+	void mouse2_drag(double x, double y);
 	void scroll(double ammount);
 
 };

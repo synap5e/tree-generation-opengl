@@ -1,4 +1,7 @@
 #include "shader.hpp"
+#include "G308_ImageLoader.hpp"
+
+#include <stdlib.h>
 
 #include <string>
 #include <fstream>
@@ -21,7 +24,7 @@ GLuint create_shader(GLenum type, const char* path) {
     shader_code = shader_data.str();
 
 
-    //TRACE("Compiling shader : " << path);
+    TRACE("Compiling shader : " << path);
     char const *shader_source = shader_code.c_str();
     GLint shader_length = shader_code.size();
     glShaderSource(shader, 1, &shader_source, &shader_length);
@@ -102,14 +105,41 @@ void Shader::set_view(glm::mat4& mat){
 
 
 void BranchShader::load(){
-    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-geometry.glsl", "../shaders/basic-fragment.glsl");
+    shader_id = load_shaders("../shaders/branch-vertex.glsl", "../shaders/branch-geometry.glsl", "../shaders/branch-fragment.glsl");
 //    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-debug-geometry.glsl", "../shaders/basic-fragment.glsl");
+
+
+    glUseProgram(shader_id);
+    normal_texture_location = glGetUniformLocation(shader_id, "normal_texture");
+
+   
+    TextureInfo t;
+    loadTextureFromPNG("bark-normal.png", &t);
+
+    glGenTextures(1, &bark_normal_texture);
+    glBindTexture(GL_TEXTURE_2D, bark_normal_texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    if (t.hasAlpha) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t.width, t.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, t.textureData);
+    } else {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t.width, t.height, 0, GL_RGB, GL_UNSIGNED_BYTE, t.textureData);
+    }
+    free(t.textureData);
+
     load_locations();
 }
 
-void BranchShadowShader::load(){
-
-}
+void BranchShader::activate2(){
+    glUseProgram(shader_id);
+    glActiveTexture(GL_TEXTURE0 + 1);
+    glBindTexture(GL_TEXTURE_2D, bark_normal_texture);
+    glUniform1i(normal_texture_location, 1);
+}  
 
 void LeafShader::load(){
     shader_id = load_shaders("../shaders/leaf-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
@@ -126,12 +156,12 @@ void GridShader::load(){
     shader_id = load_shaders("../shaders/grid-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
     load_locations();
 }
-
+/*
 
 void ShadowMapShader::load(){
     shader_id = load_shaders("../shaders/basic-texture-vertex.glsl", nullptr, "../shaders/basic-texture-fragment.glsl");
     glUseProgram(shader_id);
-    texture_location = glGetUniformLocation(shader_id, "textureID");
+    
     printf("~~ %d\n", texture_location);
     load_locations();
 }
@@ -139,3 +169,4 @@ void ShadowMapShader::load(){
 void ShadowMapShader::set_texture(GLuint texID){
     glUniform1i(texture_location, texID);
 }
+*/

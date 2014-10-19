@@ -29,6 +29,7 @@ private:
     
     GLuint vertex_vbo; 
     GLuint size_vbo;
+    GLuint depth_vbo;
     ElementGroup branch_elements;
     GridShader grid_shader;
 

@@ -56,12 +56,19 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 
 bool mousedown = false;
+bool mouse2down = false;
 static void mousebutton_callback(GLFWwindow* window, int button, int actions, int mods){
 	if (button == GLFW_MOUSE_BUTTON_1 && actions == GLFW_PRESS){
 		mousedown = true;
 		//lx = -1;
 	} else if (button == GLFW_MOUSE_BUTTON_1 && actions == GLFW_RELEASE){
 		mousedown = false;
+	}
+
+	if (button == GLFW_MOUSE_BUTTON_2 && actions == GLFW_PRESS){
+		mouse2down = true;
+	} else if (button == GLFW_MOUSE_BUTTON_2 && actions == GLFW_RELEASE){
+		mouse2down = false;
 	}
 } 
 
@@ -70,6 +77,8 @@ double ly;
 static void cursorpos_callback(GLFWwindow* window, double x, double y){
 	if (mousedown){
 		interface.mouse_drag(lx - x, ly - y);
+	} else if (mouse2down){
+		interface.mouse2_drag(lx - x, ly - y);
 	}
 
 	lx = x;
@@ -239,10 +248,10 @@ int main(int argc, char* argv[])
 		exit(EXIT_FAILURE);
 
 	//glfwSwapInterval(1);
-/*	glfwWindowHint(GLFW_SAMPLES, 4); 
+//	glfwWindowHint(GLFW_SAMPLES, 4); 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);*/
-//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);//*/
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
 	glfwWindowHint(GLFW_SAMPLES, 4); 

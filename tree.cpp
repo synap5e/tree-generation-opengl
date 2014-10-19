@@ -228,16 +228,21 @@ bool Tree::grow(){
 void Tree::regenerate_vertex_lists(){
     vertex_lists.branch_verts.clear();
     vertex_lists.branch_radii.clear();
+    vertex_lists.depths.clear();
     vertex_lists.branch_indexes.clear();
     vertex_lists.leaf_locations.clear();
     vertex_lists.leaf_rotations.clear();
     vertex_lists.leaf_scales.clear();
 
+    // 0'th "null" values
     vertex_lists.branch_verts.push_back(vec3(0,0,0));
     vertex_lists.branch_radii.push_back(0.f);
+    vertex_lists.depths.push_back(0);
+
     int index = 1;
     for (Branch* b : branches){
         vertex_lists.branch_verts.push_back(b->position);
+        vertex_lists.depths.push_back(b->depth);
 
         // fill out the variables used by the parser
         brach_radius_variables.descendants = b->descendants;

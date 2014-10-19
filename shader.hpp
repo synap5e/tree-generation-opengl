@@ -33,9 +33,11 @@ public:
 };
 
 class BranchShader : public Shader {
-
+    GLuint normal_texture_location;
+    GLuint bark_normal_texture; 
 public:
     void load();
+    void activate2();
 };
 
 class BranchShadowShader : public Shader {
@@ -63,7 +65,7 @@ class GridShader : public Shader {
 public:
     void load();
 };
-
+/*
 
 class ShadowMapShader : public Shader {
 private:
@@ -71,4 +73,4 @@ private:
 public:
     void load();
     void set_texture(GLuint texID);
-};
+};*/

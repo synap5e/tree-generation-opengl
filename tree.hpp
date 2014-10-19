@@ -17,18 +17,10 @@
 
 using namespace glm;
 
-/*struct vec3_comparator{
-	bool operator()(const vec3 &vecA, const vec3 &vecB){ 
-		const double epsilion = 0.01;
-		return  	fabs(vecA[0] -vecB[0]) < epsilion   
-		      	&& 	fabs(vecA[1] -vecB[1]) < epsilion   
-		      	&& 	fabs(vecA[2] -vecB[2]) < epsilion;
-	} 
-};*/
-
 typedef struct VertexLists{
     std::vector<vec3> branch_verts;
     std::vector<float> branch_radii;
+    std::vector<float> depths;
     std::vector<unsigned int> branch_indexes;
 
     std::vector<vec3> leaf_locations;

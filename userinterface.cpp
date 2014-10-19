@@ -15,7 +15,6 @@ void UserInterface::regen_view(){
     float z_circ = sinf(glm::radians(yrot)) * sinf(glm::radians(xrot + 180));
     glm::vec3 look(x_circ, y_circ, z_circ);
 
-    glm::vec3 centre(0, 0, 0);
     glm::vec3 camera = centre + look*radius;// + glm::vec3(0, -200, 0);
 
     view = glm::lookAt(
@@ -64,6 +63,11 @@ void UserInterface::mouse_drag(double x, double y){
 
     regen_view();
 }   
+
+void UserInterface::mouse2_drag(double x, double y){
+    centre.y += y/-10.f;
+    regen_view();
+}
 
 void UserInterface::scroll(double ammount){
     radius = radius = fmin(500, fmax(4, radius - ammount * 10));

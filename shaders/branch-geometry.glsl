@@ -10,14 +10,18 @@ in mat4 mvp[];
 in mat3 normal_matrix[];
 in float size[];
 in vec4 color[];
+in int depth[];
 
 out vec3 normal;
 out vec3 tanjent;
 out vec3 bitanjent; 
-out vec3 geom_color;
+out vec4 geom_color;
+out vec2 uv;
 
 void main() {
-    geom_color = vec3(0.6,0.3,0);
+    geom_color = vec4(0.6,0.3,0,1);
+    //float i = mod(depth[1]/10.0, 1.0);
+    //geom_color = vec4(i, 0, 0, 1);
 
     // the axis for the branch is used as its bitanjent even though the radii of each end of the branch are not equal 
 	vec3 prev_bitanjent = normalize(gl_in[0].gl_Position.xyz - gl_in[1].gl_Position.xyz);
@@ -38,6 +42,7 @@ void main() {
         float sn = -sin(ang);
 
         vec3 prev_offset = prev_i_unit * cs + prev_k_unit * sn;
+        uv = vec2(i/float(num_sides), depth[1] * 0.1);
         normal      = normal_matrix[1] * normalize(prev_offset);
         bitanjent   = curr_bitanjent;
         tanjent     = cross(normal, bitanjent);
@@ -45,6 +50,7 @@ void main() {
         EmitVertex();
 
         vec3 curr_offset = curr_i_unit * cs + curr_k_unit * sn;
+        uv = vec2(i/float(num_sides), depth[2] * 0.1);
         normal      = normal_matrix[2] * normalize(curr_offset);
         bitanjent   = prev_bitanjent;
         tanjent     = cross(normal, bitanjent);

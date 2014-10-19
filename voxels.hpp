@@ -22,7 +22,6 @@ private:
 	int x_res, y_res, z_res;
 
 	GridShader grid_shader;
-	ShadowMapShader shadow_shader;
 
 public:
 	VoxelGrid(vec3 _bottom_left, vec3 _top_right);

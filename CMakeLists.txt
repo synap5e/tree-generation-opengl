@@ -52,5 +52,5 @@ FILE(GLOB Header_files
 
 add_executable(${PROJECT_NAME} ${Source_files} ${Header_files})
 
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${GLEW_LIBRARIES} ${MUPARSER_LIBRARIES} glfw glew muparser)
+target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${GLEW_LIBRARIES} ${MUPARSER_LIBRARIES} ${LIBJPEG_LIBRARIES} glfw glew muparser jpeg png)
 
