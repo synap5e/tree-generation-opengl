@@ -40,6 +40,8 @@ std::atomic<bool> simulate;
 std::atomic<bool> regenerate_display;
 std::atomic<bool> regenerate_display_complete;
 
+bool draw_grid = false;
+bool draw_attraction = false;
 
 static void error_callback(int error, const char* description){
 	fputs(description, stderr);
@@ -125,8 +127,9 @@ void render(int pixelWidth, int pixelHeight){
 		t.renderer->render(projection, interface.view, model, light);
 	}
 //	trees[1].renderer->render(projection, interface.view, model, light);
-
-    //grid->render(projection, interface.view, model);
+	if (draw_grid){
+    	grid->render(projection, interface.view, model);
+	}
     //grid->render_cast(projection, interface.view, model, 500, 500, vec3(100, 200, 0));
 }
 
@@ -206,9 +209,26 @@ picojson::object load_json(std::string filename){
 	return v.get<picojson::object>();
 }
 
-int main(void)
+int main(int argc, char* argv[])
 {
-	RandomGen::seed(1337);
+	int seed = 1337;
+	bool multitree = false;
+	for (int i = 1; i < argc; ++i) {
+        if (std::string(argv[i]) == "--seed" && i+i < argc){
+        	seed = std::stoi(argv[i+1]);
+        }
+		if (std::string(argv[i]) == "--multiple-trees"){
+        	multitree = true;
+        }
+        if (std::string(argv[i]) == "--draw-nodes"){
+        	draw_attraction = true;
+        }
+        if (std::string(argv[i]) == "--draw-voxels"){
+        	draw_grid = true;
+        }
+	}
+	RandomGen::seed(seed);
+	printf("%d\n", seed);
 	//RandomGen::rseed();
 
 	//Initialize GLFW
@@ -273,18 +293,23 @@ int main(void)
 	trees.push_back(t);
 	t.tree->regenerate_vertex_lists();
 	t.renderer->regenerate();
+	t.renderer->draw_attraction_points = draw_attraction;
 
-	t.tree = new Tree(vec3(-10,0,10), params, 40);
-	t.renderer = new TreeRenderer(t.tree);
-	trees.push_back(t);
-	t.tree->regenerate_vertex_lists();
-	t.renderer->regenerate();
+	if (multitree){
+		t.tree = new Tree(vec3(-10,0,10), params, 40);
+		t.renderer = new TreeRenderer(t.tree);
+		trees.push_back(t);
+		t.tree->regenerate_vertex_lists();
+		t.renderer->regenerate();
+		t.renderer->draw_attraction_points = draw_attraction;
 
-	t.tree = new Tree(vec3(35,0,0), params, 50);
-	t.renderer = new TreeRenderer(t.tree);
-	trees.push_back(t);
-	t.tree->regenerate_vertex_lists();
-	t.renderer->regenerate();
+		t.tree = new Tree(vec3(30,0,0), params, 50);
+		t.renderer = new TreeRenderer(t.tree);
+		trees.push_back(t);
+		t.tree->regenerate_vertex_lists();
+		t.renderer->regenerate();
+		t.renderer->draw_attraction_points = draw_attraction;
+	}
 
 	simulate = true;
 	regenerate_display = true;

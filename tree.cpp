@@ -155,6 +155,9 @@ bool Tree::grow(){
             dir = normalize(dir);
             attraction_point->closest->grow_direction += dir * attraction_point->weight;
             attraction_point->closest->grow_count += fabs(attraction_point->weight);
+        } else if (attraction_point->weight <= 0 && attraction_point->closest == nullptr){
+            attraction_points.erase(attraction_points.begin()+i);                        
+            i--;
         }
         
     }
@@ -271,11 +274,6 @@ void Tree::update(VoxelGrid *grid, vec3 light){
         AttractionPoint *a = attraction_points[i];
         int intersections = grid->cast(a->position, normalize(light - a->position));
         a->weight = fmax(-20, 100 - intersections)/100.f;
-
-        if (a->weight == 0){
-            attraction_points.erase(attraction_points.begin()+i);
-            --i;
-        }
     }
    // printf("Shadow level at (0,0,0) is %d\n", grid->cast(vec3(0,0,0), vec3(0,1,0)));
 }

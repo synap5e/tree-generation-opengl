@@ -28,11 +28,7 @@ void VoxelGrid::add(vec3 pos){
 	if (0 < x && x < x_res && 0 < y && y < y_res && 0 < z && z < z_res){
 		int ind = (int(x) * x_res + int(y)) * y_res + int(z);
 		grid[ind].fill++;
-		//if (int(x) == 0)
-		//	printf("set (%d, %d, %d) = %d\n", int(x), int(y), int(z), grid[ind].fill);
 	}
-
-	//printf("%d, %d, %d\n", int(x), int(y), int(z));
 }
 
 void VoxelGrid::reset(){
@@ -104,17 +100,15 @@ void VoxelGrid::render(mat4 projection, mat4 view, mat4 model){
 		float x_pos = bottom_left.x + x * voxel_size;
 		for (int y=0; y<y_res; ++y){
 			float y_pos = bottom_left.y + y * voxel_size;
-			//printf("%f\n", y_pos);
-
 			for (int z=0; z<z_res; ++z){
 				int ind = (x * x_res + y) * y_res + z;
 				if (!grid[ind].fill) continue;
 
 				float z_pos = bottom_left.z + z * voxel_size;
 
-				vec3 b(x_pos, y_pos, z_pos);
+				vec3 pos(x_pos, y_pos, z_pos);
 
-				add_cube(verts, b, voxel_size);
+				add_cube(verts, pos, voxel_size);
 
 			}
 		}
@@ -164,17 +158,14 @@ int VoxelGrid::cast(vec3 origin, vec3 direction){
 	float y = origin.y;
 	float z = origin.z;
 
-	// Direction to increment x,y,z when stepping.
 	float stepX = sgn(direction.x);
 	float stepY = sgn(direction.y);
 	float stepZ = sgn(direction.z);
 
-	// The initial values depend on the fractional part of the origin.
 	float tMaxX = intbound(origin.x, direction.x);
 	float tMaxY = intbound(origin.y, direction.y);
 	float tMaxZ = intbound(origin.z, direction.z);
 
-	// The change in t when taking a step
 	float tDeltaX = stepX/direction.x;
 	float tDeltaY = stepY/direction.y;
 	float tDeltaZ = stepZ/direction.z;
@@ -184,43 +175,27 @@ int VoxelGrid::cast(vec3 origin, vec3 direction){
 			(stepY > 0 ? y < top_right.y : y >= bottom_left.y) &&
 			(stepZ > 0 ? z < top_right.z : z >= bottom_left.z)) {
 				     
-
-		// Invoke the callback, unless we are not *yet* within the bounds of the
-		// world.
 		if (!(x < bottom_left.x || y < bottom_left.y || z < bottom_left.z || x >= top_right.x || y >= top_right.y || z >= top_right.z)){
 			float x_i = (x - bottom_left.x)/voxel_size;
 			float y_i = (y - bottom_left.y)/voxel_size;
 			float z_i = (z - bottom_left.z)/voxel_size;
 			int ind = (int(x_i) * x_res + int(y_i)) * y_res + int(z_i);
-			//printf("through (%f, %f, %f) = %d\n", x, y, z, grid[ind].fill);
 			iscts += grid[ind].fill;
 		}
 		
-		// tMaxX stores the t-value at which we cross a cube boundary along the
-		// X axis, and similarly for Y and Z. Therefore, choosing the least tMax
-		// chooses the closest cube boundary. Only the first case of the four
-		// has been commented in detail.
 		if (tMaxX < tMaxY) {
 			if (tMaxX < tMaxZ) {
-				//if (tMaxX > radius) break;
-				// Update which cube we are now in.
 				x += stepX;
-				// Adjust tMaxX to the next X-oriented boundary crossing.
 				tMaxX += tDeltaX;
 			} else {
-				//if (tMaxZ > radius) break;
 				z += stepZ;
 				tMaxZ += tDeltaZ;
 			}
 		} else {
 			if (tMaxY < tMaxZ) {
-				//if (tMaxY > radius) break;
 				y += stepY;
 				tMaxY += tDeltaY;
 			} else {
-				// Identical to the second case, repeated for simplicity in
-				// the conditionals.
-				//if (tMaxZ > radius) break;
 				z += stepZ;
 				tMaxZ += tDeltaZ;
 			}

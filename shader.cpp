@@ -21,7 +21,7 @@ GLuint create_shader(GLenum type, const char* path) {
     shader_code = shader_data.str();
 
 
-    TRACE("Compiling shader : " << path);
+    //TRACE("Compiling shader : " << path);
     char const *shader_source = shader_code.c_str();
     GLint shader_length = shader_code.size();
     glShaderSource(shader, 1, &shader_source, &shader_length);
