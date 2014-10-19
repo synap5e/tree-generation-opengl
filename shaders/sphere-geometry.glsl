@@ -12,13 +12,13 @@ in float size[];
 //in vec4 color;
 
 out vec3 normal;
-out vec3 geom_color;
+out vec4 geom_color;
 
 void main() {
    
     //geom_color = vec3(0.2,0.9,0.4);
     //if (size[0] > 1.9){
-        geom_color = vec3(0.9,0.2,0.8);
+        geom_color = vec4(0.9,0.2,0.8, 0.5);
     //}
 
     vec4 pos = mvp[0] * gl_in[0].gl_Position;

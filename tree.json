@@ -29,7 +29,7 @@
 
 	"leaf_size" : {
 		"constants" : {
-			"growth_step" : 0.002
+			"growth_step" : 0.005
 		},
 		"function" : "(min(5, descendants+1) * growth_step)^0.5"
 	}

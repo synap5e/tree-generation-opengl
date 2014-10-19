@@ -3,13 +3,10 @@
 #include "random.hpp"
 #include "glm/gtx/string_cast.hpp"
 
-Tree::Tree(){
-	generate_crown(params.initial_attraction_points);
-	generate_trunk();
-}
+Tree::Tree(vec3 pos, picojson::object tree_params, int _seed_timer){
+    position = pos;
+    seed_timer = _seed_timer;
 
-
-Tree::Tree(picojson::object tree_params){
     params.radius                  = tree_params["radius"].get<double>();
     params.height                  = tree_params["height"].get<double>();
     params.root_height             = tree_params["root_height"].get<double>();
@@ -51,8 +48,6 @@ void Tree::init_branch_parser(mu::Parser &parser, picojson::object function_para
 }
 
 void Tree::generate_crown(int count){
-	position = vec3(0,0,0);
-
     float PI = 3.141592653589793f;
 
     /*
@@ -92,7 +87,7 @@ void Tree::generate_crown(int count){
             continue;
         }
         mx = max(location.x, mx);
-        attraction_points.push_back(new AttractionPoint(location));
+        attraction_points.push_back(new AttractionPoint(location + position));
 
     }
    // printf("%f\n", mx);
@@ -117,6 +112,9 @@ int Tree::ageof(Branch* b){
 
 int r = 0;
 bool Tree::grow(){
+    ++simulation_time;
+    if (simulation_time < seed_timer) return true;
+
     for (int i=0;i<params.attraction_point_creation_rate; ++i){
         attraction_points.push_back(new AttractionPoint(
                                         vec3(
@@ -156,7 +154,7 @@ bool Tree::grow(){
             vec3 dir = attraction_point->position - attraction_point->closest->position;
             dir = normalize(dir);
             attraction_point->closest->grow_direction += dir * attraction_point->weight;
-            attraction_point->closest->grow_count += attraction_point->weight;
+            attraction_point->closest->grow_count += fabs(attraction_point->weight);
         }
         
     }
@@ -197,10 +195,10 @@ bool Tree::grow(){
             	parent = parent->parent;
             }
         } else {
-            /*if (ageof(b) > params.branch_kill_age){
+            if (ageof(b) > params.branch_kill_age){
                 live_branches.erase(live_branches.begin()+i);
                 ++i;
-            }*/
+            }
         }
 
     }
@@ -219,15 +217,8 @@ bool Tree::grow(){
         std::cout << "Finished with " << attraction_points.size() << " unused points\n";
     	attraction_points.clear();
         return false;
-       /* for (Branch* b : branches){
-            delete b;
-        }
-        branches.clear();
-        generate_crown();
-        generate_trunk();*//*
     }*/
 
-    ++simulation_time;
     return true;
 }
 
@@ -276,9 +267,15 @@ void Tree::update(VoxelGrid *grid, vec3 light){
     for (Branch *b : branches){
         grid->add(b->position);
     }
-    for (AttractionPoint *a : attraction_points){
+    for (int i=0; i <attraction_points.size(); i++){
+        AttractionPoint *a = attraction_points[i];
         int intersections = grid->cast(a->position, normalize(light - a->position));
-        a->weight = fmax(1, 100 - intersections)/100.f;
+        a->weight = fmax(-20, 100 - intersections)/100.f;
+
+        if (a->weight == 0){
+            attraction_points.erase(attraction_points.begin()+i);
+            --i;
+        }
     }
    // printf("Shadow level at (0,0,0) is %d\n", grid->cast(vec3(0,0,0), vec3(0,1,0)));
 }

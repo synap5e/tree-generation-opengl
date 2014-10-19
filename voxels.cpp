@@ -17,6 +17,10 @@ VoxelGrid::~VoxelGrid(){
 }
 
 void VoxelGrid::add(vec3 pos){
+	if (pos.x > top_right.x || pos.x < bottom_left.x || pos.y > top_right.y || pos.y < bottom_left.y || pos.z > top_right.z || pos.z < bottom_left.z){
+		return;
+	}
+
 	float x = (pos.x - bottom_left.x)/voxel_size;
 	float y = (pos.y - bottom_left.y)/voxel_size;
 	float z = (pos.z - bottom_left.z)/voxel_size;

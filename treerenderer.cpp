@@ -173,7 +173,7 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model,
         std::vector<float> sizes;
     	for (AttractionPoint* attraction_point : tree->get_attraction_points()){
         	verts.push_back(attraction_point->position);
-        	sizes.push_back(sqrt(attraction_point->weight) + 0.5);
+        	sizes.push_back(attraction_point->weight + 0.1);
         }
         point_shader.activate();
         point_shader.set_model(model);

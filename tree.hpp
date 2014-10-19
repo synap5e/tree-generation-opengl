@@ -38,29 +38,29 @@ typedef struct VertexLists{
 
 class TreeParams{
 public:
-	float radius 				= 100.f;
-	float height 				= 200.f;
-	float root_height 			= 5.f;
-	float canopy_exponent 		= 1.01f;
+	float radius;
+	float height;
+	float root_height;
+	float canopy_exponent;
 
-	int initial_attraction_points= 5000;
-	int attraction_point_creation_rate = 10;
-	float branch_length 		= 1.f;
+	int initial_attraction_points;
+	int attraction_point_creation_rate;
+	float branch_length;
 
 	// actual distance is * branch_length
-	float kill_distance 		= 1;
-	float influence_distance 	= 10;
+	float kill_distance;
+	float influence_distance;
 
 
 	// The maximum number of descendants a branch can have
 	// to be considered a twig and grow leaves
-	float twig_max_descendants = 0;
+	float twig_max_descendants;
 
 	// how much wieght is given to the branches existing direction
 	// as opposed to the pull from the attraction points
-	float soft_bends_weight = 2;
+	float soft_bends_weight;
 
-	int branch_kill_age = 10;
+	int branch_kill_age;
 
 };
 
@@ -70,6 +70,7 @@ private:
 
 	Branch *root;
 	int simulation_time = 0;
+	int seed_timer;
 
 
     std::vector<vec3> branch_locations;
@@ -105,8 +106,7 @@ public:
 	TreeParams params;
 	VertexLists vertex_lists;
 
-	Tree();
-	Tree(picojson::object tree_params);
+	Tree(vec3 pos, picojson::object tree_params, int _seed_timer);
 	~Tree();
 	bool grow();
 	void regenerate_vertex_lists();

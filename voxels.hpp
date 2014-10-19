@@ -14,7 +14,7 @@ public:
 
 class VoxelGrid{
 private:
-	float voxel_size = 2;
+	float voxel_size = 10;
 
 	Voxel *grid;
 	vec3 bottom_left, top_right;

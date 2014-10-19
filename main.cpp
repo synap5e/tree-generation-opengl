@@ -24,8 +24,13 @@
 #include <iostream>
 
 UserInterface interface;
-Tree *tree;
-TreeRenderer *renderer;
+
+typedef struct RenderableTree{
+	Tree *tree;
+	TreeRenderer *renderer;
+} RenderableTree;
+
+std::vector<RenderableTree> trees;
 VoxelGrid *grid;
 vec3 light = vec3(10, 500, 0);
 
@@ -75,16 +80,24 @@ static void scroll_callback(GLFWwindow* window, double x, double y){
 
 static void run_simulation(){
 	while (simulate){
-		if (!tree->grow()){
-			std::cout << "Tree growth finished\n";
-			break;
+		int regen = 0;
+		for (RenderableTree t : trees){
+			if (!t.tree->grow()){
+				std::cout << "Tree growth finished\n";
+				break;
+			}
+			if (regenerate_display){
+				t.tree->regenerate_vertex_lists();
+				regen++;
+			}
 		}
-		if (regenerate_display){
-			tree->regenerate_vertex_lists();
+		if (regenerate_display && regen == trees.size()){
 			regenerate_display_complete = true;
 		}
 		grid->reset();
-		tree->update(grid, light);
+		for (RenderableTree t : trees){
+			t.tree->update(grid, light);
+		}
 	}
 	std::cout << "Simulation thread ending\n";
 }
@@ -106,10 +119,14 @@ void render(int pixelWidth, int pixelHeight){
     );
 
     mat4 model(1);
-    model = glm::translate(model, glm::vec3(0, -50, 0));
+    model = glm::translate(model, glm::vec3(0, -100, 0));
 
-    renderer->render(projection, interface.view, model, light);
-    grid->render(projection, interface.view, model);
+	for (RenderableTree t : trees){
+		t.renderer->render(projection, interface.view, model, light);
+	}
+//	trees[1].renderer->render(projection, interface.view, model, light);
+
+    //grid->render(projection, interface.view, model);
     //grid->render_cast(projection, interface.view, model, 500, 500, vec3(100, 200, 0));
 }
 
@@ -248,19 +265,34 @@ int main(void)
 
 	picojson::object params = load_json("tree.json");
 
-	tree = new Tree(params);
-	renderer = new TreeRenderer(tree);
-	grid = new VoxelGrid(vec3(-100, 0, -100), vec3(100, 210, 100));
+	grid = new VoxelGrid(vec3(-200, 0, -200), vec3(200, 210, 200));
+
+	RenderableTree t;
+	t.tree = new Tree(vec3(10,0,0), params, 0);
+	t.renderer = new TreeRenderer(t.tree);
+	trees.push_back(t);
+	t.tree->regenerate_vertex_lists();
+	t.renderer->regenerate();
+
+	t.tree = new Tree(vec3(-10,0,10), params, 40);
+	t.renderer = new TreeRenderer(t.tree);
+	trees.push_back(t);
+	t.tree->regenerate_vertex_lists();
+	t.renderer->regenerate();
+
+	t.tree = new Tree(vec3(35,0,0), params, 50);
+	t.renderer = new TreeRenderer(t.tree);
+	trees.push_back(t);
+	t.tree->regenerate_vertex_lists();
+	t.renderer->regenerate();
+
 	simulate = true;
-	tree->regenerate_vertex_lists();
-	renderer->regenerate();
-
-
 	regenerate_display = true;
 	regenerate_display_complete = false;
 
-
 	std::thread simulation(run_simulation);
+
+	
 
 	double fps = 60;
 	double model_fps = 15;
@@ -282,7 +314,9 @@ int main(void)
 
 		if (model_delta > 1./model_fps){
 			if (regenerate_display && regenerate_display_complete){
-				renderer->regenerate();
+				for (RenderableTree t : trees){
+					t.renderer->regenerate();
+				}
 				regenerate_display = false;
 				regenerate_display_complete = false;
 				last_model_frame = now;
