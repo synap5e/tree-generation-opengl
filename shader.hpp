@@ -63,3 +63,12 @@ class GridShader : public Shader {
 public:
     void load();
 };
+
+
+class ShadowMapShader : public Shader {
+private:
+    GLuint texture_location;
+public:
+    void load();
+    void set_texture(GLuint texID);
+};

@@ -30,6 +30,7 @@ private:
     GLuint vertex_vbo; 
     GLuint size_vbo;
     ElementGroup branch_elements;
+    GridShader grid_shader;
 
     ElementGroup leaf_elements;
     GLuint leaf_rotations_vbo;
@@ -41,6 +42,6 @@ public:
 	bool draw_attraction_points = true;
 
 	void regenerate();
-	void render(glm::mat4 projection, glm::mat4 view, glm::mat4 model);
+	void render(glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::vec3 light);
 
 };

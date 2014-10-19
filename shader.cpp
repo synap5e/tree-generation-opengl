@@ -126,3 +126,16 @@ void GridShader::load(){
     shader_id = load_shaders("../shaders/grid-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
     load_locations();
 }
+
+
+void ShadowMapShader::load(){
+    shader_id = load_shaders("../shaders/basic-texture-vertex.glsl", nullptr, "../shaders/basic-texture-fragment.glsl");
+    glUseProgram(shader_id);
+    texture_location = glGetUniformLocation(shader_id, "textureID");
+    printf("~~ %d\n", texture_location);
+    load_locations();
+}
+
+void ShadowMapShader::set_texture(GLuint texID){
+    glUniform1i(texture_location, texID);
+}

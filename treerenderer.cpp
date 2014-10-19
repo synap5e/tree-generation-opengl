@@ -4,6 +4,7 @@ TreeRenderer::TreeRenderer(Tree* _tree): tree(_tree){
 	branch_shader.load();
 	leaf_shader.load();
     point_shader.load();
+    grid_shader.load();
 }
 
 void TreeRenderer::regenerate(){
@@ -105,7 +106,7 @@ void TreeRenderer::regenerate(){
 
 }
 
-void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model){
+void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::vec3 light){
     
     glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
     glEnableVertexAttribArray (0);
@@ -172,7 +173,7 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model)
         std::vector<float> sizes;
     	for (AttractionPoint* attraction_point : tree->get_attraction_points()){
         	verts.push_back(attraction_point->position);
-        	sizes.push_back(2);
+        	sizes.push_back(sqrt(attraction_point->weight) + 0.5);
         }
         point_shader.activate();
         point_shader.set_model(model);
@@ -199,6 +200,32 @@ void TreeRenderer::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model)
 
         glDeleteBuffers(1, &tvertex_vbo);
         glDeleteBuffers(1, &tsize_vbo);
+
+
+
+/*
+        std::vector<vec3> rays;
+
+        for (AttractionPoint* attraction_point : tree->get_attraction_points()){
+            rays.push_back(attraction_point->position);
+            rays.push_back(light);
+        }
+
+        grid_shader.activate();
+        grid_shader.set_model(model);
+        grid_shader.set_view(view);
+        grid_shader.set_projection(projection);
+
+        GLuint vb;
+        glGenBuffers(1, &vb);
+        glBindBuffer(GL_ARRAY_BUFFER, vb);
+        glBufferData(GL_ARRAY_BUFFER, rays.size() * sizeof(vec3), &rays[0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray (0);
+        glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+        glDrawArrays (GL_LINES, 0, rays.size());
+
+        glDeleteBuffers(1, &vb);*/
     }
 
 }

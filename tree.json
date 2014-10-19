@@ -1,15 +1,16 @@
 {
-	"radius" 					: 100,
-	"height" 					: 200,
-	"root_height" 				: 5,
-	"canopy_exponent" 			: 1.01,
-	"attraction_point_count" 	: 10000,
-	"branch_length" 			: 1,
-	"kill_distance" 			: 1,
-	"influence_distance" 		: 10,
-	"twig_max_descendants" 		: 0,
-	"soft_bends_weight" 		: 2,
-	"branch_kill_age" 			: 2,
+	"radius" 							: 100,
+	"height" 							: 200,
+	"root_height" 						: 5,
+	"canopy_exponent" 					: 1.01,
+	"initial_attraction_points"			: 5000,
+	"attraction_point_creation_rate" 	: 0,
+	"branch_length" 					: 1,
+	"kill_distance" 					: 1,
+	"influence_distance" 				: 10,
+	"twig_max_descendants" 				: 0,
+	"soft_bends_weight" 				: 2,
+	"branch_kill_age" 					: 2,
 
 	"branch_radius" : {
 		"constants" : {

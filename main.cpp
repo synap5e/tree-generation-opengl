@@ -27,6 +27,7 @@ UserInterface interface;
 Tree *tree;
 TreeRenderer *renderer;
 VoxelGrid *grid;
+vec3 light = vec3(10, 500, 0);
 
 //float model_update_fps = 10;
 std::atomic<bool> simulate;
@@ -83,7 +84,7 @@ static void run_simulation(){
 			regenerate_display_complete = true;
 		}
 		grid->reset();
-		tree->update(grid);
+		tree->update(grid, light);
 	}
 	std::cout << "Simulation thread ending\n";
 }
@@ -107,9 +108,9 @@ void render(int pixelWidth, int pixelHeight){
     mat4 model(1);
     model = glm::translate(model, glm::vec3(0, -50, 0));
 
-    renderer->render(projection, interface.view, model);
+    renderer->render(projection, interface.view, model, light);
     grid->render(projection, interface.view, model);
-    grid->render_cast(projection, interface.view, model, 500, 500, vec3(100, 200, 0));
+    //grid->render_cast(projection, interface.view, model, 500, 500, vec3(100, 200, 0));
 }
 
 

@@ -43,7 +43,8 @@ public:
 	float root_height 			= 5.f;
 	float canopy_exponent 		= 1.01f;
 
-	int attraction_point_count 	= 10000;
+	int initial_attraction_points= 5000;
+	int attraction_point_creation_rate = 10;
 	float branch_length 		= 1.f;
 
 	// actual distance is * branch_length
@@ -78,7 +79,7 @@ private:
 
 	std::vector<Branch*> live_branches;    
 
-	void generate_crown();
+	void generate_crown(int count);
 	void generate_trunk();
 
 
@@ -110,7 +111,7 @@ public:
 	bool grow();
 	void regenerate_vertex_lists();
 
-	void update(VoxelGrid *grid);
+	void update(VoxelGrid *grid, vec3 light);
 
 	std::vector<AttractionPoint*> get_attraction_points();
 

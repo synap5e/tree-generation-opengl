@@ -9,12 +9,12 @@ using namespace glm;
 
 class Voxel{
 public:
-	bool fill=false;
+	int fill=0;
 };
 
 class VoxelGrid{
 private:
-	float voxel_size = 2; // 1 cell per 10 units
+	float voxel_size = 2;
 
 	Voxel *grid;
 	vec3 bottom_left, top_right;
@@ -22,13 +22,16 @@ private:
 	int x_res, y_res, z_res;
 
 	GridShader grid_shader;
+	ShadowMapShader shadow_shader;
 
 public:
 	VoxelGrid(vec3 _bottom_left, vec3 _top_right);
 	~VoxelGrid();
 
 	void render(mat4 projection, mat4 view, mat4 model);
-	void render_cast(mat4 projection, mat4 view, mat4 model, float w, float h, vec3 light);
+	//void render_cast(mat4 projection, mat4 view, mat4 model, vec3 light, Tree *tree);
+
+	int cast(vec3 origin, vec3 direction);
 
 	void reset();
 	void add(vec3 pos);
