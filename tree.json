@@ -11,7 +11,7 @@
 	"soft_bends_weight" 				: 2,
 	"branch_kill_age" 					: 10,
 
-	"raycast_attraction_points"			: false,
+	"raycast_attraction_points"			: true,
 
 	"branch_radius" : {
 		"constants" : {

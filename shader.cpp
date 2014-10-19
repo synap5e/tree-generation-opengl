@@ -105,8 +105,8 @@ void Shader::set_view(glm::mat4& mat){
 
 
 void BranchShader::load(){
-    shader_id = load_shaders("../shaders/branch-vertex.glsl", "../shaders/branch-geometry.glsl", "../shaders/branch-fragment.glsl");
-//    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/branch-debug-geometry.glsl", "../shaders/basic-fragment.glsl");
+    shader_id = load_shaders("./shaders/branch-vertex.glsl", "./shaders/branch-geometry.glsl", "./shaders/branch-fragment.glsl");
+//    shader_id = load_shaders("./shaders/basic-vertex.glsl", "./shaders/branch-debug-geometry.glsl", "./shaders/basic-fragment.glsl");
 
 
     glUseProgram(shader_id);
@@ -142,24 +142,24 @@ void BranchShader::activate2(){
 }  
 
 void LeafShader::load(){
-    shader_id = load_shaders("../shaders/leaf-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
-    //shader_id = load_shaders("../shaders/leaf-debug-vertex.glsl", "../shaders/leaf-debug-geometry.glsl", "../shaders/basic-fragment.glsl");
+    shader_id = load_shaders("./shaders/leaf-vertex.glsl", nullptr, "./shaders/basic-fragment.glsl");
+    //shader_id = load_shaders("./shaders/leaf-debug-vertex.glsl", "./shaders/leaf-debug-geometry.glsl", "./shaders/basic-fragment.glsl");
     load_locations();
 }
 
 void AttractionPointShader::load(){
-    shader_id = load_shaders("../shaders/basic-vertex.glsl", "../shaders/sphere-geometry.glsl", "../shaders/basic-fragment.glsl");
+    shader_id = load_shaders("./shaders/basic-vertex.glsl", "./shaders/sphere-geometry.glsl", "./shaders/basic-fragment.glsl");
     load_locations();
 }
 
 void GridShader::load(){
-    shader_id = load_shaders("../shaders/grid-vertex.glsl", nullptr, "../shaders/basic-fragment.glsl");
+    shader_id = load_shaders("./shaders/grid-vertex.glsl", nullptr, "./shaders/basic-fragment.glsl");
     load_locations();
 }
 /*
 
 void ShadowMapShader::load(){
-    shader_id = load_shaders("../shaders/basic-texture-vertex.glsl", nullptr, "../shaders/basic-texture-fragment.glsl");
+    shader_id = load_shaders("./shaders/basic-texture-vertex.glsl", nullptr, "./shaders/basic-texture-fragment.glsl");
     glUseProgram(shader_id);
     
     printf("~~ %d\n", texture_location);
