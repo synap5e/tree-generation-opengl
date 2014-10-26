@@ -98,7 +98,7 @@ static void run_simulation(){
 				std::cout << "Tree growth finished\n";
 				break;
 			}
-			if (regenerate_display){
+			if (regenerate_display && !regenerate_display_complete){
 				t.tree->regenerate_vertex_lists();
 				regen++;
 			}
