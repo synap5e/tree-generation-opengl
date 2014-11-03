@@ -9,7 +9,7 @@ TreeRenderer::TreeRenderer(Tree* _tree): tree(_tree){
 }
 
 void TreeRenderer::regenerate(){
-    if (branch_elements.size == 0){
+    if (branch_elements.size != 0){
         glDeleteBuffers(1, &(branch_elements.element_buffer));
         glDeleteBuffers(1, &leaf_elements.element_buffer);
         glDeleteBuffers(1, &vertex_vbo);
