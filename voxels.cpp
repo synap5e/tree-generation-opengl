@@ -93,7 +93,7 @@ void add_cube(std::vector<vec3> &v, vec3 p, float s){
 
 }
 
-void VoxelGrid::render(mat4 projection, mat4 view, mat4 model){
+void VoxelGrid::render(mat4 &projection, mat4 &view, mat4 &model){
 	std::vector<vec3> verts;
 	for (int x=0; x<x_res; ++x){
 		float x_pos = bottom_left.x + x * voxel_size;

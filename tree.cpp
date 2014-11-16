@@ -48,6 +48,10 @@ void Tree::init_branch_parser(mu::Parser &parser, picojson::object function_para
     parser.SetExpr(function_params["function"].get<std::string>());
 }
 
+template <typename T> int signum(T val) {
+	return (T(0) < val) - (val < T(0));
+}
+
 void Tree::generate_crown(int count){
     float PI = 3.141592653589793f;
 
@@ -78,8 +82,8 @@ void Tree::generate_crown(int count){
 
         float xrad = 0.5 * (1-cosf(theta)) * sinf(theta) * cosf(phi);
         float zrad = 0.5 * (1-cosf(theta)) * sinf(theta) * sinf(phi);
-        xrad = pow(xrad, params.canopy_exponent);
-        zrad = pow(zrad, params.canopy_exponent);
+        xrad = signum(xrad) * pow(fabs(xrad), params.canopy_exponent);
+		zrad = signum(zrad) * pow(fabs(zrad), params.canopy_exponent);
        
         vec3 location = vec3(   RandomGen::get(-xrad, xrad) * params.radius,
                                 yu * params.height,

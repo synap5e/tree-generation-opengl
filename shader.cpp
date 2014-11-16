@@ -1,5 +1,5 @@
 #include "shader.hpp"
-#include "G308_ImageLoader.hpp"
+#include "pngloader.hpp"
 
 #include <stdlib.h>
 

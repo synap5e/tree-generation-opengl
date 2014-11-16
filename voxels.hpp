@@ -19,7 +19,9 @@ private:
 	Voxel *grid;
 	vec3 bottom_left, top_right;
 
-	int x_res, y_res, z_res;
+	int x_res;
+	int y_res;
+	int z_res;
 
 	GridShader grid_shader;
 
@@ -27,7 +29,7 @@ public:
 	VoxelGrid(vec3 _bottom_left, vec3 _top_right);
 	~VoxelGrid();
 
-	void render(mat4 projection, mat4 view, mat4 model);
+	void render(mat4 &projection, mat4 &view, mat4 &model);
 	//void render_cast(mat4 projection, mat4 view, mat4 model, vec3 light, Tree *tree);
 
 	int cast(vec3 origin, vec3 direction);

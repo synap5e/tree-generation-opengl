@@ -18,7 +18,9 @@ uint64_t RandomGen::get() {
 float RandomGen::get(float min, float max){
 	// we could use a static uniform_real_distribution then change the param but this should be fine
 	float a,b;
-	if (min < max){
+	if (max == min){
+		return max;
+	} else if (min < max){
         a = min;
         b = max;
     } else {

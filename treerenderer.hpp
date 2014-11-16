@@ -43,6 +43,6 @@ public:
 	bool draw_attraction_points = false;
 
 	void regenerate();
-	void render(glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::vec3 light);
+	void render(glm::mat4 &projection, glm::mat4 &view, glm::mat4 &model, glm::vec3 &light);
 
 };
