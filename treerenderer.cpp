@@ -23,21 +23,21 @@ void TreeRenderer::regenerate(){
     // generate verticies
     glGenBuffers (1, &vertex_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, vertex_vbo);
-    glBufferData (GL_ARRAY_BUFFER, tree->vertex_lists.branch_verts.size() * sizeof (vec3), &tree->vertex_lists.branch_verts[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, tree->vertex_lists.branch_verts.size() * sizeof (vec3), tree->vertex_lists.branch_verts.data(), GL_STATIC_DRAW);
 
     glGenBuffers (1, &depth_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, depth_vbo);
-    glBufferData (GL_ARRAY_BUFFER, tree->vertex_lists.depths.size() * sizeof (float), &tree->vertex_lists.depths[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, tree->vertex_lists.depths.size() * sizeof (float), tree->vertex_lists.depths.data(), GL_STATIC_DRAW);
 
     // generate branch radii
     glGenBuffers (1, &size_vbo);
     glBindBuffer (GL_ARRAY_BUFFER, size_vbo);
-    glBufferData (GL_ARRAY_BUFFER, tree->vertex_lists.branch_radii.size() * sizeof (float), &tree->vertex_lists.branch_radii[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, tree->vertex_lists.branch_radii.size() * sizeof (float), tree->vertex_lists.branch_radii.data(), GL_STATIC_DRAW);
 
     // generate branch element buffer
     glGenBuffers (1, &(branch_elements.element_buffer));
     glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, branch_elements.element_buffer);
-    glBufferData (GL_ELEMENT_ARRAY_BUFFER, tree->vertex_lists.branch_indexes.size() * sizeof (unsigned int), &tree->vertex_lists.branch_indexes[0], GL_STATIC_DRAW);
+    glBufferData (GL_ELEMENT_ARRAY_BUFFER, tree->vertex_lists.branch_indexes.size() * sizeof (unsigned int), tree->vertex_lists.branch_indexes.data(), GL_STATIC_DRAW);
     branch_elements.size = tree->vertex_lists.branch_indexes.size();   
 
     glGenBuffers(1, &leaf_rotations_vbo);

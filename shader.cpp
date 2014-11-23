@@ -1,5 +1,4 @@
 #include "shader.hpp"
-#include "pngloader.hpp"
 
 #include <stdlib.h>
 
@@ -10,7 +9,7 @@
 #include <sstream>
 #include <iostream>
 #include <stdexcept>
-
+#include <SOIL.h>
 
 GLuint create_shader(GLenum type, const char* path) {
     GLuint shader = glCreateShader(type);
@@ -112,24 +111,33 @@ void BranchShader::load(){
     glUseProgram(shader_id);
     normal_texture_location = glGetUniformLocation(shader_id, "normal_texture");
 
-   
-    TextureInfo t;
-    loadTextureFromPNG("bark-normal.png", &t);
+	// crashes on windows
+	//bark_normal_texture = SOIL_load_OGL_texture("bark-normal.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+	
+	int width;
+	int height;
 
-    glGenTextures(1, &bark_normal_texture);
-    glBindTexture(GL_TEXTURE_2D, bark_normal_texture);
+	glGenTextures(1, &bark_normal_texture);
+	glBindTexture(GL_TEXTURE_2D, bark_normal_texture);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	unsigned char* image = SOIL_load_image("bark-normal.png", &width, &height, 0, SOIL_LOAD_RGB);
 
-    if (t.hasAlpha) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, t.width, t.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, t.textureData);
-    } else {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, t.width, t.height, 0, GL_RGB, GL_UNSIGNED_BYTE, t.textureData);
-    }
-    free(t.textureData);
+	if (image == NULL) {
+		std::cerr << "Could no load bark-normal.png" << std::endl;
+		exit(-1);
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	SOIL_free_image_data(image);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//glGenerateMipmap(GL_TEXTURE_2D);
+
 
     load_locations();
 }

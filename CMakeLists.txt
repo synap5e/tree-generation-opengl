@@ -36,6 +36,13 @@ include_directories(${GLM_DIR})
 set(PICOJSON_DIR "${PROJECT_SOURCE_DIR}/external/picojson")
 include_directories(${PICOJSON_DIR})
 
+
+#### SOIL ####
+set(SOIL_DIR "${PROJECT_SOURCE_DIR}/external/Simple-OpenGL-Image-Library")
+add_subdirectory(${SOIL_DIR} soil)
+include_directories(${SOIL_DIR}/src)
+
+
 #### Application ####
 
 add_definitions("-D DEBUG")
@@ -52,5 +59,5 @@ FILE(GLOB Header_files
 
 add_executable(${PROJECT_NAME} ${Source_files} ${Header_files})
 
-target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${GLEW_LIBRARIES} ${MUPARSER_LIBRARIES} ${LIBJPEG_LIBRARIES} glfw glew muparser jpeg png)
+target_link_libraries(${PROJECT_NAME} ${GLFW_LIBRARIES} ${GLEW_LIBRARIES} ${MUPARSER_LIBRARIES} ${LIBJPEG_LIBRARIES} glfw glew muparser soil)
 

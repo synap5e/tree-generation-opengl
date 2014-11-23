@@ -12,8 +12,8 @@ class LeafModel{
 private:
 
 	float PI = 3.141592653589793f;
-	int x_steps = 15;
-	int z_steps = 4;
+	int x_steps = 30;
+	int z_steps = 8;
 	float scale = 5;
 
 	

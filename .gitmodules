@@ -7,3 +7,6 @@
 [submodule "external/picojson"]
 	path = external/picojson
 	url = git@github.com:kazuho/picojson.git
+[submodule "external/Simple-OpenGL-Image-Library"]
+	path = external/Simple-OpenGL-Image-Library
+	url = git@github.com:kbranigan/Simple-OpenGL-Image-Library.git
