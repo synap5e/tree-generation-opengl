@@ -23,15 +23,16 @@ private:
 	Tree* tree;
 	LeafModel leaf_model;
 
-	BranchShader branch_shader;
-	AttractionPointShader point_shader;
-	LeafShader leaf_shader;
+	static BranchShader branch_shader;
+	static AttractionPointShader point_shader;
+	static LeafShader leaf_shader;
+	static GridShader grid_shader;
+	static bool shaders_loaded;
     
     GLuint vertex_vbo; 
     GLuint size_vbo;
     GLuint depth_vbo;
     ElementGroup branch_elements;
-    GridShader grid_shader;
 
     ElementGroup leaf_elements;
     GLuint leaf_rotations_vbo;

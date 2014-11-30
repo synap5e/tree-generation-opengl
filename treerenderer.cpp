@@ -1,10 +1,19 @@
 #include "treerenderer.hpp"
 
+BranchShader TreeRenderer::branch_shader;
+AttractionPointShader TreeRenderer::point_shader;
+LeafShader TreeRenderer::leaf_shader;
+GridShader TreeRenderer::grid_shader;
+bool TreeRenderer::shaders_loaded;
+
 TreeRenderer::TreeRenderer(Tree* _tree): tree(_tree){
-	branch_shader.load();
-	leaf_shader.load();
-    point_shader.load();
-    grid_shader.load();
+	if (!shaders_loaded){
+		branch_shader.load();
+		leaf_shader.load();
+		point_shader.load();
+		grid_shader.load();
+		shaders_loaded = true;
+	}
     branch_elements.size = 0;
 }
 

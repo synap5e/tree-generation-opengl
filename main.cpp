@@ -32,7 +32,7 @@ typedef struct RenderableTree{
 
 std::vector<RenderableTree> trees;
 VoxelGrid *grid;
-vec3 light = vec3(10, 500, 0);
+vec3 light = vec3(0, 500, 0);
 
 //float model_update_fps = 10;
 std::atomic<bool> simulate;
@@ -222,15 +222,19 @@ picojson::object load_json(std::string filename){
 
 int main(int argc, char* argv[])
 {
-	int seed = 1337;
-	bool multitree = false;
+	int seed = 0;
+	bool shadow_demo = false;
+	int tree_count = 1;
 	for (int i = 1; i < argc; ++i) {
-        if (std::string(argv[i]) == "--seed" && i+i < argc){
+        if (std::string(argv[i]) == "--seed" && i+1 < argc){
         	seed = std::stoi(argv[i+1]);
         }
-		if (std::string(argv[i]) == "--multiple-trees"){
-        	multitree = true;
+		if (std::string(argv[i]) == "--shadow-demo"){
+        	shadow_demo = true;
         }
+		if (std::string(argv[i]) == "--trees" && i+1 < argc){
+			tree_count = std::stoi(argv[i + 1]);
+		}
         if (std::string(argv[i]) == "--draw-nodes"){
         	draw_attraction = true;
         }
@@ -238,9 +242,11 @@ int main(int argc, char* argv[])
         	draw_grid = true;
         }
 	}
-	RandomGen::seed(seed);
-	printf("%d\n", seed);
-	//RandomGen::rseed();
+	if (seed != 0){
+		RandomGen::seed(seed);
+	} else {
+		RandomGen::rseed();
+	}
 
 	//Initialize GLFW
 	GLFWwindow* window;
@@ -299,14 +305,15 @@ int main(int argc, char* argv[])
 	grid = new VoxelGrid(vec3(-200, 0, -200), vec3(200, 210, 200));
 
 	RenderableTree t;
-	t.tree = new Tree(vec3(10,0,0), params, 0);
-	t.renderer = new TreeRenderer(t.tree);
-	trees.push_back(t);
-	t.tree->regenerate_vertex_lists();
-	t.renderer->regenerate();
-	t.renderer->draw_attraction_points = draw_attraction;
+	if (shadow_demo){
+		t.tree = new Tree(vec3(10,0,0), params, 0);
+		t.renderer = new TreeRenderer(t.tree);
+		trees.push_back(t);
+		t.tree->regenerate_vertex_lists();
+		t.renderer->regenerate();
+		t.renderer->draw_attraction_points = draw_attraction;
 
-	if (multitree){
+	
 		t.tree = new Tree(vec3(-10,0,10), params, 40);
 		t.renderer = new TreeRenderer(t.tree);
 		trees.push_back(t);
@@ -314,12 +321,27 @@ int main(int argc, char* argv[])
 		t.renderer->regenerate();
 		t.renderer->draw_attraction_points = draw_attraction;
 
-		t.tree = new Tree(vec3(30,0,0), params, 50);
+		t.tree = new Tree(vec3(30,0,0), params, 40);
 		t.renderer = new TreeRenderer(t.tree);
 		trees.push_back(t);
 		t.tree->regenerate_vertex_lists();
 		t.renderer->regenerate();
 		t.renderer->draw_attraction_points = draw_attraction;
+	} else {
+		for (int i = 0; i < tree_count; i++){
+
+			// put each tree at a random location within a disk readiating from the centre
+			float r = powf(i / 3.f, 2.f);
+			r = RandomGen::get(r * 30.f, (r+1*30.f));
+			float theta = RandomGen::get(0, 3.14159 * 2.f);
+			printf("%d\n", int(30 * tree_count - r));
+			t.tree = new Tree(vec3(r * sinf(theta), 0, r * cosf(theta)), params, int(i * 20) /* int(30 * tree_count - r) */);
+			t.renderer = new TreeRenderer(t.tree);
+			trees.push_back(t);
+			t.tree->regenerate_vertex_lists();
+			t.renderer->regenerate();
+			t.renderer->draw_attraction_points = draw_attraction;
+		}
 	}
 
 	simulate = true;
